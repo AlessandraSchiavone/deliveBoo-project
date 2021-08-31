@@ -23,8 +23,7 @@ class CreateRestaurantsTable extends Migration
             $table->string('location', 30);
             $table->string('opening_time', 20)->nullable();
             $table->string('closure_time', 20)->nullable();
-            $table->boolean('free_shipping')->default(true);
-            $table->float('price_shipping', 2,1)->nullable();
+            $table->float('price_shipping', 3,2)->nullable(); //9.99
             $table->float('price_rating', 20)->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

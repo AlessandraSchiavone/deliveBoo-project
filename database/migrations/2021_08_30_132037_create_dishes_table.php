@@ -20,6 +20,7 @@ class CreateDishesTable extends Migration
             $table->string('img')->nullable();
             $table->text('description', 500)->nullable();
             $table->float('price',5,2);  //999.99
+            $table->boolean('availability');
             $table->boolean('gluten_free')->default(false);
             $table->boolean('vegetarian')->default(false);
             $table->boolean('vegan')->default(false);
