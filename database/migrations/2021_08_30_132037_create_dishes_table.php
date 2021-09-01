@@ -24,8 +24,10 @@ class CreateDishesTable extends Migration
             $table->boolean('gluten_free')->default(false);
             $table->boolean('vegetarian')->default(false);
             $table->boolean('vegan')->default(false);
-            $table->unsignedBigInteger('restaurant_id');
+            $table->unsignedBigInteger('restaurant_id')->nullable();
             $table->foreign('restaurant_id')->references('id')->on('restaurants');
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }

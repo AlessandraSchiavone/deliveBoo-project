@@ -30,6 +30,6 @@ class CreateCuisineRestaurantTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('restaurant_cuisine');
+        Schema::dropIfExists('cuisine_restaurant');
     }
 }
