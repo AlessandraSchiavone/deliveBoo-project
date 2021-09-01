@@ -14,13 +14,13 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        // $newUser = new User;
-        // $newUser->name = "Team 5";
-        // $newUser->email = "admin@mail.it";
-        // $newUser->password = Hash::make('team5.2021');
-        // $newUser->address = "Corso Vittorio Emanuele II, 273, Roma, 00186";
-        // $newUser->vat_number = "14893275691";
-        // $newUser->save();
+        $newUser = new User;
+        $newUser->name = "Team 5";
+        $newUser->email = "admin@mail.it";
+        $newUser->password = Hash::make('team5.2021');
+        $newUser->address = "Corso Vittorio Emanuele II, 273, Roma, 00186";
+        $newUser->vat_number = "14893275691";
+        $newUser->save();
 
         $newUser = new User;
         $newUser->name = "Bulma";

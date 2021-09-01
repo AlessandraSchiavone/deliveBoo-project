@@ -81,7 +81,7 @@
                         <option value="3">Alto</option>
                         
                 </select>
-                @error('category_id')
+                @error('price_rating')
                 <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>

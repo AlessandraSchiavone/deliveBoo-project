@@ -14,7 +14,7 @@
             <a  class="btn btn-secondary ml-2" href="{{ route('admin.restaurants.index' ) }}">Elenco ristoranti</a>
         </div>
         <div class="row mt-4">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 @if ($restaurant->img)
                     <img class="img-fluid" src="{{ asset('storage/' . $restaurant->img) }}" alt="{{ $restaurant->name }}">
                 @else 
@@ -22,9 +22,12 @@
                 @endif
 
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12 mt-4">
                 {{ $restaurant-> description }}
             </div>
+        </div>
+        <div class="mt-3">
+            <a  class="btn btn-secondary ml-2" href="{{ route('admin.dishes.index', $restaurant -> id ) }}">Elenco piatti</a>
         </div>
     </div>
 @endsection

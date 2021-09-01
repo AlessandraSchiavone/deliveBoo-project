@@ -14,7 +14,10 @@ class Dish extends Model
         'price',
         'gluten_free',
         'vegetarian',
-        'vegan'  
+        'vegan'  ,
+        'availability',
+        'restaurant_id',
+        'category_id'
     ];
 
     public function restaurant(){
