@@ -47,6 +47,13 @@ class RestaurantController extends Controller
         }
         return $slug;
     }
+    private function checkUser($restaurant){
+        $checkUser_id_restaurant_id = Auth::user()->id == $restaurant->user->id;
+        if(!$checkUser_id_restaurant_id){
+            return abort(404);
+        }
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -54,6 +61,7 @@ class RestaurantController extends Controller
      */
     public function index()
     {
+
         $restaurants = Restaurant::where('user_id', Auth::user()->id)->get();
 
         return view('admin.restaurants.index', compact('restaurants'));
@@ -114,6 +122,8 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
+        $this->checkUser($restaurant);
+        
         return view("admin.restaurants.show", compact('restaurant'));
     }
 
@@ -125,6 +135,7 @@ class RestaurantController extends Controller
      */
     public function edit(Restaurant $restaurant)
     {
+        $this->checkUser($restaurant);
         $cuisines = Cuisine::all();
         return view("admin.restaurants.edit", compact('restaurant','cuisines'));
     }

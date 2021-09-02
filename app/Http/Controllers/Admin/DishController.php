@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Dish;
 use App\Category;
@@ -23,6 +24,13 @@ class DishController extends Controller
         // 'availability'=>'nullable|exists:dishes,availability',
         'category_id' => 'required|exists:categories,id',
     ];
+    private function checkUser($restaurant){
+        $checkUser_id_restaurant_id = Auth::user()->id == $restaurant->user->id;
+        if(!$checkUser_id_restaurant_id){
+            return abort(404);
+        }
+
+    }
 
     
     /**
@@ -32,9 +40,9 @@ class DishController extends Controller
      */
     public function index(Restaurant $restaurant)
     {
-
+        $this->checkUser($restaurant);
         $dishes = dish::where('restaurant_id', $restaurant->id)->get();
-
+        
         return view('admin.dishes.index', compact('dishes', 'restaurant'));
         
     }
@@ -46,6 +54,7 @@ class DishController extends Controller
      */
     public function create(Restaurant $restaurant)
     {
+        // $this->checkUser($restaurant);
         $categories= Category::all();
         return view('admin.dishes.create', compact('categories', 'restaurant'));
     }
@@ -98,6 +107,7 @@ class DishController extends Controller
      */
     public function show(Restaurant $restaurant, Dish $dish)
     {
+        $this->checkUser($restaurant);
         return view("admin.dishes.show", compact('restaurant', 'dish'));
     }
 
@@ -109,6 +119,7 @@ class DishController extends Controller
      */
     public function edit(Restaurant $restaurant, Dish $dish)
     {
+        $this->checkUser($restaurant);
         $categories= Category::all();
         return view('admin.dishes.edit', compact('categories', 'restaurant','dish'));
     }
