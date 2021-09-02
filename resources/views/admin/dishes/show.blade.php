@@ -13,10 +13,10 @@
         </div>
         <div class="row mt-4">
             <div class="col-md-8">
-                @if ($restaurant->img)
-                    <img class="img-fluid" src="{{ asset('storage/' . $dish->img) }}" alt="{{ $dish->name }}">
+                @if ($dish->img)
+                    <img class="img-fluid" style="height:200px" src="{{ asset('storage/' . $dish->img) }}" alt="{{ $dish->name }}">
                 @else 
-                    <img class="img-fluid" src="{{ asset('images/placeholder.png') }}" alt="{{ $dish->name }}">    
+                    <img class="img-fluid w-25"  src="{{ asset('images/dishplaceholder.png') }}" alt="{{ $dish->name }}">    
                 @endif
 
             </div>

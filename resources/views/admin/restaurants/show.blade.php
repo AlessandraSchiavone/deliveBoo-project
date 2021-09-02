@@ -16,9 +16,9 @@
         <div class="row mt-4">
             <div class="col-md-8">
                 @if ($restaurant->img)
-                    <img class="img-fluid" src="{{ asset('storage/' . $restaurant->img) }}" alt="{{ $restaurant->name }}">
+                    <img class="img-fluid" style="height:200px" src="{{ asset('storage/' . $restaurant->img) }}" alt="{{ $restaurant->name }}">
                 @else 
-                    <img class="img-fluid" src="{{ asset('images/placeholder.png') }}" alt="{{ $restaurant->name }}">    
+                    <img class="img-fluid w-25" src="{{ asset('images/restaurantplaceholder.png') }}" alt="{{ $restaurant->name }}">    
                 @endif
 
             </div>
