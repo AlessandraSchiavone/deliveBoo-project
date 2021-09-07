@@ -5,6 +5,7 @@
             <img :src="($route.name == 'home') ? require('../assets/logo-white.png') : require('../assets/logo-colored.png') " alt="">
         </a>
         <div class="login">
+            <span :class="($route.name == 'home') ? 'white':'colored'">Sei un ristoratore?</span>
             <a href="http://127.0.0.1:8000/admin" :class="($route.name == 'home') ? 'white':'colored'">Accedi</a>
         </div>
     </div>
@@ -30,19 +31,28 @@ export default {
             }
         }
         .login {
-            a {
-                &.white {
-                    color: white;
+            span{
+                font-size: 1.14286rem;
+                margin-right:5px;
+                &.white{
+                    color:white;
                 }
-                &.colored {
+                &.colored{
                     color: #125fca;
-                    &:hover {
-                    color: #022f6e;
                 }
-                }
+            }
+            a {
                 font-size: 1.14286rem;
                 font-weight: bold;
-                
+                &.white{
+                    color:white;
+                }
+                &.colored{
+                 color: #125fca;
+                 &:hover {
+                     color: #022f6e;
+                    }
+                }      
             }
         }
     }

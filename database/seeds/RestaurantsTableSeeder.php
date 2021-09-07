@@ -26,12 +26,12 @@ class RestaurantsTableSeeder extends Seeder
          ";
          $newRestaurant->slug = Str::slug($newRestaurant->name, "-");
          $newRestaurant->phone_number = $faker->phoneNumber();
-         $newRestaurant->location = "Roma";
+         $newRestaurant->location = "Via Antica Roma, 16";
          $newRestaurant->opening_time = "12:30";
          $newRestaurant->closure_time = "16:30";
          $newRestaurant->price_shipping = rand(0, 3);
          $newRestaurant->price_rating = rand(1, 3);
-         $newRestaurant->img = "";
+         $newRestaurant->img = "images/restaurant/DaMimmo.webp";
          $newRestaurant->save();
          $newRestaurant->cuisines()->attach(6);
          $newRestaurant->cuisines()->attach(8);
@@ -48,7 +48,7 @@ class RestaurantsTableSeeder extends Seeder
          $newRestaurant->closure_time = "23:45";
          $newRestaurant->price_shipping = rand(0, 3);
          $newRestaurant->price_rating = rand(1, 3);
-         $newRestaurant->img = "";
+         $newRestaurant->img = "images/restaurant/Sakura.webp";
          $newRestaurant->save();
          $newRestaurant->cuisines()->attach(4);
 
@@ -66,7 +66,7 @@ class RestaurantsTableSeeder extends Seeder
         $newRestaurant->closure_time = "23:30";
         $newRestaurant->price_shipping =rand(0, 3);
         $newRestaurant->price_rating = rand(1, 3);
-        $newRestaurant->img = "";
+        $newRestaurant->img = "images/restaurant/Sirovi.webp";
         $newRestaurant->save();
         $newRestaurant->cuisines()->attach(7);
         $newRestaurant->cuisines()->attach(9);
@@ -83,7 +83,7 @@ class RestaurantsTableSeeder extends Seeder
         $newRestaurant->closure_time = "16:00";
         $newRestaurant->price_shipping = rand(0, 3);
         $newRestaurant->price_rating = rand(1, 3);
-        $newRestaurant->img = "";
+        $newRestaurant->img = "images/restaurant/BoolBucks.webp";
         $newRestaurant->save();
         $newRestaurant->cuisines()->attach(1);
         $newRestaurant->cuisines()->attach(3);
@@ -100,7 +100,7 @@ class RestaurantsTableSeeder extends Seeder
         $newRestaurant->closure_time = "23:10";
         $newRestaurant->price_shipping = rand(0, 3);
         $newRestaurant->price_rating = rand(1, 3);
-        $newRestaurant->img = "";
+        $newRestaurant->img = "images/restaurant/PizzeriaVicolotto.webp";
         $newRestaurant->save();
         $newRestaurant->cuisines()->attach(12);
 
@@ -116,7 +116,7 @@ class RestaurantsTableSeeder extends Seeder
         $newRestaurant->closure_time = "23:30";
         $newRestaurant->price_shipping = rand(0, 3);
         $newRestaurant->price_rating = rand(1, 3);
-        $newRestaurant->img = "";
+        $newRestaurant->img = "images/restaurant/Piadineria.webp";
         $newRestaurant->save();
         $newRestaurant->cuisines()->attach(6);
         $newRestaurant->cuisines()->attach(11);
@@ -133,7 +133,7 @@ class RestaurantsTableSeeder extends Seeder
         $newRestaurant->closure_time = "23:50";
         $newRestaurant->price_shipping = rand(0, 3);
         $newRestaurant->price_rating = rand(1, 3);
-        $newRestaurant->img = "";
+        $newRestaurant->img = "images/restaurant/BurgerFactory.webp";
         $newRestaurant->save();
         $newRestaurant->cuisines()->attach(5);
 
@@ -149,7 +149,7 @@ class RestaurantsTableSeeder extends Seeder
         $newRestaurant->closure_time = "23:30";
         $newRestaurant->price_shipping = rand(0, 3);
         $newRestaurant->price_rating = rand(1, 3);
-        $newRestaurant->img = "";
+        $newRestaurant->img = "images/restaurant/Cheng.webp";
         $newRestaurant->save();
         $newRestaurant->cuisines()->attach(2);
 
@@ -165,7 +165,7 @@ class RestaurantsTableSeeder extends Seeder
         $newRestaurant->closure_time = "23:00";
         $newRestaurant->price_shipping = rand(0, 3);
         $newRestaurant->price_rating = rand(1, 3);
-        $newRestaurant->img = "";
+        $newRestaurant->img = "images/restaurant/MercatoPorto.webp";
         $newRestaurant->save();
         $newRestaurant->cuisines()->attach(8);
         $newRestaurant->cuisines()->attach(11);
@@ -184,7 +184,7 @@ class RestaurantsTableSeeder extends Seeder
         $newRestaurant->closure_time = "22:30";
         $newRestaurant->price_shipping = rand(0, 3);
         $newRestaurant->price_rating = rand(1, 3);
-        $newRestaurant->img = "";
+        $newRestaurant->img = "images/restaurant/Carlitos.webp";
         $newRestaurant->save();
         $newRestaurant->cuisines()->attach(10);
 

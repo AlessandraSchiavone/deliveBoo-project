@@ -12,10 +12,13 @@ class RestaurantController extends Controller
         $restaurants = Restaurant::all();
             // ->with('cuisines')->first();
 
-        // $result = [
-        //     'success' => true,
-        //     'restaurants' => $restaurants
-        // ];
+        $restaurants->each(function ($restaurant) {
+            if(!$restaurant->img) {
+                $restaurant->img = url('images/restaurantplaceholder.png');
+            }
+        });
+
+        
 
         return response()->json($restaurants);
     }
