@@ -2262,17 +2262,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SingleRestaurant',
   data: function data() {
     return {
       restaurant: null,
-      dishes: [],
       categories: []
     };
   },
   created: function created() {
-    this.getRestaurant(this.$route.params.slug); // this.getCuisines();
+    this.getRestaurant(this.$route.params.slug);
   },
   methods: {
     getRestaurant: function getRestaurant(slug) {
@@ -2379,7 +2385,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "section .jumbotron[data-v-2ff820ae] {\n  height: 380px;\n  background-size: cover;\n  border-radius: 0;\n  margin: 0;\n  padding: 0;\n  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.425), rgba(0, 0, 0, 0));\n  background-color: transparent;\n}\nsection .jumbotron img[data-v-2ff820ae] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  z-index: -1;\n  position: relative;\n  filter: blur(1px);\n}\nsection .box[data-v-2ff820ae] {\n  background-color: white;\n  border: 1px solid #e2e6e9;\n  margin: -80px 10px auto;\n}\nsection .box h2[data-v-2ff820ae] {\n  font-weight: bold;\n}", ""]);
+exports.push([module.i, "section .jumbotron[data-v-2ff820ae] {\n  height: 380px;\n  background-size: cover;\n  border-radius: 0;\n  margin: 0;\n  padding: 0;\n  background-image: linear-gradient(to bottom, white, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));\n  background-color: transparent;\n}\nsection .jumbotron img[data-v-2ff820ae] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  z-index: -1;\n  position: relative;\n  filter: blur(1px);\n}\nsection .box .box-top[data-v-2ff820ae] {\n  background-color: white;\n  margin: -80px 10px 50px;\n  border-radius: 4px;\n  padding: 0;\n}\nsection .box .box-top h2[data-v-2ff820ae] {\n  font-weight: bold;\n}\nsection .box .box-top .euro[data-v-2ff820ae] {\n  color: #F36D00;\n  font-weight: bold;\n}\nsection .box .menu-card[data-v-2ff820ae] {\n  background-color: white;\n  border: 1px solid #e2e6e9;\n  margin: 0 10px 10px;\n}\nsection .box .menu-card h5[data-v-2ff820ae] {\n  font-weight: bold;\n}\nsection .box .menu-card h6[data-v-2ff820ae] {\n  color: #4764CF;\n}\nsection .consegna[data-v-2ff820ae] {\n  background-color: #F1F2F4;\n  width: 60%;\n  margin: auto;\n  margin-top: 20px;\n  box-shadow: 1px 2px 3px #e2e6e9;\n  padding: 5px 2px;\n}\nsection .consegna h5[data-v-2ff820ae], section .consegna h6[data-v-2ff820ae] {\n  margin: 0;\n}\nsection .consegna h5[data-v-2ff820ae] {\n  font-weight: bold;\n}", ""]);
 
 // exports
 
@@ -4401,7 +4407,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return JSON.stringify(_vm.restaurant) != "{}"
+  return _vm.restaurant
     ? _c("section", [
         _c("div", { staticClass: "jumbotron" }, [
           _c("img", {
@@ -4410,71 +4416,85 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "container" }, [
-          _c(
-            "div",
-            {
-              staticClass:
-                "row d-flex justify-content-center align-items-center"
-            },
-            [
-              _c("div", { staticClass: "col-md-2" }, [
-                _vm._v("\n              x\n          ")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "box col-md-6 text-center py-5" }, [
-                _c("h2", [_vm._v(_vm._s(_vm.restaurant.name))]),
-                _vm._v(" "),
-                _c(
-                  "h5",
-                  _vm._l(_vm.restaurant.cuisines, function(cuisine) {
-                    return _c("span", { key: cuisine.id }, [
-                      _vm._v(_vm._s(cuisine.name))
-                    ])
-                  }),
-                  0
-                ),
-                _vm._v(" "),
-                _c(
-                  "h5",
-                  _vm._l(_vm.restaurant.price_rating, function(n) {
-                    return _c("span", { key: n }, [_vm._v("€")])
-                  }),
-                  0
-                ),
-                _vm._v(" "),
-                _c("h6", [_vm._v(_vm._s(_vm.restaurant.location))]),
-                _vm._v(" "),
-                _c("div", { staticClass: "consegna" }, [
+          _c("div", { staticClass: "row d-flex justify-content-center" }, [
+            _c("div", { staticClass: "col-md-2" }, [
+              _vm._v("\n              x\n          ")
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "box col-md-6" },
+              [
+                _c("div", { staticClass: "box-top py-5 text-center" }, [
+                  _c("h2", [_vm._v(_vm._s(_vm.restaurant.name))]),
+                  _vm._v(" "),
                   _c(
-                    "div",
-                    {
-                      staticClass:
-                        "row d-flex justify-content-center align-items-center"
-                    },
-                    [
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-3" }, [
-                        _c("h6", [
-                          _vm._v(
-                            _vm._s(
-                              _vm.restaurant.price_shipping == 0
-                                ? "Gratis"
-                                : _vm.restaurant.price_shipping + " €"
-                            )
-                          )
-                        ])
+                    "h6",
+                    _vm._l(_vm.restaurant.cuisines, function(cuisine) {
+                      return _c("span", { key: cuisine.id }, [
+                        _vm._v(_vm._s(cuisine.name) + "  ")
                       ])
+                    }),
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "h6",
+                    _vm._l(_vm.restaurant.price_rating, function(n) {
+                      return _c("span", { key: n, staticClass: "euro" }, [
+                        _vm._v("€")
+                      ])
+                    }),
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c("h6", [_vm._v(_vm._s(_vm.restaurant.location))]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "consegna" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "row d-flex justify-content-center align-items-center"
+                      },
+                      [
+                        _vm._m(0),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c("h6", [
+                            _vm._v(
+                              _vm._s(
+                                _vm.restaurant.price_shipping == 0
+                                  ? "Gratis"
+                                  : _vm.restaurant.price_shipping + " €"
+                              )
+                            )
+                          ])
+                        ])
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.restaurant.dishes, function(dish) {
+                  return _c(
+                    "div",
+                    { key: dish.id, staticClass: "text-left p-4 menu-card" },
+                    [
+                      _c("h5", [_vm._v(_vm._s(dish.name))]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(dish.description))]),
+                      _vm._v(" "),
+                      _c("h6", [_vm._v(_vm._s(dish.price) + " €")])
                     ]
                   )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "box col-md-3" }, [
-                _vm._v("\n              x")
-              ])
-            ]
-          )
+                })
+              ],
+              2
+            ),
+            _vm._v(" "),
+            _vm._m(1)
+          ])
         ])
       ])
     : _c("section", [_vm._v("\n    Caricamento\n")])
@@ -4484,8 +4504,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3" }, [
+    return _c("div", { staticClass: "col-md-6" }, [
       _c("h5", [_vm._v("Consegna")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box col-md-3" }, [
+      _c("div", { staticClass: "box-top" }, [_vm._v("x")])
     ])
   }
 ]
