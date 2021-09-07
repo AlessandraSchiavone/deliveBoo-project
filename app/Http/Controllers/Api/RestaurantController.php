@@ -22,4 +22,20 @@ class RestaurantController extends Controller
 
         return response()->json($restaurants);
     }
+
+    public function show($slug){
+
+        $restaurant = Restaurant::where('slug', $slug)
+        ->with(['cuisines', 'dishes'])
+        ->first();
+
+        if(!empty($restaurant)) {
+            if($restaurant->img) {
+                $restaurant->img = url($restaurant->img);
+            }
+        }    
+          
+        return response()->json($restaurant);
+
+    }
 }

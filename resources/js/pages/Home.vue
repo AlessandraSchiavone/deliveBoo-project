@@ -1,4 +1,4 @@
-k<template>
+<template>
     <div class="main">
         <div class="jumbotron"></div>
         <div class="box col-md-6 d-flex flex-column justify-content-center align-items-center">
@@ -27,19 +27,22 @@ k<template>
                     <div class="restaurant-card"
                         v-for="restaurant in restaurants"
                         :key="`restaurant-${restaurant.id}`">
-                        <img class="text-center" :src="restaurant.img" :alt="restaurant.name">
-                        <h3>{{restaurant.name}}</h3>
-                        <h6><i class="fas fa-map-marker-alt"></i> {{restaurant.location}}</h6>
-                        <h6>
-                            <i class="fas fa-shipping-fast"></i>
-                            Consegna: {{ restaurant.price_shipping == 0 ? 'Gratis': `${restaurant.price_shipping} &euro;`}}
-                            <span class="badge-icon"></span> 
-                            Fascia prezzo:
-                            <span v-for="n in restaurant.price_rating"
-                            :key="n">&euro;</span>
-                        </h6> 
-                        <h6><i class="fas fa-clock"></i> Orario apertura: {{restaurant.opening_time}}</h6>
-                    </div>           
+                        <router-link :to="{ name:'single-restaurant', params: { slug: restaurant.slug  } }" class="card-link">
+                            <img class="text-center" :src="restaurant.img" :alt="restaurant.name">
+                            <h3>{{restaurant.name}}</h3>
+                            <h6><i class="fas fa-map-marker-alt"></i> {{restaurant.location}}</h6>
+                            <h6>
+                                <i class="fas fa-shipping-fast"></i>
+                                Consegna: {{ restaurant.price_shipping == 0 ? 'Gratis': `${restaurant.price_shipping} &euro;`}}
+                                <span class="badge-icon"></span> 
+                                Fascia prezzo:
+                                <span v-for="n in restaurant.price_rating"
+                                :key="n">&euro;</span>
+                            </h6> 
+                            <h6><i class="fas fa-clock"></i> Orario apertura: {{restaurant.opening_time}}</h6>
+                        </router-link>       
+                    </div>  
+                      
                 </div>
             </div>
         </div>
