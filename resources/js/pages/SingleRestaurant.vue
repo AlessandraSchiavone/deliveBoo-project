@@ -6,7 +6,11 @@
       <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-md-2">
-                x
+                <ul>
+                    <li v-for="category in filteredCategories" :key="`category-${category.id}`">
+                        <a :href="`#category-${category.id}`">{{category.name}}</a>
+                    </li>
+                </ul>
             </div>
             <div class="box col-md-6">
                 <div class="box-top py-5 text-center">
@@ -31,11 +35,15 @@
                         </div>
                     </div>
                 </div>
-                <div v-for="dish in restaurant.dishes"
-                :key="dish.id" class="text-left p-4 menu-card">
-                    <h5>{{dish.name}}</h5>
-                    <p>{{dish.description}}</p>
-                    <h6>{{dish.price}} €</h6>
+                <div v-for="category in filteredCategories" :key="`category-${category.id}`" :id="`category-${category.id}`">
+                    <h3>{{category.name}}</h3>
+                    <div v-for="dish in restaurant.dishes"
+                    :key="`dish-${dish.id}`" class="text-left p-4 menu-card"
+                    v-show="dish.category_id==category.id">
+                        <h5>{{dish.name}}</h5>
+                        <p>{{dish.description}}</p>
+                        <h6>{{dish.price}} €</h6>
+                    </div>
                 </div>
             </div>
             <div class="box col-md-3">
@@ -56,7 +64,8 @@ export default {
     data() {
         return {
             restaurant: null,
-            categories: []
+            categories: [],
+            filteredCategories: []
         }
     },
     created() {
@@ -70,6 +79,7 @@ export default {
                     res => {
                         console.log(res.data);
                         this.restaurant = res.data;
+                        this.getCategories();
                         // console.log(restaurant);
                     }
                 )
@@ -78,6 +88,47 @@ export default {
                             console.log(err);
                         }
                     );
+        },
+        getCategories() {
+            axios
+                .get(`http://127.0.0.1:8000/api/category`)
+                .then(
+                    res => {
+                        console.log(res.data);
+                        this.categories = res.data;
+                        this.filterCategories();
+                        // console.log(category);
+                    }
+                )
+                .catch(
+                        err => {
+                            console.log(err);
+                        }
+                    );
+        },
+        filterCategories() {
+            for (let i = 0; i < this.restaurant.dishes.length; i++) {
+                const dishCategory = this.restaurant.dishes[i].category_id;
+                console.log(this.restaurant.dishes[i]);
+
+                for (let k = 0; k < this.categories.length; k++) {
+                    const category = this.categories[k].id;
+                    console.log(this.categories[k]);
+
+                    if (category == dishCategory) {
+                        let exist = false;
+
+                        for (let n = 0; n < this.filteredCategories.length; n++) {
+                            if (this.filteredCategories[n].id == category) {
+                                exist = true;
+                            }
+                        }
+                        if (!exist) {
+                            this.filteredCategories.push(this.categories[k])
+                        }
+                    }
+                }
+            }
         }
     }
 }

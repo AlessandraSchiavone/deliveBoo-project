@@ -2269,12 +2269,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SingleRestaurant',
   data: function data() {
     return {
       restaurant: null,
-      categories: []
+      categories: [],
+      filteredCategories: []
     };
   },
   created: function created() {
@@ -2286,10 +2295,51 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("http://127.0.0.1:8000/api/restaurant/".concat(slug)).then(function (res) {
         console.log(res.data);
-        _this.restaurant = res.data; // console.log(restaurant);
+        _this.restaurant = res.data;
+
+        _this.getCategories(); // console.log(restaurant);
+
       })["catch"](function (err) {
         console.log(err);
       });
+    },
+    getCategories: function getCategories() {
+      var _this2 = this;
+
+      axios.get("http://127.0.0.1:8000/api/category").then(function (res) {
+        console.log(res.data);
+        _this2.categories = res.data;
+
+        _this2.filterCategories(); // console.log(category);
+
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    filterCategories: function filterCategories() {
+      for (var i = 0; i < this.restaurant.dishes.length; i++) {
+        var dishCategory = this.restaurant.dishes[i].category_id;
+        console.log(this.restaurant.dishes[i]);
+
+        for (var k = 0; k < this.categories.length; k++) {
+          var category = this.categories[k].id;
+          console.log(this.categories[k]);
+
+          if (category == dishCategory) {
+            var exist = false;
+
+            for (var n = 0; n < this.filteredCategories.length; n++) {
+              if (this.filteredCategories[n].id == category) {
+                exist = true;
+              }
+            }
+
+            if (!exist) {
+              this.filteredCategories.push(this.categories[k]);
+            }
+          }
+        }
+      }
     }
   }
 });
@@ -4418,7 +4468,17 @@ var render = function() {
         _c("div", { staticClass: "container" }, [
           _c("div", { staticClass: "row d-flex justify-content-center" }, [
             _c("div", { staticClass: "col-md-2" }, [
-              _vm._v("\n              x\n          ")
+              _c(
+                "ul",
+                _vm._l(_vm.filteredCategories, function(category) {
+                  return _c("li", { key: "category-" + category.id }, [
+                    _c("a", { attrs: { href: "#category-" + category.id } }, [
+                      _vm._v(_vm._s(category.name))
+                    ])
+                  ])
+                }),
+                0
+              )
             ]),
             _vm._v(" "),
             _c(
@@ -4476,17 +4536,42 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._l(_vm.restaurant.dishes, function(dish) {
+                _vm._l(_vm.filteredCategories, function(category) {
                   return _c(
                     "div",
-                    { key: dish.id, staticClass: "text-left p-4 menu-card" },
+                    {
+                      key: "category-" + category.id,
+                      attrs: { id: "category-" + category.id }
+                    },
                     [
-                      _c("h5", [_vm._v(_vm._s(dish.name))]),
+                      _c("h3", [_vm._v(_vm._s(category.name))]),
                       _vm._v(" "),
-                      _c("p", [_vm._v(_vm._s(dish.description))]),
-                      _vm._v(" "),
-                      _c("h6", [_vm._v(_vm._s(dish.price) + " €")])
-                    ]
+                      _vm._l(_vm.restaurant.dishes, function(dish) {
+                        return _c(
+                          "div",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: dish.category_id == category.id,
+                                expression: "dish.category_id==category.id"
+                              }
+                            ],
+                            key: "dish-" + dish.id,
+                            staticClass: "text-left p-4 menu-card"
+                          },
+                          [
+                            _c("h5", [_vm._v(_vm._s(dish.name))]),
+                            _vm._v(" "),
+                            _c("p", [_vm._v(_vm._s(dish.description))]),
+                            _vm._v(" "),
+                            _c("h6", [_vm._v(_vm._s(dish.price) + " €")])
+                          ]
+                        )
+                      })
+                    ],
+                    2
                   )
                 })
               ],
@@ -20661,7 +20746,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\feder\Desktop\classe34\deliveBoo-project\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\BooleanClass34\Proj34\deliveBoo-project\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
