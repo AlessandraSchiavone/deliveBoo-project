@@ -4,7 +4,7 @@
         <div class="box col-md-6 d-flex flex-column justify-content-center align-items-center">
             <h1>Il bello è prenderci gusto</h1>
             <h2>Ordina online dai tuoi ristoranti preferiti</h2>
-            <a href="#restaurants"><div class="d-flex justify-content-center align-items-center"><i class="fas fa-angle-down"></i></div></a>
+            <a href="#restaurants" class="hover-none"><div class="d-flex justify-content-center align-items-center"><i class="fas fa-angle-down"></i></div></a>
         </div>
         <div id="cuisines" >
             <div class="container">
@@ -170,6 +170,11 @@ export default {
         margin: 0;
         
     }
+    .hover-none {
+        &:hover {
+            text-decoration: none;
+        }
+    }
     .box{
         margin: -184px auto 20px auto ;
         height:220px;
@@ -232,6 +237,12 @@ export default {
         }
         .restaurant-card{
             // padding:10px;
+            .card-link {
+                color: black;
+                &:hover {
+                    color: black;
+                }
+            }
             margin:10px;
             width:calc(100% / 3 - 20px);
             img{
@@ -241,7 +252,7 @@ export default {
                 height:130px; 
             }
             h3{
-                margin-top:15px ;
+                padding-top:15px ;
                 font-size:20px;
                 font-weight:bold;
             }
