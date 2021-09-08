@@ -2277,19 +2277,81 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SingleRestaurant',
   data: function data() {
     return {
       restaurant: null,
       categories: [],
-      filteredCategories: []
+      filteredCategories: [],
+      popup: false,
+      singleDish: null,
+      quantity: 1,
+      cart: []
     };
   },
   created: function created() {
     this.getRestaurant(this.$route.params.slug);
   },
   methods: {
+    showPopup: function showPopup(dish) {
+      this.popup = true;
+      this.singleDish = dish;
+    },
+    plusOne: function plusOne() {
+      this.quantity += 1;
+    },
+    minusOne: function minusOne() {
+      if (this.quantity > 1) this.quantity -= 1;
+    },
+    addCart: function addCart() {
+      var obj = {
+        dish: this.singleDish,
+        quantita: this.quantity
+      };
+
+      if (this.cart.length == 0) {
+        this.cart.push(obj);
+      } else {
+        var flag = false;
+
+        for (var i = 0; i < this.cart.length; i++) {
+          if (this.cart[i].dish.id == obj.dish.id) {
+            flag = true;
+            this.cart[i].quantita += obj.quantita;
+          }
+        }
+
+        if (!flag) {
+          this.cart.push(obj);
+        }
+      }
+
+      this.closePopup();
+      console.log(this.cart);
+    },
+    closePopup: function closePopup() {
+      this.popup = false;
+      this.singleDish = null;
+      this.quantity = 1;
+    },
     getRestaurant: function getRestaurant(slug) {
       var _this = this;
 
@@ -2318,12 +2380,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     filterCategories: function filterCategories() {
       for (var i = 0; i < this.restaurant.dishes.length; i++) {
-        var dishCategory = this.restaurant.dishes[i].category_id;
-        console.log(this.restaurant.dishes[i]);
+        var dishCategory = this.restaurant.dishes[i].category_id; // console.log(this.restaurant.dishes[i]);
 
         for (var k = 0; k < this.categories.length; k++) {
-          var category = this.categories[k].id;
-          console.log(this.categories[k]);
+          var category = this.categories[k].id; // console.log(this.categories[k]);
 
           if (category == dishCategory) {
             var exist = false;
@@ -2435,7 +2495,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "section .jumbotron[data-v-2ff820ae] {\n  height: 380px;\n  background-size: cover;\n  border-radius: 0;\n  margin: 0;\n  padding: 0;\n  background-image: linear-gradient(to bottom, white, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));\n  background-color: transparent;\n}\nsection .jumbotron img[data-v-2ff820ae] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  z-index: -1;\n  position: relative;\n  filter: blur(1px);\n}\nsection .box .box-top[data-v-2ff820ae] {\n  background-color: white;\n  margin: -80px 10px 50px;\n  border-radius: 4px;\n  padding: 0;\n}\nsection .box .box-top h2[data-v-2ff820ae] {\n  font-weight: bold;\n}\nsection .box .box-top .euro[data-v-2ff820ae] {\n  color: #F36D00;\n  font-weight: bold;\n}\nsection .box .menu-card[data-v-2ff820ae] {\n  background-color: white;\n  border: 1px solid #e2e6e9;\n  margin: 0 10px 10px;\n}\nsection .box .menu-card h5[data-v-2ff820ae] {\n  font-weight: bold;\n}\nsection .box .menu-card h6[data-v-2ff820ae] {\n  color: #4764CF;\n}\nsection .consegna[data-v-2ff820ae] {\n  background-color: #F1F2F4;\n  width: 60%;\n  margin: auto;\n  margin-top: 20px;\n  box-shadow: 1px 2px 3px #e2e6e9;\n  padding: 5px 2px;\n}\nsection .consegna h5[data-v-2ff820ae], section .consegna h6[data-v-2ff820ae] {\n  margin: 0;\n}\nsection .consegna h5[data-v-2ff820ae] {\n  font-weight: bold;\n}", ""]);
+exports.push([module.i, "section .jumbotron[data-v-2ff820ae] {\n  height: 380px;\n  background-size: cover;\n  border-radius: 0;\n  margin: 0;\n  padding: 0;\n  background-image: linear-gradient(to bottom, white, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));\n  background-color: transparent;\n}\nsection .jumbotron img[data-v-2ff820ae] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  z-index: -1;\n  position: relative;\n  filter: blur(1px);\n}\nsection .box .box-top[data-v-2ff820ae] {\n  background-color: white;\n  margin: -80px 10px 50px;\n  border-radius: 4px;\n  padding: 0;\n}\nsection .box .box-top h2[data-v-2ff820ae] {\n  font-weight: bold;\n}\nsection .box .box-top .euro[data-v-2ff820ae] {\n  color: #F36D00;\n  font-weight: bold;\n}\nsection .menu-card[data-v-2ff820ae] {\n  background-color: white;\n  border: 1px solid #e2e6e9;\n  margin: 0 10px 10px;\n}\nsection .menu-card.hover[data-v-2ff820ae]:hover {\n  cursor: pointer;\n}\nsection .menu-card h5[data-v-2ff820ae] {\n  font-weight: bold;\n}\nsection .menu-card h6[data-v-2ff820ae] {\n  color: #4764CF;\n}\nsection .popup[data-v-2ff820ae] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.151);\n}\nsection .popup .popup-item[data-v-2ff820ae] {\n  width: 20%;\n  background-color: white;\n  padding: 30px;\n  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);\n}\nsection .consegna[data-v-2ff820ae] {\n  background-color: #F1F2F4;\n  width: 60%;\n  margin: auto;\n  margin-top: 20px;\n  box-shadow: 1px 2px 3px #e2e6e9;\n  padding: 5px 2px;\n}\nsection .consegna h5[data-v-2ff820ae], section .consegna h6[data-v-2ff820ae] {\n  margin: 0;\n}\nsection .consegna h5[data-v-2ff820ae] {\n  font-weight: bold;\n}", ""]);
 
 // exports
 
@@ -4559,14 +4619,21 @@ var render = function() {
                               }
                             ],
                             key: "dish-" + dish.id,
-                            staticClass: "text-left p-4 menu-card"
+                            staticClass: "text-left p-4 menu-card hover",
+                            on: {
+                              click: function($event) {
+                                return _vm.showPopup(dish)
+                              }
+                            }
                           },
                           [
                             _c("h5", [_vm._v(_vm._s(dish.name))]),
                             _vm._v(" "),
                             _c("p", [_vm._v(_vm._s(dish.description))]),
                             _vm._v(" "),
-                            _c("h6", [_vm._v(_vm._s(dish.price) + " €")])
+                            _c("h6", [
+                              _vm._v(_vm._s(dish.price.toFixed(2)) + " €")
+                            ])
                           ]
                         )
                       })
@@ -4577,6 +4644,57 @@ var render = function() {
               ],
               2
             ),
+            _vm._v(" "),
+            _vm.popup
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "popup d-flex justify-content-center align-items-center"
+                  },
+                  [
+                    _c("div", { staticClass: "popup-item menu-card" }, [
+                      _c("h4", [_vm._v(_vm._s(_vm.singleDish.name))]),
+                      _vm._v(" "),
+                      _c("span", [_vm._v(_vm._s(_vm.singleDish.description))]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "quantity" }, [
+                        _c("i", {
+                          staticClass: "fas fa-minus-circle",
+                          on: { click: _vm.minusOne }
+                        }),
+                        _vm._v(
+                          "\n                      " +
+                            _vm._s(_vm.quantity) +
+                            "\n                      "
+                        ),
+                        _c("i", {
+                          staticClass: "fas fa-plus-circle",
+                          on: { click: _vm.plusOne }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("h6", [
+                        _vm._v(
+                          "\n                      Prezzo: " +
+                            _vm._s(
+                              (_vm.singleDish.price * _vm.quantity).toFixed(2)
+                            ) +
+                            " €\n                  "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("button", { on: { click: _vm.addCart } }, [
+                        _vm._v("Aggiungi al carrello")
+                      ]),
+                      _vm._v(" "),
+                      _c("button", { on: { click: _vm.closePopup } }, [
+                        _vm._v("Annulla")
+                      ])
+                    ])
+                  ]
+                )
+              : _vm._e(),
             _vm._v(" "),
             _vm._m(1)
           ])
