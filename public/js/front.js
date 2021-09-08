@@ -2018,6 +2018,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Header'
 });
@@ -2294,6 +2298,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SingleRestaurant',
   data: function data() {
@@ -2302,15 +2354,37 @@ __webpack_require__.r(__webpack_exports__);
       categories: [],
       filteredCategories: [],
       popup: false,
+      consegna: 0,
       singleDish: null,
       quantity: 1,
-      cart: []
+      cart: [],
+      old_cart: ""
     };
   },
   created: function created() {
     this.getRestaurant(this.$route.params.slug);
   },
+  mounted: function mounted() {
+    // controllo se esiste giá un carrello per questo ristorante, in tal caso me lo recupero
+    console.log(localStorage.cart);
+
+    if (localStorage.cart) {
+      this.cart = JSON.parse(localStorage.getItem("cart"));
+      console.log(this.cart);
+    } // recupero il nome del ristorante collegato al carrello salvato in memoria
+    //   this.old_cart = localStorage.restaurant_id;
+    //   console.log(this.old_cart);
+    //localStorage.clear();
+
+  },
   methods: {
+    updateLocalStorage: function updateLocalStorage() {
+      if (this.cart.length >= 0) {
+        localStorage.setItem("cart", JSON.stringify(this.cart));
+      } else {
+        localStorage.removeItem("cart");
+      }
+    },
     showPopup: function showPopup(dish) {
       this.popup = true;
       this.singleDish = dish;
@@ -2324,7 +2398,8 @@ __webpack_require__.r(__webpack_exports__);
     addCart: function addCart() {
       var obj = {
         dish: this.singleDish,
-        quantita: this.quantity
+        quantita: this.quantity,
+        restaurant_id: this.restaurant.id
       };
 
       if (this.cart.length == 0) {
@@ -2344,8 +2419,34 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
 
+      this.updateLocalStorage();
       this.closePopup();
       console.log(this.cart);
+    },
+    plusOneCart: function plusOneCart(i) {
+      this.cart[i].quantita += 1;
+      this.updateLocalStorage();
+    },
+    minusOneCart: function minusOneCart(i) {
+      if (this.cart[i].quantita > 1) {
+        this.cart[i].quantita -= 1;
+        this.updateLocalStorage();
+      } else {
+        this.removeCart(i);
+      }
+    },
+    removeCart: function removeCart(i) {
+      this.cart.splice(i, 1);
+      this.updateLocalStorage();
+    },
+    total: function total() {
+      var total = 0;
+
+      for (var i = 0; i < this.cart.length; i++) {
+        total += this.cart[i].dish.price * this.cart[i].quantita;
+      }
+
+      return total + this.consegna;
     },
     closePopup: function closePopup() {
       this.popup = false;
@@ -2356,8 +2457,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get("http://127.0.0.1:8000/api/restaurant/".concat(slug)).then(function (res) {
-        console.log(res.data);
+        //console.log(res.data);
         _this.restaurant = res.data;
+        _this.consegna = _this.restaurant.price_shipping;
+        _this.restaurant_id = _this.restaurant.id;
 
         _this.getCategories(); // console.log(restaurant);
 
@@ -2369,7 +2472,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios.get("http://127.0.0.1:8000/api/category").then(function (res) {
-        console.log(res.data);
+        //console.log(res.data);
         _this2.categories = res.data;
 
         _this2.filterCategories(); // console.log(category);
@@ -2456,7 +2559,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".header[data-v-1f42fb90] {\n  position: absolute;\n  top: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  background-color: transparent;\n  height: 76px;\n}\n.header .logo img[data-v-1f42fb90] {\n  width: 215px;\n}\n.header .login span[data-v-1f42fb90] {\n  font-size: 1.14286rem;\n  margin-right: 5px;\n}\n.header .login span.white[data-v-1f42fb90] {\n  color: white;\n}\n.header .login span.colored[data-v-1f42fb90] {\n  color: #125fca;\n}\n.header .login a[data-v-1f42fb90] {\n  font-size: 1.14286rem;\n  font-weight: bold;\n}\n.header .login a.white[data-v-1f42fb90] {\n  color: white;\n}\n.header .login a.colored[data-v-1f42fb90] {\n  color: #125fca;\n}\n.header .login a.colored[data-v-1f42fb90]:hover {\n  color: #022f6e;\n}", ""]);
+exports.push([module.i, ".header[data-v-1f42fb90] {\n  position: absolute;\n  top: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  background-color: transparent;\n  height: 76px;\n}\n.header .logo img[data-v-1f42fb90] {\n  width: 215px;\n}\n.header .login span[data-v-1f42fb90] {\n  font-size: 1.14286rem;\n  margin-right: 5px;\n}\n.header .login span.white[data-v-1f42fb90] {\n  color: white;\n}\n.header .login a[data-v-1f42fb90] {\n  font-size: 1.14286rem;\n  font-weight: bold;\n}\n.header .login a.white[data-v-1f42fb90] {\n  color: white;\n}", ""]);
 
 // exports
 
@@ -2495,7 +2598,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "section .jumbotron[data-v-2ff820ae] {\n  height: 380px;\n  background-size: cover;\n  border-radius: 0;\n  margin: 0;\n  padding: 0;\n  background-image: linear-gradient(to bottom, white, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));\n  background-color: transparent;\n}\nsection .jumbotron img[data-v-2ff820ae] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  z-index: -1;\n  position: relative;\n  filter: blur(1px);\n}\nsection .box .box-top[data-v-2ff820ae] {\n  background-color: white;\n  margin: -80px 10px 50px;\n  border-radius: 4px;\n  padding: 0;\n}\nsection .box .box-top h2[data-v-2ff820ae] {\n  font-weight: bold;\n}\nsection .box .box-top .euro[data-v-2ff820ae] {\n  color: #F36D00;\n  font-weight: bold;\n}\nsection .menu-card[data-v-2ff820ae] {\n  background-color: white;\n  border: 1px solid #e2e6e9;\n  margin: 0 10px 10px;\n}\nsection .menu-card.hover[data-v-2ff820ae]:hover {\n  cursor: pointer;\n}\nsection .menu-card h5[data-v-2ff820ae] {\n  font-weight: bold;\n}\nsection .menu-card h6[data-v-2ff820ae] {\n  color: #4764CF;\n}\nsection .popup[data-v-2ff820ae] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.151);\n}\nsection .popup .popup-item[data-v-2ff820ae] {\n  width: 20%;\n  background-color: white;\n  padding: 30px;\n  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);\n}\nsection .consegna[data-v-2ff820ae] {\n  background-color: #F1F2F4;\n  width: 60%;\n  margin: auto;\n  margin-top: 20px;\n  box-shadow: 1px 2px 3px #e2e6e9;\n  padding: 5px 2px;\n}\nsection .consegna h5[data-v-2ff820ae], section .consegna h6[data-v-2ff820ae] {\n  margin: 0;\n}\nsection .consegna h5[data-v-2ff820ae] {\n  font-weight: bold;\n}", ""]);
+exports.push([module.i, "section .jumbotron[data-v-2ff820ae] {\n  height: 380px;\n  background-size: cover;\n  border-radius: 0;\n  margin: 0;\n  padding: 0;\n  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.425), rgba(0, 0, 0, 0));\n  background-color: transparent;\n}\nsection .jumbotron img[data-v-2ff820ae] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  z-index: -1;\n  position: relative;\n  filter: blur(1px);\n}\nsection .box .box-top[data-v-2ff820ae] {\n  background-color: white;\n  margin: -80px 10px 50px;\n  border-radius: 4px;\n  padding: 0;\n}\nsection .box .box-top h2[data-v-2ff820ae] {\n  font-weight: bold;\n}\nsection .box .box-top .euro[data-v-2ff820ae] {\n  color: #F36D00;\n  font-weight: bold;\n}\nsection .menu-card[data-v-2ff820ae] {\n  background-color: white;\n  border: 1px solid #e2e6e9;\n  margin: 0 10px 10px;\n}\nsection .menu-card.hover[data-v-2ff820ae]:hover {\n  cursor: pointer;\n}\nsection .menu-card h5[data-v-2ff820ae] {\n  font-weight: bold;\n}\nsection .menu-card h6[data-v-2ff820ae] {\n  color: #4764CF;\n}\nsection .popup[data-v-2ff820ae] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.151);\n}\nsection .popup .popup-item[data-v-2ff820ae] {\n  width: 20%;\n  background-color: white;\n  padding: 30px;\n  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);\n}\nsection .consegna[data-v-2ff820ae] {\n  background-color: #F1F2F4;\n  width: 60%;\n  margin: auto;\n  margin-top: 20px;\n  box-shadow: 1px 2px 3px #e2e6e9;\n  padding: 5px 2px;\n}\nsection .consegna h5[data-v-2ff820ae], section .consegna h6[data-v-2ff820ae] {\n  margin: 0;\n}\nsection .consegna h5[data-v-2ff820ae] {\n  font-weight: bold;\n}", ""]);
 
 // exports
 
@@ -3941,33 +4044,35 @@ var render = function() {
       _c("a", { staticClass: "logo", attrs: { href: "/" } }, [
         _c("img", {
           attrs: {
-            src:
-              _vm.$route.name == "home"
-                ? __webpack_require__(/*! ../assets/logo-white.png */ "./resources/js/assets/logo-white.png")
-                : __webpack_require__(/*! ../assets/logo-colored.png */ "./resources/js/assets/logo-colored.png"),
-            alt: ""
+            src: __webpack_require__(/*! ../assets/logo-white.png */ "./resources/js/assets/logo-white.png"),
+            alt: "Logo Food Now"
           }
         })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "login" }, [
-        _c("span", { class: _vm.$route.name == "home" ? "white" : "colored" }, [
-          _vm._v("Sei un ristoratore?")
-        ]),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            class: _vm.$route.name == "home" ? "white" : "colored",
-            attrs: { href: "http://127.0.0.1:8000/admin" }
-          },
-          [_vm._v("Accedi")]
-        )
-      ])
+      _vm._m(0)
     ]
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "login" }, [
+      _c("span", { staticClass: "white" }, [_vm._v("Sei un ristoratore?")]),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "white",
+          attrs: { href: "http://127.0.0.1:8000/admin" }
+        },
+        [_vm._v("Accedi")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -4684,19 +4789,121 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _c("button", { on: { click: _vm.addCart } }, [
-                        _vm._v("Aggiungi al carrello")
-                      ]),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary ",
+                          on: { click: _vm.addCart }
+                        },
+                        [_vm._v("Aggiungi al carrello")]
+                      ),
                       _vm._v(" "),
-                      _c("button", { on: { click: _vm.closePopup } }, [
-                        _vm._v("Annulla")
-                      ])
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary ",
+                          on: { click: _vm.closePopup }
+                        },
+                        [_vm._v("Annulla")]
+                      )
                     ])
                   ]
                 )
               : _vm._e(),
             _vm._v(" "),
-            _vm._m(1)
+            _c("div", { staticClass: "box col-md-3" }, [
+              _c("div", { staticClass: "box-top" }, [
+                _vm.cart.length
+                  ? _c(
+                      "div",
+                      [
+                        _vm._l(_vm.cart, function(item, i) {
+                          return _c(
+                            "div",
+                            { key: i, staticClass: "item-test" },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "quantity d-flex flex-no-wrap align-items-baseline"
+                                },
+                                [
+                                  _c("div", [
+                                    _c("i", {
+                                      staticClass: "fas fa-minus-circle",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.minusOneCart(i)
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("span", [_vm._v(_vm._s(item.quantita))]),
+                                    _vm._v(" "),
+                                    _c("i", {
+                                      staticClass: "fas fa-plus-circle",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.plusOneCart(i)
+                                        }
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "name" }, [
+                                    _vm._v(
+                                      "\n                              " +
+                                        _vm._s(item.dish.name) +
+                                        "\n                          "
+                                    )
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "total" }, [
+                                _vm._v(
+                                  "\n                          " +
+                                    _vm._s(item.dish.price * item.quantita) +
+                                    "\n                          €\n                      "
+                                )
+                              ])
+                            ]
+                          )
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "price-consegna" }, [
+                          _vm._v(
+                            "\n                          Consegna:" +
+                              _vm._s(_vm.consegna) +
+                              " €\n                  "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "d-flex justify-content-between px-4 pt-2 border-top"
+                          },
+                          [
+                            _vm._m(1),
+                            _vm._v(" "),
+                            _c("span", [_vm._v(_vm._s(_vm.total()) + " €")])
+                          ]
+                        )
+                      ],
+                      2
+                    )
+                  : _c(
+                      "div",
+                      {
+                        staticClass: "cart-test sticky-top cart-headline py-4"
+                      },
+                      [_vm._m(2)]
+                    )
+              ])
+            ])
           ])
         ])
       ])
@@ -4715,8 +4922,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box col-md-3" }, [
-      _c("div", { staticClass: "box-top" }, [_vm._v("x")])
+    return _c("span", [_c("strong", [_vm._v("TOTALE:")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h5", [
+      _c("i", { staticClass: "fas fa-shopping-cart" }),
+      _vm._v(
+        "\n                      Il tuo carrello è vuoto\n                      "
+      )
     ])
   }
 ]
@@ -20864,7 +21080,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\BooleanClass34\Proj34\deliveBoo-project\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Users\Utente\Desktop\classe34\deliveBoo-project\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })

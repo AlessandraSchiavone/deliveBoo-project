@@ -1,12 +1,16 @@
 <template>
     <div class="header container d-flex justify-content-between align-items-center">
         <a href="/" class="logo">
-            <!-- <img :src="../assets/logo-colored.png" alt=""> -->
-            <img :src="($route.name == 'home') ? require('../assets/logo-white.png') : require('../assets/logo-colored.png') " alt="">
+            <!-- <img :src="($route.name == 'home') ? require('../assets/logo-white.png') : require('../assets/logo-colored.png') " alt=""> -->
+            <img :src="require('../assets/logo-white.png')" alt="Logo Food Now">
         </a>
         <div class="login">
-            <span :class="($route.name == 'home') ? 'white':'colored'">Sei un ristoratore?</span>
-            <a href="http://127.0.0.1:8000/admin" :class="($route.name == 'home') ? 'white':'colored'">Accedi</a>
+            <!-- <span :class="($route.name == 'home') ? 'white':'colored'">Sei un ristoratore?</span>
+            <a href="http://127.0.0.1:8000/admin" :class="($route.name == 'home') ? 'white':'colored'">Accedi</a> -->
+            <span class="white">Sei un ristoratore?</span>
+            <a href="http://127.0.0.1:8000/admin" class="white">Accedi</a>
+
+
         </div>
     </div>
 </template>
@@ -37,9 +41,9 @@ export default {
                 &.white{
                     color:white;
                 }
-                &.colored{
-                    color: #125fca;
-                }
+                // &.colored{
+                //     color: #125fca;
+                // }
             }
             a {
                 font-size: 1.14286rem;
@@ -47,12 +51,12 @@ export default {
                 &.white{
                     color:white;
                 }
-                &.colored{
-                 color: #125fca;
-                 &:hover {
-                     color: #022f6e;
-                    }
-                }      
+                // &.colored{
+                //  color: #125fca;
+                //  &:hover {
+                //      color: #022f6e;
+                //     }
+                // }      
             }
         }
     }

@@ -59,12 +59,60 @@
                     <h6>
                         Prezzo: {{ (singleDish.price * quantity).toFixed(2) }} &#8364;
                     </h6>
-                    <button @click="addCart">Aggiungi al carrello</button>
-                    <button @click="closePopup">Annulla</button>
+                    <button class="btn btn-primary " @click="addCart">Aggiungi al carrello</button>
+                    <button class="btn btn-primary " @click="closePopup">Annulla</button>
                 </div>
             </div>
             <div class="box col-md-3">
-                <div class="box-top">x</div>
+                <div class="box-top">
+                    <div
+                        v-if="cart.length"
+                    >
+                    <div class="item-test" v-for="item,i in cart" :key="i">
+                        
+                        <div class="quantity d-flex flex-no-wrap align-items-baseline">
+                            
+                            <div>
+                                <i
+                                    class="fas fa-minus-circle"
+                                    @click="minusOneCart(i)"
+                                ></i>
+                                <span>{{ item.quantita }}</span>
+                                <i
+                                    class="fas fa-plus-circle"
+                                    @click="plusOneCart(i)"
+                                ></i>
+
+                            </div>
+                            
+                            <div class="name">
+                                {{ item.dish.name }}
+                            </div>
+                        </div>
+                        
+                        <div class="total">
+                            {{
+                                (item.dish.price *
+                                    item.quantita) 
+                            }}
+                            &#8364;
+                        </div>   
+                    </div>
+                    <div class="price-consegna">
+                            Consegna:{{ consegna }} &#8364;
+                    </div>
+                    <div class="d-flex justify-content-between px-4 pt-2 border-top">
+                            <span><strong>TOTALE:</strong></span>
+                            <span>{{ total() }} &#8364;</span>
+                        </div>  
+                    </div>
+                    <div class="cart-test sticky-top cart-headline py-4" v-else>
+                    <!-- <button class="btn btn-primary ">Vai alla cassa</button> -->
+                        <h5><i class="fas fa-shopping-cart"></i>
+                        Il tuo carrello è vuoto
+                        </h5>
+                    </div>
+                </div>
             </div>  
         </div>
         </div>
@@ -84,29 +132,54 @@ export default {
             categories: [],
             filteredCategories: [],
             popup: false,
+            consegna: 0,
             singleDish: null,
             quantity: 1,
-            cart: []
+            cart: [],
+            old_cart:""
         }
     },
     created() {
         this.getRestaurant(this.$route.params.slug);
     },
+    mounted(){
+        // controllo se esiste giá un carrello per questo ristorante, in tal caso me lo recupero
+        console.log(localStorage.cart);
+        if (localStorage.cart ) {
+            this.cart = JSON.parse(localStorage.getItem("cart"));
+            console.log(this.cart);
+          }
+          // recupero il nome del ristorante collegato al carrello salvato in memoria
+        //   this.old_cart = localStorage.restaurant_id;
+        //   console.log(this.old_cart);
+        //localStorage.clear();
+        },
     methods: {
+        updateLocalStorage: function() {
+          if (this.cart.length >= 0) {
+            localStorage.setItem("cart", JSON.stringify(this.cart));
+          } else {
+            localStorage.removeItem("cart");
+          }
+        },
         showPopup(dish) {
             this.popup = true;
             this.singleDish = dish;
         },
         plusOne: function() {
             this.quantity += 1;
+            
         },
         minusOne: function() {
             if (this.quantity > 1) this.quantity -= 1;
+           
           },
         addCart() {
             let obj = {
                 dish: this.singleDish,
-                quantita: this.quantity
+                quantita: this.quantity,
+                restaurant_id: this.restaurant.id,
+                
             }
             if(this.cart.length == 0){
                     this.cart.push(obj);
@@ -122,8 +195,32 @@ export default {
                     this.cart.push(obj);
                 }
             }
+            this.updateLocalStorage();
             this.closePopup();
             console.log(this.cart);
+        },
+        plusOneCart: function(i) {
+            this.cart[i].quantita += 1;
+            this.updateLocalStorage();
+        },
+         minusOneCart: function(i) {
+            if (this.cart[i].quantita > 1) {
+                this.cart[i].quantita -= 1;
+                this.updateLocalStorage();
+            } else {
+                this.removeCart(i);
+            }
+        },
+        removeCart: function(i) {
+            this.cart.splice(i, 1);
+            this.updateLocalStorage();
+        },
+        total: function() {
+            let total = 0;
+            for (var i = 0; i < this.cart.length; i++) {
+                total += this.cart[i].dish.price * this.cart[i].quantita;
+            }
+            return total + this.consegna  ;
         },
         closePopup() {
             this.popup = false;
@@ -135,8 +232,10 @@ export default {
                 .get(`http://127.0.0.1:8000/api/restaurant/${slug}`)
                 .then(
                     res => {
-                        console.log(res.data);
+                        //console.log(res.data);
                         this.restaurant = res.data;
+                        this.consegna=this.restaurant.price_shipping;
+                        this.restaurant_id=this.restaurant.id;
                         this.getCategories();
                         // console.log(restaurant);
                     }
@@ -152,7 +251,7 @@ export default {
                 .get(`http://127.0.0.1:8000/api/category`)
                 .then(
                     res => {
-                        console.log(res.data);
+                        //console.log(res.data);
                         this.categories = res.data;
                         this.filterCategories();
                         // console.log(category);
@@ -200,7 +299,7 @@ export default {
         border-radius: 0;
         margin: 0;
         padding: 0;
-        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 1.0), rgba(0, 0, 0, 0), rgba(0,0,0,0));
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.425), rgba(0, 0, 0, 0));
         background-color: transparent;
          & img {
             width: 100%;
