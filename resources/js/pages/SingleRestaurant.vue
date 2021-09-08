@@ -38,12 +38,29 @@
                 <div v-for="category in filteredCategories" :key="`category-${category.id}`" :id="`category-${category.id}`">
                     <h3>{{category.name}}</h3>
                     <div v-for="dish in restaurant.dishes"
-                    :key="`dish-${dish.id}`" class="text-left p-4 menu-card"
-                    v-show="dish.category_id==category.id">
+                    :key="`dish-${dish.id}`" class="text-left p-4 menu-card hover"
+                    v-show="dish.category_id==category.id" @click="showPopup(dish)">
                         <h5>{{dish.name}}</h5>
                         <p>{{dish.description}}</p>
-                        <h6>{{dish.price}} €</h6>
+                        <h6>{{(dish.price).toFixed(2)}} &euro;</h6>
                     </div>
+                </div>
+            </div>
+            <!-- scheda popup-->
+            <div class="popup d-flex justify-content-center align-items-center" v-if="popup">
+                <div class="popup-item menu-card">
+                    <h4>{{ singleDish.name }}</h4>
+                    <span>{{ singleDish.description }}</span>
+                    <div class="quantity">
+                        <i class="fas fa-minus-circle" @click="minusOne"></i>
+                        {{ quantity }}
+                        <i class="fas fa-plus-circle" @click="plusOne"></i>
+                    </div>
+                    <h6>
+                        Prezzo: {{ (singleDish.price * quantity).toFixed(2) }} &#8364;
+                    </h6>
+                    <button @click="addCart">Aggiungi al carrello</button>
+                    <button @click="closePopup">Annulla</button>
                 </div>
             </div>
             <div class="box col-md-3">
@@ -65,13 +82,54 @@ export default {
         return {
             restaurant: null,
             categories: [],
-            filteredCategories: []
+            filteredCategories: [],
+            popup: false,
+            singleDish: null,
+            quantity: 1,
+            cart: []
         }
     },
     created() {
         this.getRestaurant(this.$route.params.slug);
     },
     methods: {
+        showPopup(dish) {
+            this.popup = true;
+            this.singleDish = dish;
+        },
+        plusOne: function() {
+            this.quantity += 1;
+        },
+        minusOne: function() {
+            if (this.quantity > 1) this.quantity -= 1;
+          },
+        addCart() {
+            let obj = {
+                dish: this.singleDish,
+                quantita: this.quantity
+            }
+            if(this.cart.length == 0){
+                    this.cart.push(obj);
+            }else {
+                let flag=false;
+                for(let i=0; i< this.cart.length; i++){     
+                    if(this.cart[i].dish.id == obj.dish.id){
+                        flag=true;
+                        this.cart[i].quantita += obj.quantita;
+                    }   
+                }
+                if(!flag){
+                    this.cart.push(obj);
+                }
+            }
+            this.closePopup();
+            console.log(this.cart);
+        },
+        closePopup() {
+            this.popup = false;
+            this.singleDish = null;
+            this.quantity = 1;
+        },
         getRestaurant(slug) {
             axios
                 .get(`http://127.0.0.1:8000/api/restaurant/${slug}`)
@@ -109,11 +167,11 @@ export default {
         filterCategories() {
             for (let i = 0; i < this.restaurant.dishes.length; i++) {
                 const dishCategory = this.restaurant.dishes[i].category_id;
-                console.log(this.restaurant.dishes[i]);
+                // console.log(this.restaurant.dishes[i]);
 
                 for (let k = 0; k < this.categories.length; k++) {
                     const category = this.categories[k].id;
-                    console.log(this.categories[k]);
+                    // console.log(this.categories[k]);
 
                     if (category == dishCategory) {
                         let exist = false;
@@ -170,21 +228,38 @@ export default {
                     font-weight: bold;
                 }
             }
-
-            .menu-card {
-                background-color: white;
-                border: 1px solid #e2e6e9;
-                margin: 0 10px 10px;
-                h5 {
-                    font-weight: bold;
-                }
-                h6 {
-                    color: #4764CF;
-                }
-            }
         }
 
-    
+    .menu-card {
+        background-color: white;
+        border: 1px solid #e2e6e9;
+        margin: 0 10px 10px;
+        &.hover:hover {
+            cursor: pointer;
+        }
+        h5 {
+            font-weight: bold;
+        }
+        h6 {
+            color: #4764CF;
+        }
+        
+    }
+
+    .popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.151);
+        .popup-item {
+            width: 20%;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 2px 4px 0 rgb(0 0 0 / 30%);
+        }
+    }
 
 
 
