@@ -4,16 +4,16 @@
           <img :src="restaurant.img" :alt="restaurant.name">
       </div>
       <div class="container">
-        <div class="row d-flex justify-content-center">
+        <div class="position-relative row d-flex justify-content-center">
             <div class="col-md-2">
-                <ul>
+                <ul class="sticky-top category-list">
                     <li v-for="category in filteredCategories" :key="`category-${category.id}`">
                         <a :href="`#category-${category.id}`">{{category.name}}</a>
                     </li>
                 </ul>
             </div>
-            <div class="box col-md-6">
-                <div class="box-top py-5 text-center">
+            <div class="box col-md-5">
+                <div class="box-top text-center py-5">
                     <h2>{{restaurant.name}}</h2>
                     <h6>
                     <span v-for="cuisine in restaurant.cuisines"
@@ -41,79 +41,78 @@
                     :key="`dish-${dish.id}`" class="text-left p-4 menu-card hover"
                     v-show="dish.category_id==category.id" @click="showPopup(dish)">
                         <h5>{{dish.name}}</h5>
-                        <p>{{dish.description}}</p>
+                        <p class="text-capitalize">{{dish.description}}</p>
                         <h6>{{(dish.price).toFixed(2)}} &euro;</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="box col-md-5">
+                <div class="box-top sticky-top">
+                    <div class="cart-summary">
+                        <h3>Il tuo ordine</h3>
+                        <div class="box-allergy">
+                            <ul class="d-flex flex-direction-row align-items-center">
+                                <li><i class="fas fa-exclamation-circle"></i></li>
+                                <li>Hai un'allergia o un'intolleranza alimentare? Se hai un'allergia o un'intolleranza alimentare, telefona immediatamente al ristorante.</li>
+                            </ul>
+                        </div>
+                        <div class="box-modalita">
+                            <ul class="d-flex align-items-center justify-content-between">
+                                <li id="active"><i class="fas fa-shipping-fast"></i><span> Consegna</span></li>
+                                <li>Ritiro non disponibile</li>
+                            </ul>
+                        </div>
+                        <!-- carrello con singoli piatti -->
+                        <!-- mettere funzione calcolo prezzo finale -->
+                        <div v-for="item,i in cart"
+                        :key="item.id">
+                        <ul class="d-flex flex-direction-row cart-item justify-content-between">
+                            <div class="summary-left d-flex">
+                                <li class="d-flex align-items-center">
+                                    <i
+                                        class="fas fa-minus-circle"
+                                        @click="minusOneCart(i)"
+                                    ></i>
+                                    <span> {{ item.quantita }} </span>
+                                    <i
+                                        class="fas fa-plus-circle"
+                                        @click="plusOneCart(i)"
+                                    ></i>
+                                </li>
+                                <li>{{item.dish.name}}</li>
+                            </div>
+                            <div class="summary-right d-flex align-items-center">
+                                <li class="item-delete" @click="removeCart(i)"><i class="fas fa-trash-alt"></i></li>
+                                <li>{{(item.dish.price * item.quantita).toFixed(2)}} &euro;</li>
+                            </div>                            
+                        </ul>
+                        </div>
+                        <!-- riepilogo totale -->
+                        <!-- sistemare v-if visualizzazione totale -->
+                        <div class="cart-total" v-if="cart.length">
+                            <h6>Costo di consegna: {{ consegna == 0 ? 'Gratis': `${consegna} &euro;` }}</h6>
+                            <h6>Totale: {{ total().toFixed(2) }} &#8364;</h6>
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- scheda popup-->
             <div class="popup d-flex justify-content-center align-items-center" v-if="popup">
-                <div class="popup-item menu-card">
-                    <h4>{{ singleDish.name }}</h4>
-                    <span>{{ singleDish.description }}</span>
-                    <div class="quantity">
-                        <i class="fas fa-minus-circle" @click="minusOne"></i>
-                        {{ quantity }}
-                        <i class="fas fa-plus-circle" @click="plusOne"></i>
+                <div class="popup-item menu-card text-center">
+                    <h3 class="mt-3 font-weight-bold">{{ singleDish.name }}</h3>
+                    <h5 class="my-3">{{(singleDish.price).toFixed(2)}} &euro;</h5>
+                    <span class="px-5 text-capitalize">{{ singleDish.description }}</span>
+                    <div class="quantity my-3">
+                        <i class="fas fa-minus" @click="minusOne"></i>
+                        <span class="popup-quantity">{{ quantity }}</span>
+                        <i class="fas fa-plus" @click="plusOne"></i>
                     </div>
-                    <h6>
-                        Prezzo: {{ (singleDish.price * quantity).toFixed(2) }} &#8364;
-                    </h6>
-                    <button class="btn btn-primary " @click="addCart">Aggiungi al carrello</button>
-                    <button class="btn btn-primary " @click="closePopup">Annulla</button>
+                    <div class="button-container">
+                        <button class="btn d-flex justify-content-between font-weight-bold add-cart" @click="addCart"><span>Aggiungi all' ordine</span><span>{{ (singleDish.price * quantity).toFixed(2) }} &#8364;</span></button>
+                    </div>
+                    <span class="close-popup" @click="closePopup"><i class="fas fa-times"></i></span>
                 </div>
             </div>
-            <div class="box col-md-3">
-                <div class="box-top">
-                    <div
-                        v-if="cart.length"
-                    >
-                    <div class="item-test" v-for="item,i in cart" :key="i">
-                        
-                        <div class="quantity d-flex flex-no-wrap align-items-baseline">
-                            
-                            <div>
-                                <i
-                                    class="fas fa-minus-circle"
-                                    @click="minusOneCart(i)"
-                                ></i>
-                                <span>{{ item.quantita }}</span>
-                                <i
-                                    class="fas fa-plus-circle"
-                                    @click="plusOneCart(i)"
-                                ></i>
-
-                            </div>
-                            
-                            <div class="name">
-                                {{ item.dish.name }}
-                            </div>
-                        </div>
-                        
-                        <div class="total">
-                            {{
-                                (item.dish.price *
-                                    item.quantita) 
-                            }}
-                            &#8364;
-                        </div>   
-                    </div>
-                    <div class="price-consegna">
-                            Consegna:{{ consegna }} &#8364;
-                    </div>
-                    <div class="d-flex justify-content-between px-4 pt-2 border-top">
-                            <span><strong>TOTALE:</strong></span>
-                            <span>{{ total() }} &#8364;</span>
-                        </div>  
-                    </div>
-                    <div class="cart-test sticky-top cart-headline py-4" v-else>
-                    <!-- <button class="btn btn-primary ">Vai alla cassa</button> -->
-                        <h5><i class="fas fa-shopping-cart"></i>
-                        Il tuo carrello è vuoto
-                        </h5>
-                    </div>
-                </div>
-            </div>  
         </div>
         </div>
 
@@ -132,35 +131,47 @@ export default {
             categories: [],
             filteredCategories: [],
             popup: false,
-            consegna: 0,
+            consegna: null,
             singleDish: null,
             quantity: 1,
             cart: [],
-            old_cart:""
         }
     },
     created() {
         this.getRestaurant(this.$route.params.slug);
     },
-    mounted(){
-        // controllo se esiste giá un carrello per questo ristorante, in tal caso me lo recupero
-        console.log(localStorage.cart);
-        if (localStorage.cart ) {
-            this.cart = JSON.parse(localStorage.getItem("cart"));
-            console.log(this.cart);
-          }
-          // recupero il nome del ristorante collegato al carrello salvato in memoria
-        //   this.old_cart = localStorage.restaurant_id;
-        //   console.log(this.old_cart);
-        //localStorage.clear();
-        },
+    watch: {
+        popup() {
+            if (this.popup) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+
+        }
+    },
     methods: {
+        // setActive(id) {
+        //     for (let i = 0; i < this.filteredCategories.length; i++) {
+        //         if (this.filteredCategories[i].id == id) {
+        //             this.filteredCategories[i] = {
+        //                 ...this.filteredCategories[i],
+        //                 active: true
+        //             }
+        //         } else {
+        //             this.filteredCategories[i] = {
+        //                 ...this.filteredCategories[i],
+        //                 active: false
+        //             }
+        //         }
+                
+        //     }
+        //     console.log(this.filteredCategories);
+        //     return this.filteredCategories;
+        // },
         updateLocalStorage: function() {
-          if (this.cart.length >= 0) {
             localStorage.setItem("cart", JSON.stringify(this.cart));
-          } else {
-            localStorage.removeItem("cart");
-          }
+            localStorage.restaurant_id = this.restaurant.id;
         },
         showPopup(dish) {
             this.popup = true;
@@ -173,13 +184,11 @@ export default {
         minusOne: function() {
             if (this.quantity > 1) this.quantity -= 1;
            
-          },
+        },
         addCart() {
             let obj = {
                 dish: this.singleDish,
-                quantita: this.quantity,
-                restaurant_id: this.restaurant.id,
-                
+                quantita: this.quantity,                
             }
             if(this.cart.length == 0){
                     this.cart.push(obj);
@@ -203,7 +212,7 @@ export default {
             this.cart[i].quantita += 1;
             this.updateLocalStorage();
         },
-         minusOneCart: function(i) {
+        minusOneCart: function(i) {
             if (this.cart[i].quantita > 1) {
                 this.cart[i].quantita -= 1;
                 this.updateLocalStorage();
@@ -227,6 +236,12 @@ export default {
             this.singleDish = null;
             this.quantity = 1;
         },
+        syncCart() {
+            if (localStorage.cart && localStorage.restaurant_id == this.restaurant.id) {
+                this.cart = JSON.parse(localStorage.getItem("cart"));
+                console.log(this.cart);
+            }
+        },
         getRestaurant(slug) {
             axios
                 .get(`http://127.0.0.1:8000/api/restaurant/${slug}`)
@@ -235,7 +250,7 @@ export default {
                         //console.log(res.data);
                         this.restaurant = res.data;
                         this.consegna=this.restaurant.price_shipping;
-                        this.restaurant_id=this.restaurant.id;
+                        this.syncCart();
                         this.getCategories();
                         // console.log(restaurant);
                     }
@@ -310,7 +325,29 @@ export default {
             filter:blur(1px);
          }
         }
+        .sticky-top {
+            z-index: 0;
+        }
 
+        .category-list {
+            padding-top: 30px;
+            margin-left: -20px;
+            list-style: none;
+            a {
+                border-left: 1px solid #c5ccd3;
+                display: block;
+                overflow: hidden;
+                padding: 10px 0 10px 5px;
+                text-decoration: none;
+                color: #5e6b77;
+                &:hover,
+                &.active {
+                    border-left: 2px solid black;
+                    font-weight: bold;
+                    color: black;
+                }
+            }
+        }
         .box {
             .box-top {
                 background-color: white;
@@ -329,36 +366,61 @@ export default {
             }
         }
 
-    .menu-card {
-        background-color: white;
-        border: 1px solid #e2e6e9;
-        margin: 0 10px 10px;
-        &.hover:hover {
-            cursor: pointer;
-        }
-        h5 {
-            font-weight: bold;
-        }
-        h6 {
-            color: #4764CF;
-        }
-        
-    }
-
-    .popup {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.151);
-        .popup-item {
-            width: 20%;
+        .menu-card {
             background-color: white;
-            padding: 30px;
-            box-shadow: 0 2px 4px 0 rgb(0 0 0 / 30%);
+            border: 1px solid #e2e6e9;
+            margin: 0 10px 10px;
+            &.hover:hover {
+                cursor: pointer;
+            }
+            h5 {
+                font-weight: bold;
+            }
+            h6 {
+                color: #4764CF;
+            }
+            
         }
-    }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.151);
+            .popup-item {
+                position: relative;
+                width: 20%;
+                background-color: white;
+                padding-top: 30px;
+                box-shadow: 0 2px 4px 0 rgb(0 0 0 / 30%);
+                z-index: 1050;
+                .close-popup {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    padding: 10px 20px;
+                    font-size: 18px;
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+                .button-container {
+                    box-shadow: 0 -2px 4px 0 rgba(0,0,0,.12);
+                    padding: 24px;
+                    .add-cart {
+                        background-color: #f36d00;
+                        color: white;
+                        width: 100%;
+                    }
+                }
+                .popup-quantity {
+                    padding: 0 10px;
+                    font-size: 20px;
+                }
+            }
+        }
 
 
 
@@ -374,6 +436,74 @@ export default {
             }
             h5 {
                 font-weight: bold;
+            }
+        }
+        .cart-summary {
+            padding: 20px;
+            h3 {
+                font-weight: bold;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #e2e6e9;
+            }
+            .box-allergy {
+                background-color: #F1F2F4;
+                padding: 10px;
+                ul {
+                    margin: 0;
+                    li {
+                        color:#125FCA;
+                        list-style: none;
+                        font-size: 14px;
+                    
+                        i {
+                            margin-right: 10px;
+                            font-size: 20px;
+                        }
+                    }
+                }
+                
+            }
+            .box-modalita {
+                margin-top: 20px;
+                margin-bottom: 20px;
+                background-color:#E2E6E9;
+                border-radius: 50px;
+                padding: 4px;
+                ul {
+                    margin: 0;
+                    li {
+                        list-style: none;
+                        font-size: 12px;
+                        padding: 10px 16px;
+                    }
+                    #active {
+                        font-size: 14px;
+                        background-color: white;
+                        border-radius: 50px;
+                        color:#125FCA;
+                    }
+                }
+            }
+            .cart-item {
+
+                li {
+                    padding: 0 8px;
+                    list-style: none;
+                    }
+
+                    .summary-left {
+                color: #125FCA;
+                }
+                .summary-right {
+                    .item-delete {
+                        color: #D50525;
+                    }
+                }
+            }
+
+            .cart-total {
+                padding-top: 10px;
+                border-top: 1px solid #e2e6e9;
             }
         }
 
