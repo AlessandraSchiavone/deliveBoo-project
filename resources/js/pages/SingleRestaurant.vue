@@ -7,8 +7,8 @@
         <div class="position-relative row d-flex justify-content-center">
             <div class="col-md-2">
                 <ul class="sticky-top category-list">
-                    <li v-for="category in filteredCategories" :key="`category-${category.id}`">
-                        <a :href="`#category-${category.id}`">{{category.name}}</a>
+                    <li v-for="category in filteredCategories" :key="`category-${category.id}`" @click="setActive(category.id)">
+                        <a :href="`#category-${category.id}`" :class="category.id == activeCategoryId ? 'active':''">{{category.name}}</a>
                     </li>
                 </ul>
             </div>
@@ -129,6 +129,7 @@ export default {
         return {
             restaurant: null,
             categories: [],
+            activeCategoryId: null,
             filteredCategories: [],
             popup: false,
             consegna: null,
@@ -151,24 +152,9 @@ export default {
         }
     },
     methods: {
-        // setActive(id) {
-        //     for (let i = 0; i < this.filteredCategories.length; i++) {
-        //         if (this.filteredCategories[i].id == id) {
-        //             this.filteredCategories[i] = {
-        //                 ...this.filteredCategories[i],
-        //                 active: true
-        //             }
-        //         } else {
-        //             this.filteredCategories[i] = {
-        //                 ...this.filteredCategories[i],
-        //                 active: false
-        //             }
-        //         }
-                
-        //     }
-        //     console.log(this.filteredCategories);
-        //     return this.filteredCategories;
-        // },
+        setActive(id) {
+            this.activeCategoryId = id;
+        },
         updateLocalStorage: function() {
             localStorage.setItem("cart", JSON.stringify(this.cart));
             localStorage.restaurant_id = this.restaurant.id;
