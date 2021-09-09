@@ -2454,6 +2454,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       restaurant: null,
       categories: [],
+      activeCategoryId: null,
       filteredCategories: [],
       popup: false,
       consegna: null,
@@ -2475,23 +2476,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    // setActive(id) {
-    //     for (let i = 0; i < this.filteredCategories.length; i++) {
-    //         if (this.filteredCategories[i].id == id) {
-    //             this.filteredCategories[i] = {
-    //                 ...this.filteredCategories[i],
-    //                 active: true
-    //             }
-    //         } else {
-    //             this.filteredCategories[i] = {
-    //                 ...this.filteredCategories[i],
-    //                 active: false
-    //             }
-    //         }
-    //     }
-    //     console.log(this.filteredCategories);
-    //     return this.filteredCategories;
-    // },
+    setActive: function setActive(id) {
+      this.activeCategoryId = id;
+    },
     updateLocalStorage: function updateLocalStorage() {
       localStorage.setItem("cart", JSON.stringify(this.cart));
       localStorage.restaurant_id = this.restaurant.id;
@@ -2696,7 +2683,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\n.jumbotron[data-v-b3c5cf30] {\n  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.425), rgba(0, 0, 0, 0)), url(" + escape(__webpack_require__(/*! ../assets/jumbotron.png */ "./resources/js/assets/jumbotron.png")) + ");\n  height: 650px;\n  background-size: cover;\n  border-radius: 0;\n  margin: 0;\n}\n.hover-none[data-v-b3c5cf30]:hover {\n  text-decoration: none;\n}\n.box[data-v-b3c5cf30] {\n  margin: -184px auto 20px auto;\n  height: 220px;\n  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);\n  max-width: 800px;\n  padding: 16px;\n  background-color: white;\n}\n.box h1[data-v-b3c5cf30] {\n  color: #f36d00;\n  font-weight: 700;\n  font-size: 45px;\n  line-height: 1.17;\n  margin: 12px 0;\n}\n.box h2[data-v-b3c5cf30] {\n  color: #5e6b77;\n  font-size: 22px;\n  line-height: 1.4;\n}\n.box div[data-v-b3c5cf30] {\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  background-color: #f36d00;\n  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.18);\n  margin: 12px 0;\n}\n.box div i[data-v-b3c5cf30] {\n  color: white;\n  font-size: 25px;\n}\n#cuisines[data-v-b3c5cf30] {\n  padding: 30px;\n}\n#cuisines h2[data-v-b3c5cf30] {\n  font-size: 35px;\n  font-weight: bold;\n}\n#cuisines h6[data-v-b3c5cf30] {\n  margin-bottom: 10px;\n}\n#cuisines .btn-next[data-v-b3c5cf30], #cuisines .btn-prev[data-v-b3c5cf30] {\n  height: 50px;\n  width: 50px;\n  background-color: white;\n  color: black;\n  border-radius: 50%;\n  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);\n}\n#cuisines .btn[data-v-b3c5cf30] {\n  padding: 0;\n}\n#cuisines .btn-circle[data-v-b3c5cf30] {\n  width: 10px;\n  height: 10px;\n  border-radius: 50%;\n  background-color: lightgrey;\n}\n#cuisines .btn-active[data-v-b3c5cf30] {\n  background-color: #525557;\n}\n.box-card[data-v-b3c5cf30] {\n  background-color: transparent;\n}\n.box-card .cuisine-card[data-v-b3c5cf30] {\n  width: calc(100% / 6 - 20px);\n  height: 150px;\n  margin: 10px 0px;\n}\n.box-card .cuisine-card[data-v-b3c5cf30]:hover {\n  cursor: pointer;\n}\n.box-card .cuisine-card img[data-v-b3c5cf30] {\n  width: 70%;\n}\n.box-card .cuisine-card h3[data-v-b3c5cf30] {\n  padding: 10px 0px;\n  font-size: 16px;\n  font-weight: 300;\n  color: #5e6b77;\n}\n.box-card .restaurant-card[data-v-b3c5cf30] {\n  margin: 10px;\n  width: calc(100% / 3 - 20px);\n}\n.box-card .restaurant-card .card-link[data-v-b3c5cf30] {\n  color: black;\n}\n.box-card .restaurant-card .card-link[data-v-b3c5cf30]:hover {\n  color: black;\n}\n.box-card .restaurant-card img[data-v-b3c5cf30] {\n  width: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  background-color: lightgrey;\n  height: 130px;\n}\n.box-card .restaurant-card h3[data-v-b3c5cf30] {\n  padding-top: 15px;\n  font-size: 20px;\n  font-weight: bold;\n}\n.box-card .restaurant-card .badge-icon[data-v-b3c5cf30]::after {\n  content: \"\\2022\";\n  display: inline-block;\n  color: #727475;\n}\n#restaurants[data-v-b3c5cf30] {\n  background-color: #FFEAE4;\n  padding: 30px 0;\n}\n#restaurants h2[data-v-b3c5cf30] {\n  margin: 30px 10px;\n  font-size: 35px;\n  font-weight: bold;\n}\n.box-app .row .app-img[data-v-b3c5cf30] {\n  text-align: center;\n  height: 350px;\n}\n.box-app .row .app-img img[data-v-b3c5cf30] {\n  height: 100%;\n}\n.box-app .row .app-info[data-v-b3c5cf30] {\n  text-align: center;\n}\n.box-app .row .app-info svg[data-v-b3c5cf30]:hover {\n  cursor: pointer;\n}\n.box-app .row .app-info p[data-v-b3c5cf30] {\n  margin-bottom: 0;\n  font-size: 32px;\n  font-weight: bold;\n}", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n.jumbotron[data-v-b3c5cf30] {\n  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.425), rgba(0, 0, 0, 0)), url(" + escape(__webpack_require__(/*! ../assets/jumbotron.png */ "./resources/js/assets/jumbotron.png")) + ");\n  height: 650px;\n  background-size: cover;\n  border-radius: 0;\n  margin: 0;\n}\n.hover-none[data-v-b3c5cf30]:hover {\n  text-decoration: none;\n}\n.box[data-v-b3c5cf30] {\n  margin: -184px auto 20px auto;\n  height: 220px;\n  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);\n  max-width: 800px;\n  padding: 16px;\n  background-color: white;\n}\n.box h1[data-v-b3c5cf30] {\n  color: #f36d00;\n  font-weight: 700;\n  font-size: 45px;\n  line-height: 1.17;\n  margin: 12px 0;\n}\n.box h2[data-v-b3c5cf30] {\n  color: #5e6b77;\n  font-size: 22px;\n  line-height: 1.4;\n}\n.box div[data-v-b3c5cf30] {\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  background-color: #f36d00;\n  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.18);\n  margin: 12px 0;\n}\n.box div i[data-v-b3c5cf30] {\n  color: white;\n  font-size: 25px;\n}\n#cuisines[data-v-b3c5cf30] {\n  padding: 30px;\n}\n#cuisines h2[data-v-b3c5cf30] {\n  font-size: 35px;\n  font-weight: bold;\n}\n#cuisines h6[data-v-b3c5cf30] {\n  margin-bottom: 10px;\n}\n#cuisines .btn-next[data-v-b3c5cf30], #cuisines .btn-prev[data-v-b3c5cf30] {\n  height: 50px;\n  width: 50px;\n  background-color: white;\n  color: black;\n  border-radius: 50%;\n  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);\n}\n#cuisines .btn[data-v-b3c5cf30] {\n  padding: 0;\n}\n#cuisines .btn-circle[data-v-b3c5cf30] {\n  width: 10px;\n  height: 10px;\n  border-radius: 50%;\n  background-color: lightgrey;\n}\n#cuisines .btn-active[data-v-b3c5cf30] {\n  background-color: #525557;\n}\n.box-card[data-v-b3c5cf30] {\n  background-color: transparent;\n}\n.box-card .cuisine-card[data-v-b3c5cf30] {\n  width: calc(100% / 6 - 20px);\n  height: 150px;\n  margin: 10px 0px;\n}\n.box-card .cuisine-card[data-v-b3c5cf30]:hover {\n  cursor: pointer;\n}\n.box-card .cuisine-card img[data-v-b3c5cf30] {\n  width: 70%;\n}\n.box-card .cuisine-card h3[data-v-b3c5cf30] {\n  padding: 10px 0px;\n  font-size: 16px;\n  color: #5e6b77;\n}\n.box-card .cuisine-card h3.active[data-v-b3c5cf30] {\n  text-decoration: underline;\n  font-weight: bold;\n  color: #29bb35;\n}\n.box-card .restaurant-card[data-v-b3c5cf30] {\n  margin: 10px;\n  width: calc(100% / 3 - 20px);\n}\n.box-card .restaurant-card .card-link[data-v-b3c5cf30] {\n  color: black;\n}\n.box-card .restaurant-card .card-link[data-v-b3c5cf30]:hover {\n  color: black;\n}\n.box-card .restaurant-card img[data-v-b3c5cf30] {\n  width: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  background-color: lightgrey;\n  height: 130px;\n}\n.box-card .restaurant-card h3[data-v-b3c5cf30] {\n  padding-top: 15px;\n  font-size: 20px;\n  font-weight: bold;\n}\n.box-card .restaurant-card .badge-icon[data-v-b3c5cf30]::after {\n  content: \"\\2022\";\n  display: inline-block;\n  color: #727475;\n}\n#restaurants[data-v-b3c5cf30] {\n  background-color: #FFEAE4;\n  padding: 30px 0;\n}\n#restaurants h2[data-v-b3c5cf30] {\n  margin: 30px 10px;\n  font-size: 35px;\n  font-weight: bold;\n}\n.box-app .row .app-img[data-v-b3c5cf30] {\n  text-align: center;\n  height: 350px;\n}\n.box-app .row .app-img img[data-v-b3c5cf30] {\n  height: 100%;\n}\n.box-app .row .app-info[data-v-b3c5cf30] {\n  text-align: center;\n}\n.box-app .row .app-info svg[data-v-b3c5cf30]:hover {\n  cursor: pointer;\n}\n.box-app .row .app-info p[data-v-b3c5cf30] {\n  margin-bottom: 0;\n  font-size: 32px;\n  font-weight: bold;\n}", ""]);
 
 // exports
 
@@ -4274,7 +4261,15 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _c("h3", [_vm._v(_vm._s(cuisine.name))])
+                  _c(
+                    "h3",
+                    {
+                      class: _vm.filteredCuisines.includes(cuisine.id)
+                        ? "active"
+                        : ""
+                    },
+                    [_vm._v(_vm._s(cuisine.name))]
+                  )
                 ]
               )
             }),
@@ -4911,11 +4906,30 @@ var render = function() {
                   "ul",
                   { staticClass: "sticky-top category-list" },
                   _vm._l(_vm.filteredCategories, function(category) {
-                    return _c("li", { key: "category-" + category.id }, [
-                      _c("a", { attrs: { href: "#category-" + category.id } }, [
-                        _vm._v(_vm._s(category.name))
-                      ])
-                    ])
+                    return _c(
+                      "li",
+                      {
+                        key: "category-" + category.id,
+                        on: {
+                          click: function($event) {
+                            return _vm.setActive(category.id)
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "a",
+                          {
+                            class:
+                              category.id == _vm.activeCategoryId
+                                ? "active"
+                                : "",
+                            attrs: { href: "#category-" + category.id }
+                          },
+                          [_vm._v(_vm._s(category.name))]
+                        )
+                      ]
+                    )
                   }),
                   0
                 )

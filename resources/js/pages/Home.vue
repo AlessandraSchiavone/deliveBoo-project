@@ -21,7 +21,7 @@
                         :key="`cusine-${cuisine.id}`"
                         @click="filterCuisine(cuisine)">
                         <img :src="require(`../assets/${cuisine.name}.png`)" :alt="cuisine.name">
-                        <h3>{{cuisine.name}}</h3>
+                        <h3 :class=" (filteredCuisines.includes(cuisine.id)) ? 'active': ''">{{cuisine.name}}</h3>
                     </div> 
                     <button 
                     v-show="current_page < last_page"
@@ -351,8 +351,12 @@ export default {
             h3{
                 padding:10px 0px;
                 font-size:16px;
-                font-weight:300;
                 color:#5e6b77;
+                &.active {
+                    text-decoration: underline;
+                    font-weight: bold;
+                    color: #29bb35;
+                }
             }
         }
         .restaurant-card{
