@@ -2177,17 +2177,90 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Home',
   data: function data() {
     return {
       restaurants: [],
       cuisines: [],
+      filteredRestaurants: [],
+      filteredCuisines: [],
       current_page: 1,
       last_page: 1
     };
   },
   methods: {
+    filterCuisine: function filterCuisine(item) {
+      var exist = false;
+
+      for (var i = 0; i < this.filteredCuisines.length; i++) {
+        var cuisine = this.filteredCuisines[i];
+
+        if (cuisine == item.id) {
+          exist = true;
+          this.filteredCuisines.splice(i, 1);
+        }
+      }
+
+      if (!exist) {
+        this.filteredCuisines.push(item.id);
+      }
+
+      console.log(this.filteredCuisines);
+
+      for (var k = 0; k < this.restaurants.length; k++) {
+        var cuisines = this.restaurants[k].cuisines; // console.log(cuisines);
+
+        var toggle = false;
+
+        for (var n = 0; n < cuisines.length; n++) {
+          if (this.filteredCuisines.includes(cuisines[n].id)) {
+            toggle = true;
+          } // else {
+
+        }
+
+        if (!this.filteredRestaurants.includes(this.restaurants[k]) && toggle) {
+          this.filteredRestaurants.push(this.restaurants[k]);
+          console.log('push');
+        } else if (this.filteredRestaurants.includes(this.restaurants[k]) && !toggle) {
+          for (var j = 0; j < this.filteredRestaurants.length; j++) {
+            var element = this.filteredRestaurants[j];
+
+            if (element.id == this.restaurants[k].id) {
+              this.filteredRestaurants.splice(j, 1);
+              console.log('splice');
+            }
+          }
+        }
+
+        console.log(toggle);
+      }
+
+      console.log(this.filteredRestaurants);
+    },
     getRestaurants: function getRestaurants() {
       var _this = this;
 
@@ -4186,7 +4259,12 @@ var render = function() {
                 "div",
                 {
                   key: "cusine-" + cuisine.id,
-                  staticClass: "cuisine-card text-center "
+                  staticClass: "cuisine-card text-center ",
+                  on: {
+                    click: function($event) {
+                      return _vm.filterCuisine(cuisine)
+                    }
+                  }
                 },
                 [
                   _c("img", {
@@ -4249,82 +4327,161 @@ var render = function() {
       _c("div", { staticClass: "container" }, [
         _c("h2", [_vm._v("I nostri ristoranti ")]),
         _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              " container box-card d-flex flex-wrap justify-content-center"
-          },
-          _vm._l(_vm.restaurants, function(restaurant) {
-            return _c(
+        _vm.filteredRestaurants.length == 0
+          ? _c(
               "div",
               {
-                key: "restaurant-" + restaurant.id,
-                staticClass: "restaurant-card"
+                staticClass:
+                  " container box-card d-flex flex-wrap justify-content-center"
               },
-              [
-                _c(
-                  "router-link",
+              _vm._l(_vm.restaurants, function(restaurant) {
+                return _c(
+                  "div",
                   {
-                    staticClass: "card-link",
-                    attrs: {
-                      to: {
-                        name: "single-restaurant",
-                        params: { slug: restaurant.slug }
-                      }
-                    }
+                    key: "restaurant-" + restaurant.id,
+                    staticClass: "restaurant-card"
                   },
                   [
-                    _c("img", {
-                      staticClass: "text-center",
-                      attrs: { src: restaurant.img, alt: restaurant.name }
-                    }),
-                    _vm._v(" "),
-                    _c("h3", [_vm._v(_vm._s(restaurant.name))]),
-                    _vm._v(" "),
-                    _c("h6", [
-                      _c("i", { staticClass: "fas fa-map-marker-alt" }),
-                      _vm._v(" " + _vm._s(restaurant.location))
-                    ]),
-                    _vm._v(" "),
                     _c(
-                      "h6",
+                      "router-link",
+                      {
+                        staticClass: "card-link",
+                        attrs: {
+                          to: {
+                            name: "single-restaurant",
+                            params: { slug: restaurant.slug }
+                          }
+                        }
+                      },
                       [
-                        _c("i", { staticClass: "fas fa-shipping-fast" }),
-                        _vm._v(
-                          "\n                            Consegna: " +
-                            _vm._s(
-                              restaurant.price_shipping == 0
-                                ? "Gratis"
-                                : restaurant.price_shipping + " €"
-                            ) +
-                            "\n                            "
+                        _c("img", {
+                          staticClass: "text-center",
+                          attrs: { src: restaurant.img, alt: restaurant.name }
+                        }),
+                        _vm._v(" "),
+                        _c("h3", [_vm._v(_vm._s(restaurant.name))]),
+                        _vm._v(" "),
+                        _c("h6", [
+                          _c("i", { staticClass: "fas fa-map-marker-alt" }),
+                          _vm._v(" " + _vm._s(restaurant.location))
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "h6",
+                          [
+                            _c("i", { staticClass: "fas fa-shipping-fast" }),
+                            _vm._v(
+                              "\n                            Consegna: " +
+                                _vm._s(
+                                  restaurant.price_shipping == 0
+                                    ? "Gratis"
+                                    : restaurant.price_shipping + " €"
+                                ) +
+                                "\n                            "
+                            ),
+                            _c("span", { staticClass: "badge-icon" }),
+                            _vm._v(
+                              " \n                            Fascia prezzo:\n                            "
+                            ),
+                            _vm._l(restaurant.price_rating, function(n) {
+                              return _c("span", { key: n }, [_vm._v("€")])
+                            })
+                          ],
+                          2
                         ),
-                        _c("span", { staticClass: "badge-icon" }),
-                        _vm._v(
-                          " \n                            Fascia prezzo:\n                            "
-                        ),
-                        _vm._l(restaurant.price_rating, function(n) {
-                          return _c("span", { key: n }, [_vm._v("€")])
-                        })
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c("h6", [
-                      _c("i", { staticClass: "fas fa-clock" }),
-                      _vm._v(
-                        " Orario apertura: " + _vm._s(restaurant.opening_time)
-                      )
-                    ])
-                  ]
+                        _vm._v(" "),
+                        _c("h6", [
+                          _c("i", { staticClass: "fas fa-clock" }),
+                          _vm._v(
+                            " Orario apertura: " +
+                              _vm._s(restaurant.opening_time)
+                          )
+                        ])
+                      ]
+                    )
+                  ],
+                  1
                 )
-              ],
-              1
+              }),
+              0
             )
-          }),
-          0
-        )
+          : _c(
+              "div",
+              {
+                staticClass:
+                  " container box-card d-flex flex-wrap justify-content-center"
+              },
+              _vm._l(_vm.filteredRestaurants, function(restaurant) {
+                return _c(
+                  "div",
+                  {
+                    key: "restaurant-" + restaurant.id,
+                    staticClass: "restaurant-card"
+                  },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "card-link",
+                        attrs: {
+                          to: {
+                            name: "single-restaurant",
+                            params: { slug: restaurant.slug }
+                          }
+                        }
+                      },
+                      [
+                        _c("img", {
+                          staticClass: "text-center",
+                          attrs: { src: restaurant.img, alt: restaurant.name }
+                        }),
+                        _vm._v(" "),
+                        _c("h3", [_vm._v(_vm._s(restaurant.name))]),
+                        _vm._v(" "),
+                        _c("h6", [
+                          _c("i", { staticClass: "fas fa-map-marker-alt" }),
+                          _vm._v(" " + _vm._s(restaurant.location))
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "h6",
+                          [
+                            _c("i", { staticClass: "fas fa-shipping-fast" }),
+                            _vm._v(
+                              "\n                            Consegna: " +
+                                _vm._s(
+                                  restaurant.price_shipping == 0
+                                    ? "Gratis"
+                                    : restaurant.price_shipping + " €"
+                                ) +
+                                "\n                            "
+                            ),
+                            _c("span", { staticClass: "badge-icon" }),
+                            _vm._v(
+                              " \n                            Fascia prezzo:\n                            "
+                            ),
+                            _vm._l(restaurant.price_rating, function(n) {
+                              return _c("span", { key: n }, [_vm._v("€")])
+                            })
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _c("h6", [
+                          _c("i", { staticClass: "fas fa-clock" }),
+                          _vm._v(
+                            " Orario apertura: " +
+                              _vm._s(restaurant.opening_time)
+                          )
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                )
+              }),
+              0
+            )
       ])
     ]),
     _vm._v(" "),
@@ -21276,7 +21433,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Utente\Desktop\classe34\deliveBoo-project\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\BooleanClass34\Proj34\deliveBoo-project\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })

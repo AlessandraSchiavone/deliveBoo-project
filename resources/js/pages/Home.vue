@@ -18,7 +18,8 @@
                     ><i class="fas fa-chevron-left"></i></button>
                     <div class="cuisine-card text-center " 
                         v-for="cuisine in cuisines"
-                        :key="`cusine-${cuisine.id}`">
+                        :key="`cusine-${cuisine.id}`"
+                        @click="filterCuisine(cuisine)">
                         <img :src="require(`../assets/${cuisine.name}.png`)" :alt="cuisine.name">
                         <h3>{{cuisine.name}}</h3>
                     </div> 
@@ -48,7 +49,7 @@
         <div id="restaurants" >
             <div class="container">
                 <h2>I nostri ristoranti </h2>
-                <div class=" container box-card d-flex flex-wrap justify-content-center" >
+                <div class=" container box-card d-flex flex-wrap justify-content-center" v-if="filteredRestaurants.length == 0">
                     <div class="restaurant-card"
                         v-for="restaurant in restaurants"
                         :key="`restaurant-${restaurant.id}`">
@@ -68,6 +69,27 @@
                         </router-link>       
                     </div>  
                       
+                </div>
+                <div class=" container box-card d-flex flex-wrap justify-content-center" v-else>
+                    <div class="restaurant-card"
+                        v-for="restaurant in filteredRestaurants"
+                        :key="`restaurant-${restaurant.id}`">
+                        <router-link :to="{ name:'single-restaurant', params: { slug: restaurant.slug  } }" class="card-link">
+                            <img class="text-center" :src="restaurant.img" :alt="restaurant.name">
+                            <h3>{{restaurant.name}}</h3>
+                            <h6><i class="fas fa-map-marker-alt"></i> {{restaurant.location}}</h6>
+                            <h6>
+                                <i class="fas fa-shipping-fast"></i>
+                                Consegna: {{ restaurant.price_shipping == 0 ? 'Gratis': `${restaurant.price_shipping} &euro;`}}
+                                <span class="badge-icon"></span> 
+                                Fascia prezzo:
+                                <span v-for="n in restaurant.price_rating"
+                                :key="n">&euro;</span>
+                            </h6> 
+                            <h6><i class="fas fa-clock"></i> Orario apertura: {{restaurant.opening_time}}</h6>
+                        </router-link>       
+                    </div>  
+
                 </div>
             </div>
         </div>
@@ -144,13 +166,55 @@ export default {
     data() {
         return {
             restaurants: [],
-            cuisines: [], 
+            cuisines: [],
+            filteredRestaurants: [],
+            filteredCuisines: [], 
             current_page: 1,
             last_page: 1,
 
         }
     },
     methods: {
+        filterCuisine(item) {
+            let exist = false;
+            for (let i = 0; i < this.filteredCuisines.length; i++) {
+                const cuisine = this.filteredCuisines[i];
+                if (cuisine == item.id) {
+                    exist = true;
+                    this.filteredCuisines.splice(i, 1);
+                }
+            }
+            if (!exist) {
+                this.filteredCuisines.push(item.id);
+            }
+            console.log(this.filteredCuisines);
+            for (let k = 0; k < this.restaurants.length; k++) {
+                const cuisines = this.restaurants[k].cuisines;
+                // console.log(cuisines);
+                let toggle = false;
+                for (let n = 0; n < cuisines.length; n++) {
+                    if (this.filteredCuisines.includes(cuisines[n].id)) {
+                        toggle = true;
+                    }
+                    // else {
+                        
+                }
+                if (!this.filteredRestaurants.includes(this.restaurants[k]) && toggle) {
+                    this.filteredRestaurants.push(this.restaurants[k]);
+                    console.log('push');
+                } else if (this.filteredRestaurants.includes(this.restaurants[k]) && !toggle) {
+                    for (let j = 0; j < this.filteredRestaurants.length; j++) {
+                        const element = this.filteredRestaurants[j];
+                        if (element.id == this.restaurants[k].id) {
+                            this.filteredRestaurants.splice(j, 1);
+                            console.log('splice');
+                        }
+                    }
+                }
+                console.log(toggle);
+            }
+            console.log(this.filteredRestaurants);
+        },
         getRestaurants() {
             axios
                 .get('http://127.0.0.1:8000/api/restaurant')
