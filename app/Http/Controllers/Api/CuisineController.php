@@ -9,7 +9,7 @@ use App\Cuisine;
 class CuisineController extends Controller
 {
     public function index() {
-        $cuisines = Cuisine::all();
+        $cuisines = Cuisine::paginate(6);
 
         // $result = [
         //     'success' => true,

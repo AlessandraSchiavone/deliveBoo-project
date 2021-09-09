@@ -25,7 +25,7 @@
                 </ul>
             </div>
             <div class="links">
-                <h3>Aiuto</h3>
+                <h3>Servizio Clienti</h3>
                 <ul>
                     <li><a href="#">Contatti</a></li>
                     <li><a href="#">FAQ</a></li>
@@ -34,7 +34,7 @@
                 </ul>
             </div>
             <div class="links">
-                <h3>Seguici</h3>
+                <h3>Seguici su:</h3>
                 <ul class="d-flex">
                     <li><a href="#"><i class="fab fa-facebook"></i></a></li>
                     <li><a href="#"><i class="fab fa-twitter"></i></a></li>
@@ -55,16 +55,28 @@ export default {
     .footer {
         padding: 20px 0;
         background-color: #E2E6E9;
+        h3{
+            margin-top:20px;
+            font-weight:bold;
+        }
         ul {
             list-style: none;
+            margin-top:10px;
             margin-bottom: 0;
-            a {
-                color: #2a3846;
-                i {
-                    font-size: 20px;
-                    margin-right: 20px;
-                }
+            li{
+                padding:5px 0px;
+                a {
+                    color: #2a3846;
+                    &:hover{
+                        color:#537DB0;
+                    }
+                    i {
+                        font-size: 25px;
+                        margin:0px 10px;
+                    }
+                }  
             }
+            
         }
     }
 </style>
