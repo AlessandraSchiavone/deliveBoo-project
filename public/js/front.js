@@ -2481,7 +2481,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateLocalStorage: function updateLocalStorage() {
       localStorage.setItem("cart", JSON.stringify(this.cart));
-      localStorage.restaurant_id = this.restaurant.id;
+      localStorage.restaurant_id = this.restaurant.id; // localStorage.clear();
     },
     showPopup: function showPopup(dish) {
       this.popup = true;
@@ -2492,6 +2492,19 @@ __webpack_require__.r(__webpack_exports__);
     },
     minusOne: function minusOne() {
       if (this.quantity > 1) this.quantity -= 1;
+    },
+    checkCart: function checkCart() {
+      if (!localStorage.cart || localStorage.restaurant_id == this.restaurant.id) {
+        this.addCart();
+      } else {
+        var yes = confirm('Vuoi creare un nuovo carrello?\nQuello precedente verrà eliminato.');
+
+        if (yes) {
+          this.addCart();
+        } else {
+          this.closePopup();
+        }
+      }
     },
     addCart: function addCart() {
       var obj = {
@@ -5218,7 +5231,7 @@ var render = function() {
                               {
                                 staticClass:
                                   "btn d-flex justify-content-between font-weight-bold add-cart",
-                                on: { click: _vm.addCart }
+                                on: { click: _vm.checkCart }
                               },
                               [
                                 _c("span", [_vm._v("Aggiungi all' ordine")]),

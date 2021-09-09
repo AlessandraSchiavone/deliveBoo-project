@@ -108,7 +108,7 @@
                         <i class="fas fa-plus" @click="plusOne"></i>
                     </div>
                     <div class="button-container">
-                        <button class="btn d-flex justify-content-between font-weight-bold add-cart" @click="addCart"><span>Aggiungi all' ordine</span><span>{{ (singleDish.price * quantity).toFixed(2) }} &#8364;</span></button>
+                        <button class="btn d-flex justify-content-between font-weight-bold add-cart" @click="checkCart"><span>Aggiungi all' ordine</span><span>{{ (singleDish.price * quantity).toFixed(2) }} &#8364;</span></button>
                     </div>
                     <span class="close-popup" @click="closePopup"><i class="fas fa-times"></i></span>
                 </div>
@@ -158,6 +158,7 @@ export default {
         updateLocalStorage: function() {
             localStorage.setItem("cart", JSON.stringify(this.cart));
             localStorage.restaurant_id = this.restaurant.id;
+            // localStorage.clear();
         },
         showPopup(dish) {
             this.popup = true;
@@ -170,6 +171,19 @@ export default {
         minusOne: function() {
             if (this.quantity > 1) this.quantity -= 1;
            
+        },
+        checkCart() {
+            if (!localStorage.cart || localStorage.restaurant_id == this.restaurant.id) {
+                this.addCart();
+            } 
+            else {
+                let yes = confirm('Vuoi creare un nuovo carrello?\nQuello precedente verrà eliminato.');
+                if (yes) {
+                    this.addCart();
+                } else {
+                    this.closePopup();
+                }
+            }
         },
         addCart() {
             let obj = {
