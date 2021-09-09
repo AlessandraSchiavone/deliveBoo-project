@@ -2173,6 +2173,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Home',
   data: function data() {
@@ -2180,7 +2193,9 @@ __webpack_require__.r(__webpack_exports__);
       restaurants: [],
       cuisines: [],
       filteredCuisines: [],
-      filteredRestaurants: []
+      filteredRestaurants: [],
+      current_page: 1,
+      last_page: 1
     };
   },
   methods: {
@@ -4199,33 +4214,77 @@ var render = function() {
           "div",
           {
             staticClass:
-              "container box-card d-flex flex-wrap justify-content-center"
+              "container box-card d-flex flex-wrap justify-content-center align-items-center"
           },
-          _vm._l(_vm.cuisines, function(cuisine) {
-            return _c(
-              "div",
+          [
+            _c(
+              "button",
               {
-                key: "cusine-" + cuisine.id,
-                staticClass: "cuisine-card text-center",
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.current_page > 1,
+                    expression: "current_page > 1"
+                  }
+                ],
+                staticClass: "btn btn-prev mr-2",
                 on: {
                   click: function($event) {
-                    return _vm.filterCuisine(cuisine)
+                    return _vm.getCuisines(_vm.current_page - 1)
                   }
                 }
               },
-              [
-                _c("img", {
-                  attrs: {
-                    src: __webpack_require__("./resources/js/assets sync recursive ^\\.\\/.*\\.png$")("./" + cuisine.name + ".png"),
-                    alt: cuisine.name
+              [_c("i", { staticClass: "fas fa-chevron-left" })]
+            ),
+            _vm._v(" "),
+            _vm._l(_vm.cuisines, function(cuisine) {
+              return _c(
+                "div",
+                {
+                  key: "cusine-" + cuisine.id,
+                  staticClass: "cuisine-card text-center ",
+                  on: {
+                    click: function($event) {
+                      return _vm.filterCuisine(cuisine)
+                    }
                   }
-                }),
-                _vm._v(" "),
-                _c("h3", [_vm._v(_vm._s(cuisine.name))])
-              ]
+                },
+                [
+                  _c("img", {
+                    attrs: {
+                      src: __webpack_require__("./resources/js/assets sync recursive ^\\.\\/.*\\.png$")("./" + cuisine.name + ".png"),
+                      alt: cuisine.name
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("h3", [_vm._v(_vm._s(cuisine.name))])
+                ]
+              )
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.current_page < _vm.last_page,
+                    expression: "current_page < last_page"
+                  }
+                ],
+                staticClass: "btn btn-next",
+                on: {
+                  click: function($event) {
+                    return _vm.getCuisines(_vm.current_page + 1)
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fas fa-chevron-right" })]
             )
-          }),
-          0
+          ],
+          2
         )
       ])
     ]),

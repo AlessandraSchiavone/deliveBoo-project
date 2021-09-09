@@ -10,13 +10,26 @@
             <div class="container">
               <h2>Le cucine più amate</h2>
               <h6>Trova le cucine più amate dai ristoranti nella tua zona e ordina online a domicilio.</h6>  
-              <div class="container box-card d-flex flex-wrap justify-content-center">
-                 <div class="cuisine-card text-center"
-                    v-for="cuisine in cuisines" :key="`cusine-${cuisine.id}`"
-                    @click="filterCuisine(cuisine)">
-                    <img :src="require(`../assets/${cuisine.name}.png`)" :alt="cuisine.name">
-                    <h3>{{cuisine.name}}</h3>
-                </div> 
+              <div class="container box-card d-flex flex-wrap justify-content-center align-items-center">
+                  <button 
+                    v-show="current_page > 1"
+                    class="btn btn-prev mr-2"
+                    @click="getCuisines(current_page - 1)"
+                    ><i class="fas fa-chevron-left"></i></button>
+                    <div class="cuisine-card text-center " 
+                        v-for="cuisine in cuisines"
+                        :key="`cusine-${cuisine.id}`"
+                        @click="filterCuisine(cuisine)">
+                        <img :src="require(`../assets/${cuisine.name}.png`)" :alt="cuisine.name">
+                        <h3>{{cuisine.name}}</h3>
+                    </div> 
+                    <button 
+                    v-show="current_page < last_page"
+                    class="btn btn-next"
+                    @click="getCuisines(current_page + 1)"
+                    >
+                    <i class="fas fa-chevron-right"></i>
+                    </button>
               </div>
             </div>    
         </div>
@@ -142,7 +155,9 @@ export default {
             restaurants: [],
             cuisines: [],
             filteredCuisines: [],
-            filteredRestaurants: []
+            filteredRestaurants: [],
+            current_page: 1,
+            last_page: 1,
         }
     },
     methods: {
