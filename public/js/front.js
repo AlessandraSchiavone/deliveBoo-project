@@ -2633,6 +2633,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2734,11 +2736,19 @@ __webpack_require__.r(__webpack_exports__);
         this.updateLocalStorage();
       } else {
         this.removeCart(i);
+
+        if (this.cart.length == 0) {
+          localStorage.clear();
+        }
       }
     },
     removeCart: function removeCart(i) {
       this.cart.splice(i, 1);
       this.updateLocalStorage();
+
+      if (this.cart.length == 0) {
+        localStorage.clear();
+      }
     },
     total: function total() {
       var total = 0;
@@ -2926,7 +2936,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "section .jumbotron[data-v-2ff820ae] {\n  height: 380px;\n  background-size: cover;\n  border-radius: 0;\n  margin: 0;\n  padding: 0;\n  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.425), rgba(0, 0, 0, 0));\n  background-color: transparent;\n}\nsection .jumbotron img[data-v-2ff820ae] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  z-index: -1;\n  position: relative;\n  filter: blur(1px);\n}\nsection .sticky-top[data-v-2ff820ae] {\n  z-index: 0;\n}\nsection .category-list[data-v-2ff820ae] {\n  padding-top: 30px;\n  margin-left: -20px;\n  list-style: none;\n}\nsection .category-list a[data-v-2ff820ae] {\n  border-left: 1px solid #c5ccd3;\n  display: block;\n  overflow: hidden;\n  padding: 10px 0 10px 5px;\n  text-decoration: none;\n  color: #5e6b77;\n}\nsection .category-list a[data-v-2ff820ae]:hover, section .category-list a.active[data-v-2ff820ae] {\n  border-left: 2px solid black;\n  font-weight: bold;\n  color: black;\n}\nsection .box .box-top[data-v-2ff820ae] {\n  background-color: white;\n  margin: -80px 10px 50px;\n  border-radius: 4px;\n  padding: 0;\n}\nsection .box .box-top h2[data-v-2ff820ae] {\n  font-weight: bold;\n}\nsection .box .box-top .euro[data-v-2ff820ae] {\n  color: #F36D00;\n  font-weight: bold;\n}\nsection .menu-card[data-v-2ff820ae] {\n  background-color: white;\n  border: 1px solid #e2e6e9;\n  margin: 0 10px 10px;\n}\nsection .menu-card.hover[data-v-2ff820ae]:hover {\n  cursor: pointer;\n}\nsection .menu-card h5[data-v-2ff820ae] {\n  font-weight: bold;\n}\nsection .menu-card h6[data-v-2ff820ae] {\n  color: #4764CF;\n}\nsection .popup[data-v-2ff820ae] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.151);\n}\nsection .popup .popup-item[data-v-2ff820ae] {\n  position: relative;\n  width: 20%;\n  background-color: white;\n  padding-top: 30px;\n  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);\n  z-index: 1050;\n}\nsection .popup .popup-item .close-popup[data-v-2ff820ae] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  padding: 10px 20px;\n  font-size: 18px;\n}\nsection .popup .popup-item .close-popup[data-v-2ff820ae]:hover {\n  cursor: pointer;\n}\nsection .popup .popup-item .button-container[data-v-2ff820ae] {\n  box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.12);\n  padding: 24px;\n}\nsection .popup .popup-item .button-container .add-cart[data-v-2ff820ae] {\n  background-color: #f36d00;\n  color: white;\n  width: 100%;\n}\nsection .popup .popup-item .popup-quantity[data-v-2ff820ae] {\n  padding: 0 10px;\n  font-size: 20px;\n}\nsection .consegna[data-v-2ff820ae] {\n  background-color: #F1F2F4;\n  width: 60%;\n  margin: auto;\n  margin-top: 20px;\n  box-shadow: 1px 2px 3px #e2e6e9;\n  padding: 5px 2px;\n}\nsection .consegna h5[data-v-2ff820ae], section .consegna h6[data-v-2ff820ae] {\n  margin: 0;\n}\nsection .consegna h5[data-v-2ff820ae] {\n  font-weight: bold;\n}\nsection .cart-summary[data-v-2ff820ae] {\n  padding: 20px;\n}\nsection .cart-summary h3[data-v-2ff820ae] {\n  font-weight: bold;\n  padding-bottom: 10px;\n  border-bottom: 1px solid #e2e6e9;\n}\nsection .cart-summary .box-allergy[data-v-2ff820ae] {\n  background-color: #F1F2F4;\n  padding: 10px;\n}\nsection .cart-summary .box-allergy ul[data-v-2ff820ae] {\n  margin: 0;\n}\nsection .cart-summary .box-allergy ul li[data-v-2ff820ae] {\n  color: #125FCA;\n  list-style: none;\n  font-size: 14px;\n}\nsection .cart-summary .box-allergy ul li i[data-v-2ff820ae] {\n  margin-right: 10px;\n  font-size: 20px;\n}\nsection .cart-summary .box-modalita[data-v-2ff820ae] {\n  margin-top: 20px;\n  margin-bottom: 20px;\n  background-color: #E2E6E9;\n  border-radius: 50px;\n  padding: 4px;\n}\nsection .cart-summary .box-modalita ul[data-v-2ff820ae] {\n  margin: 0;\n}\nsection .cart-summary .box-modalita ul li[data-v-2ff820ae] {\n  list-style: none;\n  font-size: 12px;\n  padding: 10px 16px;\n}\nsection .cart-summary .box-modalita ul #active[data-v-2ff820ae] {\n  font-size: 14px;\n  background-color: white;\n  border-radius: 50px;\n  color: #125FCA;\n}\nsection .cart-summary .cart-item li[data-v-2ff820ae] {\n  padding: 0 5px;\n  list-style: none;\n}\nsection .cart-summary .cart-item .summary-left[data-v-2ff820ae] {\n  color: #125FCA;\n}\nsection .cart-summary .cart-item .summary-right .item-delete[data-v-2ff820ae] {\n  color: #D50525;\n}\nsection .cart-summary .cart-total[data-v-2ff820ae] {\n  padding-top: 10px;\n  border-top: 1px solid #e2e6e9;\n}", ""]);
+exports.push([module.i, "section .btn[data-v-2ff820ae]:focus {\n  box-shadow: none;\n}\nsection .jumbotron[data-v-2ff820ae] {\n  height: 380px;\n  background-size: cover;\n  border-radius: 0;\n  margin: 0;\n  padding: 0;\n  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.425), rgba(0, 0, 0, 0));\n  background-color: transparent;\n}\nsection .jumbotron img[data-v-2ff820ae] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  z-index: -1;\n  position: relative;\n  filter: blur(1px);\n}\nsection .sticky-top[data-v-2ff820ae] {\n  z-index: 0;\n}\nsection .category-list[data-v-2ff820ae] {\n  padding-top: 30px;\n  margin-left: -20px;\n  list-style: none;\n}\nsection .category-list a[data-v-2ff820ae] {\n  border-left: 1px solid #c5ccd3;\n  display: block;\n  overflow: hidden;\n  padding: 10px 0 10px 5px;\n  text-decoration: none;\n  color: #5e6b77;\n}\nsection .category-list a[data-v-2ff820ae]:hover, section .category-list a.active[data-v-2ff820ae] {\n  border-left: 2px solid black;\n  font-weight: bold;\n  color: black;\n}\nsection .box .box-top[data-v-2ff820ae] {\n  background-color: white;\n  margin: -80px 10px 50px;\n  border-radius: 4px;\n  padding: 0;\n}\nsection .box .box-top h2[data-v-2ff820ae] {\n  font-weight: bold;\n}\nsection .box .box-top .euro[data-v-2ff820ae] {\n  color: #F36D00;\n  font-weight: bold;\n}\nsection .menu-card[data-v-2ff820ae] {\n  background-color: white;\n  border: 1px solid #e2e6e9;\n  margin: 0 10px 10px;\n}\nsection .menu-card.hover[data-v-2ff820ae]:hover {\n  cursor: pointer;\n}\nsection .menu-card h5[data-v-2ff820ae] {\n  font-weight: bold;\n}\nsection .menu-card h6[data-v-2ff820ae] {\n  color: #4764CF;\n}\nsection .popup[data-v-2ff820ae] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.151);\n}\nsection .popup .popup-item[data-v-2ff820ae] {\n  position: relative;\n  width: 20%;\n  background-color: white;\n  padding-top: 30px;\n  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);\n  z-index: 1050;\n}\nsection .popup .popup-item .close-popup[data-v-2ff820ae] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  padding: 10px 20px;\n  font-size: 18px;\n}\nsection .popup .popup-item .close-popup[data-v-2ff820ae]:hover {\n  cursor: pointer;\n}\nsection .popup .popup-item .button-container[data-v-2ff820ae] {\n  box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.12);\n  padding: 24px;\n}\nsection .popup .popup-item .button-container .add-cart[data-v-2ff820ae] {\n  background-color: #f36d00;\n  color: white;\n  width: 100%;\n}\nsection .popup .popup-item .popup-quantity[data-v-2ff820ae] {\n  padding: 0 10px;\n  font-size: 20px;\n}\nsection .consegna[data-v-2ff820ae] {\n  background-color: #F1F2F4;\n  width: 60%;\n  margin: auto;\n  margin-top: 20px;\n  box-shadow: 1px 2px 3px #e2e6e9;\n  padding: 5px 2px;\n}\nsection .consegna h5[data-v-2ff820ae], section .consegna h6[data-v-2ff820ae] {\n  margin: 0;\n}\nsection .consegna h5[data-v-2ff820ae] {\n  font-weight: bold;\n}\nsection .cart-summary[data-v-2ff820ae] {\n  padding: 20px;\n}\nsection .cart-summary h3[data-v-2ff820ae] {\n  font-weight: bold;\n  padding-bottom: 10px;\n  border-bottom: 1px solid #e2e6e9;\n}\nsection .cart-summary .box-allergy[data-v-2ff820ae] {\n  background-color: #F1F2F4;\n  padding: 10px;\n}\nsection .cart-summary .box-allergy ul[data-v-2ff820ae] {\n  margin: 0;\n}\nsection .cart-summary .box-allergy ul li[data-v-2ff820ae] {\n  color: #125FCA;\n  list-style: none;\n  font-size: 14px;\n}\nsection .cart-summary .box-allergy ul li i[data-v-2ff820ae] {\n  margin-right: 10px;\n  font-size: 20px;\n}\nsection .cart-summary .box-modalita[data-v-2ff820ae] {\n  margin-top: 20px;\n  margin-bottom: 20px;\n  background-color: #E2E6E9;\n  border-radius: 50px;\n  padding: 4px;\n}\nsection .cart-summary .box-modalita ul[data-v-2ff820ae] {\n  margin: 0;\n}\nsection .cart-summary .box-modalita ul li[data-v-2ff820ae] {\n  list-style: none;\n  font-size: 12px;\n  padding: 10px 16px;\n}\nsection .cart-summary .box-modalita ul #active[data-v-2ff820ae] {\n  font-size: 14px;\n  background-color: white;\n  border-radius: 50px;\n  color: #125FCA;\n}\nsection .cart-summary .cart-item li[data-v-2ff820ae] {\n  padding: 0 5px;\n  list-style: none;\n}\nsection .cart-summary .cart-item .summary-left[data-v-2ff820ae] {\n  color: #125FCA;\n}\nsection .cart-summary .cart-item .summary-left span[data-v-2ff820ae] {\n  width: 20px;\n  text-align: center;\n}\nsection .cart-summary .cart-item .summary-left .btn[data-v-2ff820ae] {\n  color: #125FCA;\n  padding: 0 5px;\n}\nsection .cart-summary .cart-item .summary-right .item-delete[data-v-2ff820ae] {\n  color: #D50525;\n}\nsection .cart-summary .cart-total[data-v-2ff820ae] {\n  padding-top: 10px;\n  border-top: 1px solid #e2e6e9;\n}\nsection .cart-summary .cart-total .pay-link[data-v-2ff820ae] {\n  display: block;\n  padding: 10px;\n  color: white;\n  font-weight: bold;\n  text-align: center;\n  background-color: #FF8000;\n}\nsection .cart-summary .cart-total .pay-link[data-v-2ff820ae]:hover {\n  background-color: #FFB700;\n  text-decoration: none;\n}", ""]);
 
 // exports
 
@@ -5615,24 +5625,26 @@ var render = function() {
                                 _c(
                                   "div",
                                   {
-                                    staticClass: "col-md-8 summary-left d-flex"
+                                    staticClass:
+                                      "col-md-8 p-0 summary-left d-flex"
                                   },
                                   [
                                     _c(
                                       "li",
                                       {
-                                        staticClass:
-                                          " d-flex align-items-center"
+                                        staticClass: "d-flex align-items-center"
                                       },
                                       [
-                                        _c("i", {
-                                          staticClass: "fas fa-minus-circle",
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.minusOneCart(i)
+                                        _c("button", { staticClass: "btn" }, [
+                                          _c("i", {
+                                            staticClass: "fas fa-minus-circle",
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.minusOneCart(i)
+                                              }
                                             }
-                                          }
-                                        }),
+                                          })
+                                        ]),
                                         _vm._v(" "),
                                         _c("span", [
                                           _vm._v(
@@ -5640,14 +5652,16 @@ var render = function() {
                                           )
                                         ]),
                                         _vm._v(" "),
-                                        _c("i", {
-                                          staticClass: "fas fa-plus-circle",
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.plusOneCart(i)
+                                        _c("button", { staticClass: "btn" }, [
+                                          _c("i", {
+                                            staticClass: "fas fa-plus-circle",
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.plusOneCart(i)
+                                              }
                                             }
-                                          }
-                                        })
+                                          })
+                                        ])
                                       ]
                                     ),
                                     _vm._v(" "),
@@ -5659,7 +5673,7 @@ var render = function() {
                                   "div",
                                   {
                                     staticClass:
-                                      "col-md-4 summary-right d-flex align-items-center"
+                                      "col-md-4 p-0 summary-right d-flex align-items-center justify-content-end"
                                   },
                                   [
                                     _c(
@@ -5722,10 +5736,12 @@ var render = function() {
                                 _c(
                                   "router-link",
                                   {
+                                    staticClass: "pay-link",
                                     attrs: {
                                       to: {
                                         name: "payment",
                                         params: {
+                                          slug: _vm.restaurant.slug,
                                           restaurant: _vm.restaurant,
                                           cartProducs: _vm.cart,
                                           total: Number(_vm.total().toFixed(2))
@@ -5735,7 +5751,7 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                          vai alla cassa\n                          "
+                                      "\n                          Vai alla cassa\n                          "
                                     )
                                   ]
                                 )
@@ -5778,19 +5794,23 @@ var render = function() {
                             ),
                             _vm._v(" "),
                             _c("div", { staticClass: "quantity my-3" }, [
-                              _c("i", {
-                                staticClass: "fas fa-minus",
-                                on: { click: _vm.minusOne }
-                              }),
+                              _c("button", { staticClass: "btn" }, [
+                                _c("i", {
+                                  staticClass: "fas fa-minus",
+                                  on: { click: _vm.minusOne }
+                                })
+                              ]),
                               _vm._v(" "),
                               _c("span", { staticClass: "popup-quantity" }, [
                                 _vm._v(_vm._s(_vm.quantity))
                               ]),
                               _vm._v(" "),
-                              _c("i", {
-                                staticClass: "fas fa-plus",
-                                on: { click: _vm.plusOne }
-                              })
+                              _c("button", { staticClass: "btn" }, [
+                                _c("i", {
+                                  staticClass: "fas fa-plus",
+                                  on: { click: _vm.plusOne }
+                                })
+                              ])
                             ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "button-container" }, [
