@@ -92,12 +92,12 @@
                         <div class="cart-total" v-if="cart.length">
                             <h6>Costo di consegna: {{ consegna == 0 ? 'Gratis': `${consegna} &euro;` }}</h6>
                             <h6>Totale: {{ total().toFixed(2) }} &#8364;</h6>
-                           
+                            <router-link :to="{name:'payment', params: {restaurant:restaurant, cartProducs:cart, total: Number(total().toFixed(2)) }}">
+                            vai alla cassa
+                            </router-link>
                         </div>
 
-                        <router-link :to="{name:'payment', params: {restaurant:restaurant, cartProducs:cart }}">
-                            vai alla cassa
-                        </router-link>
+                        
                     </div>
                 </div>
             </div>

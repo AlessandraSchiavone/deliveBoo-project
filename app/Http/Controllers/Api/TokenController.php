@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Order;
+use Carbon\Carbon;
+
 
 class TokenController extends Controller
 {
@@ -20,22 +23,17 @@ class TokenController extends Controller
     public function post(Request $request)
     {
         $request->validate([
-            'name' => 'required | max:100',
-            'surname' => 'required | max:100',
-            'address' => 'required | max:100',
-            'email' => 'required | email | max:100',
+            'payer_name' => 'required | max:100',
+            'payer_surname' => 'required | max:100',
+            'payer_address' => 'required | max:100',
+            'payer_email' => 'required | email | max:100',
         ]);
 
         //dd($request);
         // $to = $request->email;
 
-        $dishes = json_decode(request('cart'));
-
-        $total = 0;
-        foreach ($dishes as $dish) {
-            $total += $dish->price;
-        }
-        json_decode(request('cart'));
+        $cart = json_decode(request('cart'));
+        $total = (float) $request->orderTotal;
         $nonceFromTheClient = $request->payment_method_nonce;
         $braintree = config('braintree');
         $result = $braintree->transaction()->sale([
@@ -43,64 +41,20 @@ class TokenController extends Controller
             'paymentMethodNonce' => $nonceFromTheClient,
         ]);
         if ($result->success) {
-
-
-
-
-            // $filters= [];
-            // foreach ($dishes as $dish) {
-            //   if (!in_array(array($dish->restaurant_id), $filters)) {
-            //     array_push($filters,array($dish->restaurant_id));
-            //   }
-            // }
-
-            // foreach ($dishes as $dish) {
-            //   foreach ($filters as $key => $filter) {
-            //     if ($dish->restaurant_id == $filter[0]) {
-            //       // code...
-            //       array_push($filters[$key],$dish);
-            //     }
-            //   }
-            // }
-            // foreach ($filters as $key => $filter) {
-            //   $restaurantTotal=0;
-            //   for ($i=1; $i < count($filter) ; $i++) {
-            //     $restaurantTotal +=  $filter[$i]->totalPrice;
-            //   }
-            //   array_push($filters[$key],$restaurantTotal);
-            // }
-
-
-            // foreach ($filters as $filter) {
-            //   // code...
-            //   $newOrder = new Order;
-            //   $newOrder->restaurant_id = $filter[0];
-            //   $newOrder->amount = $filter[count($filter)-1];
-            //   $newOrder->name = $request->name;
-            //   $newOrder->surname = $request->surname;
-            //   $newOrder->address = $request->address;
-            //   $newOrder->email = $request->email;
-            //   $order = [];
-            //   for ($i=1; $i < count($filter)-1 ; $i++) {
-            //     array_push($order,$filter[$i]);
-            //   }
-            //   $newOrder->order = json_encode($order);
-            //   $newOrder->order_date = Carbon::now();
-            
-            //   $newOrder->save();
-
-            // }
-
-            // $newOrder = new Order;
-            // $newOrder->restaurant_id = $dishes[0]->restaurant_id;
-            // $newOrder->amount = $total;
-            // $newOrder->name = $request->name;
-            // $newOrder->surname = $request->surname;
-            // $newOrder->address = $request->address;
-            // $newOrder->email = $request->email;
-            // $newOrder->order = json_encode($dishes);
-            // $newOrder->order_date = Carbon::now();
-            // $newOrder->save();
+          
+            $newOrder = new Order;
+            $newOrder->total = $total;
+            $newOrder->payer_name = $request->payer_name;
+            $newOrder->payer_surname = $request->payer_surname;
+            $newOrder->payer_address = $request->payer_address;
+            $newOrder->payer_email = $request->payer_email;
+            $newOrder->order_date = Carbon::now();
+            $newOrder->status = 1;
+            $newOrder->save();
+  
+            foreach ($cart as $product) {
+                $newOrder->dishes()->attach($product->dish->id, ['quantity'=> $product->quantita]);
+            }
 
             // $datiUtente = [
             //     'name' => $request->name,
@@ -112,10 +66,26 @@ class TokenController extends Controller
 
            
 
-            //dd($result, $datiUtente, 'successo');
+            //dd($result, 'successo');
 
             return redirect()->route('checkout');
         } else {
+
+            $newOrder = new Order;
+            $newOrder->total = $total;
+            $newOrder->payer_name = $request->payer_name;
+            $newOrder->payer_surname = $request->payer_surname;
+            $newOrder->payer_address = $request->payer_address;
+            $newOrder->payer_email = $request->payer_email;
+            $newOrder->order_date = Carbon::now();
+            $newOrder->status = 0;
+            $newOrder->save();
+
+            foreach ($cart as $product) {
+                $newOrder->dishes()->attach($product->dish->id, ['quantity'=> $product->quantita]);
+            }
+  
+        
 
             //dd($result, 'fallimento');
             return redirect()->route('checkoutf');

@@ -2390,18 +2390,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Payment',
   data: function data() {
     return {
+      errors: [],
       cartProducs: [],
+      orderTotal: null,
       name: '',
       surname: '',
       address: '',
@@ -2409,7 +2404,10 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.cartProducs = JSON.parse(localStorage.getItem("cart")); // console.log(localStorage.cart);
+    var _this = this;
+
+    this.cartProducs = JSON.parse(localStorage.getItem("cart"));
+    this.orderTotal = this.$route.params.total; // console.log(localStorage.cart);
 
     var recaptchaScript = document.createElement('script');
     recaptchaScript.setAttribute('src', "https://js.braintreegateway.com/web/dropin/1.31.2/js/dropin.min.js");
@@ -2428,45 +2426,43 @@ __webpack_require__.r(__webpack_exports__);
         form.addEventListener('submit', function (event) {
           event.preventDefault();
           dropinInstance.requestPaymentMethod(function (error, payload) {
-            if (error) console.error(error); // Step four: when the user is ready to complete their
-            //   transaction, use the dropinInstance to get a payment
-            //   method nonce for the user's selected payment method, then add
-            //   it a the hidden field before submitting the complete form to
-            //   a server-side integration
-
-            document.getElementById('nonce').value = payload.nonce; // document.getElementById('cart').value = JSON.stringify(this.$store.state.cart);
-
+            if (error) console.error(error);
+            document.getElementById('nonce').value = payload.nonce;
+            document.getElementById('cart').value = JSON.stringify(_this.cartProducs);
+            document.getElementById('orderTotal').value = _this.orderTotal;
             form.submit();
           });
         });
       });
     })["catch"](function (error) {});
-  } // Step two: create a dropin instance using that container (or a string
-  //   that functions as a query selector such as `#dropin-container`)
-  // braintree.dropin.create({
-  // container: document.getElementById('dropin-container'),
-  // // ...plus remaining configuration
-  // }, (error, dropinInstance) => {
-  // // Use `dropinInstance` here
-  // // Methods documented at https://braintree.github.io/braintree-web-drop-in/docs/current/Dropin.html
-  //     dropinInstance.requestPaymentMethod((error, payload) => {
-  //         if (error) console.error(error);
-  //             // Step four: when the user is ready to complete their
-  //             //   transaction, use the dropinInstance to get a payment
-  //             //   method nonce for the user's selected payment method, then add
-  //             //   it a the hidden field before submitting the complete form to
-  //             //   a server-side integration
-  //             document.getElementById('nonce').value = payload.nonce;
-  //             // document.getElementById('cart').value = JSON.stringify('we');
-  //             form.submit();
-  //         });
-  // });
-  // methods:{
-  //     async wtf(){
-  //        await this.cartProducs;
-  //     }
-  // }
+  },
+  methods: {
+    checkForm: function checkForm(e) {
+      if (this.name && this.surname && this.address && this.email) {
+        return true;
+      }
 
+      this.errors = [];
+
+      if (!this.name) {
+        this.errors.push('Name required.');
+      }
+
+      if (!this.surname) {
+        this.errors.push('Surname required.');
+      }
+
+      if (!this.address) {
+        this.errors.push('Address required.');
+      }
+
+      if (!this.email) {
+        this.errors.push('Email required.');
+      }
+
+      e.preventDefault();
+    }
+  }
 });
 
 /***/ }),
@@ -5078,7 +5074,178 @@ var render = function() {
         ])
       }),
       _vm._v(" "),
-      _vm._m(0)
+      _c(
+        "form",
+        {
+          attrs: { id: "payment-form", action: "api/token", method: "post" },
+          on: { submit: _vm.checkForm }
+        },
+        [
+          _vm.errors.length
+            ? _c("p", [
+                _c("b", [_vm._v("Please correct the following error(s):")]),
+                _vm._v(" "),
+                _c(
+                  "ul",
+                  _vm._l(_vm.errors, function(error, index) {
+                    return _c("li", { key: index }, [_vm._v(_vm._s(error))])
+                  }),
+                  0
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "payer_name" } }, [_vm._v("Nome")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.name,
+                  expression: "name"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                maxlength: "100",
+                name: "payer_name",
+                id: "payer_name",
+                placeholder: "Inserisci il tuo nome",
+                required: ""
+              },
+              domProps: { value: _vm.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.name = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "payer_surname" } }, [
+              _vm._v("Cognome")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.surname,
+                  expression: "surname"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                maxlength: "100",
+                name: "payer_surname",
+                id: "payer_surname",
+                placeholder: "Inserisci il tuo cognome",
+                required: ""
+              },
+              domProps: { value: _vm.surname },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.surname = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "payer_address" } }, [
+              _vm._v("Indirizzo")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.address,
+                  expression: "address"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                maxlength: "100",
+                name: "payer_address",
+                id: "payer_address",
+                placeholder: "Inserisci il tuo indirizzo",
+                required: ""
+              },
+              domProps: { value: _vm.address },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.address = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "payer_email" } }, [_vm._v("Email")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.email,
+                  expression: "email"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "email",
+                maxlength: "100",
+                name: "payer_email",
+                id: "payer_email",
+                placeholder: "Inserisci la tua email",
+                required: ""
+              },
+              domProps: { value: _vm.email },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.email = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { attrs: { id: "dropin-container" } }),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _c("input", {
+            attrs: { type: "hidden", id: "nonce", name: "payment_method_nonce" }
+          }),
+          _vm._v(" "),
+          _c("input", { attrs: { type: "hidden", id: "cart", name: "cart" } }),
+          _vm._v(" "),
+          _c("input", {
+            attrs: { type: "hidden", id: "orderTotal", name: "orderTotal" }
+          })
+        ]
+      )
     ],
     2
   )
@@ -5088,19 +5255,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "form",
-      { attrs: { id: "payment-form", action: "api/token", method: "post" } },
-      [
-        _c("div", { attrs: { id: "dropin-container" } }),
-        _vm._v(" "),
-        _c("input", { attrs: { type: "submit" } }),
-        _vm._v(" "),
-        _c("input", {
-          attrs: { type: "hidden", id: "nonce", name: "payment_method_nonce" }
-        })
-      ]
-    )
+    return _c("div", { staticClass: "wrap" }, [
+      _c("input", {
+        staticClass: "payment_btn",
+        attrs: { type: "submit", value: "Invia il pagamento" }
+      }),
+      _vm._v(" "),
+      _c("a", { staticClass: "payment_btn" }, [_vm._v("ritorna carrello")])
+    ])
   }
 ]
 render._withStripped = true
@@ -5381,47 +5543,53 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _vm.cart.length
-                        ? _c("div", { staticClass: "cart-total" }, [
-                            _c("h6", [
-                              _vm._v(
-                                "Costo di consegna: " +
-                                  _vm._s(
-                                    _vm.consegna == 0
-                                      ? "Gratis"
-                                      : _vm.consegna + " €"
+                        ? _c(
+                            "div",
+                            { staticClass: "cart-total" },
+                            [
+                              _c("h6", [
+                                _vm._v(
+                                  "Costo di consegna: " +
+                                    _vm._s(
+                                      _vm.consegna == 0
+                                        ? "Gratis"
+                                        : _vm.consegna + " €"
+                                    )
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("h6", [
+                                _vm._v(
+                                  "Totale: " +
+                                    _vm._s(_vm.total().toFixed(2)) +
+                                    " €"
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "router-link",
+                                {
+                                  attrs: {
+                                    to: {
+                                      name: "payment",
+                                      params: {
+                                        restaurant: _vm.restaurant,
+                                        cartProducs: _vm.cart,
+                                        total: Number(_vm.total().toFixed(2))
+                                      }
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                          vai alla cassa\n                          "
                                   )
+                                ]
                               )
-                            ]),
-                            _vm._v(" "),
-                            _c("h6", [
-                              _vm._v(
-                                "Totale: " +
-                                  _vm._s(_vm.total().toFixed(2)) +
-                                  " €"
-                              )
-                            ])
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c(
-                        "router-link",
-                        {
-                          attrs: {
-                            to: {
-                              name: "payment",
-                              params: {
-                                restaurant: _vm.restaurant,
-                                cartProducs: _vm.cart
-                              }
-                            }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                          vai alla cassa\n                      "
+                            ],
+                            1
                           )
-                        ]
-                      )
+                        : _vm._e()
                     ],
                     2
                   )
@@ -21780,7 +21948,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\nate_\Desktop\deliveBoo-project\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Users\Utente\Desktop\classe34\deliveBoo-project\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })

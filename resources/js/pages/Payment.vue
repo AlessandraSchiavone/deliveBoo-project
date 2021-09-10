@@ -13,37 +13,32 @@
             {{prodotto.dish.name + ' ' +  prodotto.quantita + 'x'}}  
         </div>
 
-        <!-- <form method="post"> -->
-
-        <!-- Putting the empty container you plan to pass to
-        `braintree.dropin.create` inside a form will make layout and flow
-        easier to manage -->
-
-            <!-- <p>
+        <form id="payment-form" action="api/token" @submit="checkForm" method="post"> 
+             <p v-if="errors.length">
                 <b>Please correct the following error(s):</b>
                 <ul>
-                    <li v-for="error in errors">{{ error }}</li>
+                    <li v-for="error,index in errors" :key="index">{{ error }}</li>
                 </ul>
-            </p> -->
+            </p> 
 
-            <!-- <div class="form-group">
-                <label for="name">Nome</label>
-                <input type="text" v-model="name" maxlength="100" class="form-control" name="name" id="name" placeholder="Inserisci il tuo nome" required>
+             <div class="form-group">
+                <label for="payer_name">Nome</label>
+                <input type="text" v-model="name" maxlength="100" class="form-control" name="payer_name" id="payer_name" placeholder="Inserisci il tuo nome" required>
             </div>
 
             <div class="form-group">
-                <label for="surname">Cognome</label>
-                <input type="text" v-model="surname" maxlength="100" class="form-control" name="surname" id="surname" placeholder="Inserisci il tuo cognome" required>
+                <label for="payer_surname">Cognome</label>
+                <input type="text" v-model="surname" maxlength="100" class="form-control" name="payer_surname" id="payer_surname" placeholder="Inserisci il tuo cognome" required>
             </div>
 
             <div class="form-group">
-                <label for="address">Indirizzo</label>
-                <input type="text" v-model="address" maxlength="100" class="form-control" name="address" id="address" placeholder="Inserisci il tuo indirizzo" required>
+                <label for="payer_address">Indirizzo</label>
+                <input type="text" v-model="address" maxlength="100" class="form-control" name="payer_address" id="payer_address" placeholder="Inserisci il tuo indirizzo" required>
             </div>
 
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" v-model="email" maxlength="100" class="form-control" name="email" id="email" placeholder="Inserisci la tua email" required>
+                <label for="payer_email">Email</label>
+                <input type="email" v-model="email" maxlength="100" class="form-control" name="payer_email" id="payer_email" placeholder="Inserisci la tua email" required>
             </div>
 
             <div id="dropin-container"></div>
@@ -54,17 +49,15 @@
 
             <input type="hidden" id="nonce" name="payment_method_nonce"/>
             <input type="hidden" id="cart" name="cart"/>
+            <input type="hidden" id="orderTotal" name="orderTotal"/>
+            <!-- <form  method="post">
+                <div id="dropin-container"></div>
+                <input type="submit" />
+                <input type="hidden" id="nonce" name="payment_method_nonce"/>
+            </form> -->
+        </form> 
 
-        </form> -->
-
-        <form id="payment-form" action="api/token" method="post">
-            <!-- Putting the empty container you plan to pass to
-            `braintree.dropin.create` inside a form will make layout and flow
-            easier to manage -->
-            <div id="dropin-container"></div>
-            <input type="submit" />
-            <input type="hidden" id="nonce" name="payment_method_nonce"/>
-        </form>
+       
     </div>
     
 
@@ -76,7 +69,9 @@ export default {
     name:'Payment',
     data(){
         return{
+            errors: [],
             cartProducs :[],
+            orderTotal:null,
             name:'',
             surname:'',
             address:'',
@@ -86,6 +81,7 @@ export default {
     },
     mounted(){
         this.cartProducs = JSON.parse(localStorage.getItem("cart"));
+        this.orderTotal = this.$route.params.total;
         // console.log(localStorage.cart);
             let recaptchaScript = document.createElement('script')
             recaptchaScript.setAttribute('src', "https://js.braintreegateway.com/web/dropin/1.31.2/js/dropin.min.js")
@@ -106,15 +102,11 @@ export default {
                     form.addEventListener('submit', event => {
                         event.preventDefault();
                         dropinInstance.requestPaymentMethod((error, payload) => {
-                            if (error) console.error(error);
-                            // Step four: when the user is ready to complete their
-                            //   transaction, use the dropinInstance to get a payment
-                            //   method nonce for the user's selected payment method, then add
-                            //   it a the hidden field before submitting the complete form to
-                            //   a server-side integration
+                            if (error) console.error(error);                 
                             document.getElementById('nonce').value = payload.nonce;
-                        
-                            // document.getElementById('cart').value = JSON.stringify(this.$store.state.cart);
+                            document.getElementById('cart').value = JSON.stringify(this.cartProducs);
+                            document.getElementById('orderTotal').value = this.orderTotal;
+
                             form.submit();
                         });
                     });
@@ -122,35 +114,28 @@ export default {
             })
             .catch(error =>{
             });
-        }
-        // Step two: create a dropin instance using that container (or a string
-        //   that functions as a query selector such as `#dropin-container`)
-        // braintree.dropin.create({
-        // container: document.getElementById('dropin-container'),
-        // // ...plus remaining configuration
-        // }, (error, dropinInstance) => {
-        // // Use `dropinInstance` here
-        // // Methods documented at https://braintree.github.io/braintree-web-drop-in/docs/current/Dropin.html
-        //     dropinInstance.requestPaymentMethod((error, payload) => {
-        //         if (error) console.error(error);
-        //             // Step four: when the user is ready to complete their
-        //             //   transaction, use the dropinInstance to get a payment
-        //             //   method nonce for the user's selected payment method, then add
-        //             //   it a the hidden field before submitting the complete form to
-        //             //   a server-side integration
-        //             document.getElementById('nonce').value = payload.nonce;
-        //             // document.getElementById('cart').value = JSON.stringify('we');
-        //             form.submit();
-        //         });
-        // });
-    
-
-    // methods:{
-    //     async wtf(){
-           
-    //        await this.cartProducs;
-    //     }
-    // }
+        },
+    methods:{
+        checkForm: function (e) {
+                if (this.name && this.surname && this.address && this.email) {
+                    return true;
+                }
+                this.errors = [];
+                if (!this.name) {
+                    this.errors.push('Name required.');
+                }
+                if (!this.surname) {
+                    this.errors.push('Surname required.');
+                }
+                if (!this.address) {
+                    this.errors.push('Address required.');
+                }
+                if (!this.email) {
+                    this.errors.push('Email required.');
+                }
+                e.preventDefault();
+            }
+    }
 }
 </script>
 
