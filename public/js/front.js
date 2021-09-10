@@ -2487,6 +2487,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       errors: [],
       restaurantName: null,
+      restaurantSlug: null,
       cartProducs: [],
       orderTotal: null,
       name: '',
@@ -2496,6 +2497,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
+    localStorage.orderRestaurantSlug = this.$route.params.restaurant.slug;
     localStorage.orderRestaurantName = this.$route.params.restaurant.name;
     localStorage.orderTotal = this.$route.params.total;
   },
@@ -2504,7 +2506,8 @@ __webpack_require__.r(__webpack_exports__);
 
     this.cartProducs = JSON.parse(localStorage.getItem("cart"));
     this.orderTotal = localStorage.orderTotal;
-    this.restaurantName = localStorage.orderRestaurantName; // console.log(localStorage.cart);
+    this.restaurantName = localStorage.orderRestaurantName;
+    this.restaurantSlug = localStorage.orderRestaurantSlug; // console.log(localStorage.cart);
 
     var recaptchaScript = document.createElement('script');
     recaptchaScript.setAttribute('src', "https://js.braintreegateway.com/web/dropin/1.31.2/js/dropin.min.js");
@@ -5516,7 +5519,7 @@ var render = function() {
               attrs: {
                 to: {
                   name: "single-restaurant",
-                  params: { slug: this.$route.params.slug }
+                  params: { slug: _vm.restaurantSlug }
                 }
               }
             },
@@ -22484,7 +22487,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'single-restaurant',
     component: _pages_SingleRestaurant__WEBPACK_IMPORTED_MODULE_3__["default"]
   }, {
-    path: '/restaurant/:slug/payment',
+    path: '/payment',
     name: 'payment',
     component: _pages_Payment__WEBPACK_IMPORTED_MODULE_5__["default"]
   }, {
@@ -22504,7 +22507,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Utente\Desktop\classe34\deliveBoo-project\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\BooleanClass34\Proj34\deliveBoo-project\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
