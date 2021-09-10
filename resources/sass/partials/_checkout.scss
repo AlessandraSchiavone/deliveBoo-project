@@ -1,29 +1,9 @@
-<template>
-    <div class="error404">
-        <div class="pattern">
 
-        </div>
-        <div class="content">
-            <img src="../assets/burgerNotFound.png" alt="">
-            <h1>Pagina non trovata</h1>
-            <div>Siamo spiacenti, la pagina che stai cercando non esiste. <br>
-                Ma c'è altro da vedere!
-            </div>
-            <router-link :to="{name:'home'}"><button class="btn ">Vai alla home</button></router-link>
-        </div>       
-    </div>
-</template>
 
-<script>
-export default {
-    name: 'NotFound'
-}
-</script>
 
-<style lang="scss" scoped>
-  .error404{  
-    height: 100vh;
-   
+.error404{  
+   height: 100vh;
+   background-color: white;
     .pattern{
         background: url("../assets/pattern2.png") repeat-x 0 0;
         
@@ -67,4 +47,3 @@ export default {
     }
   }
 }
-</style>

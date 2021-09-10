@@ -12,9 +12,18 @@
 
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     </head>
-    <body>
-        
-    <h1>Pagamento fallito</h1>
-        
+    <body>      
+        <div class="error404">
+            <div class="pattern">
+            </div>
+            <div class="content">
+                <img src="{{ asset('images/burgerNotFound.png') }}" alt="">
+                <h1>Qualcosa è andato storto</h1>
+                <div>Siamo spiacenti, Il pagamento non è andato a buon fine. <br>
+                    Riprova con un altro metodo di pagamento
+                </div>
+                <a href="/"><button class="btn ">Vai alla home</button></a>
+            </div>       
+        </div> 
     </body>
 </html>

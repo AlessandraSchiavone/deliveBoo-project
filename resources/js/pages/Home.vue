@@ -1,4 +1,6 @@
 <template>
+    <div>
+    <Header />
     <div class="main">
         <div class="jumbotron"></div>
         <div class="box col-md-6 d-flex flex-column justify-content-center align-items-center">
@@ -158,11 +160,19 @@
             
         </div>      
     </div>
+    <Footer />   
+    </div>   
 </template>
 
 <script>
+import Header from '../components/Header.vue';
+import Footer from '../components/Footer.vue';
 export default {
     name: 'Home',
+    components: {
+        Header,
+        Footer
+    },
     data() {
         return {
             restaurants: [],

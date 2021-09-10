@@ -1,6 +1,65 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@300;
 
 400;500;700&display=swap);@charset "UTF-8";
+.error404 {
+  height: 100vh;
+  background-color: white;
+}
+
+.error404 .pattern {
+  background: url(/images/pattern2.png?7afc275f170ce176bd53b073c0ea4add) repeat-x 0 0;
+  height: 180px;
+}
+
+.error404 .content {
+  text-align: center;
+  max-width: 30%;
+  margin: -100px auto auto;
+}
+
+.error404 .content img {
+  width: 300px;
+  height: 200px;
+}
+
+.error404 .content h1 {
+  font-size: 45px;
+}
+
+.error404 .content > div {
+  font-size: 22px;
+  margin-bottom: 30px;
+}
+
+.error404 .content button {
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  background-color: #FFCC00;
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.error404 .content button:hover {
+  background-color: #FF8000;
+}
+
+@media screen and (max-width: 851px) {
+  .error404 .content {
+    max-width: 60%;
+  }
+
+  .error404 .content h1 {
+    font-size: 36px;
+  }
+}
+
+/*!
+ * Bootstrap v4.6.0 (https://getbootstrap.com/)
+ * Copyright 2011-2021 The Bootstrap Authors
+ * Copyright 2011-2021 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */
 
 :root {
   --blue: #3490dc;

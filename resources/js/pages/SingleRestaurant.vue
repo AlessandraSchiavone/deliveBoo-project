@@ -1,5 +1,6 @@
 <template>
   <section v-if="restaurant">
+      <Header />
       <div class="jumbotron">
           <img :src="restaurant.img" :alt="restaurant.name">
       </div>
@@ -120,7 +121,7 @@
             </div>
         </div>
         </div>
-
+        <Footer />  
   </section>
   <section v-else>
       Caricamento
@@ -128,8 +129,14 @@
 </template>
 
 <script>
+import Header from '../components/Header.vue';
+import Footer from '../components/Footer.vue';
 export default {
     name: 'SingleRestaurant',
+     components: {
+        Header,
+        Footer
+    },
     data() {
         return {
             restaurant: null,

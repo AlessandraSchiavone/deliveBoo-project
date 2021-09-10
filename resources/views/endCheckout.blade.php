@@ -15,6 +15,9 @@
     <body>
         
     <h1>Pagamento avvenuto con successo</h1>
+    <script type="text/javascript">
+        localStorage.clear();
+    </script>   
         
     </body>
 </html>
