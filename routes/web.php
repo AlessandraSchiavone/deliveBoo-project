@@ -27,7 +27,12 @@ Route::middleware('auth')
         Route::resource('restaurants/{restaurant}/dishes', 'DishController');
 });
 
-
+Route::get('/checkout', function () {
+        return view('endCheckout');
+        })->name('checkout');
+    Route::get('/checkoutf', function () {
+        return view('checkoutFailed');
+        })->name('checkoutf');
 
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::get('{any?}', 'HomeController@index')->where('any', '.*')->name('home');
