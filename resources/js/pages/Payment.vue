@@ -5,71 +5,86 @@
             {{prodotto.dish.name + ' ' +  prodotto.quantita + 'x'}}  
         </div>
     </div> -->
-    
-    <div class="container">
-        
-        <h1 v-if="this.$route.params.restaurant">{{this.$route.params.restaurant.name}}</h1>
-        <div v-for="prodotto in cartProducs" :key="prodotto.id">
-            {{prodotto.dish.name + ' ' +  prodotto.quantita + 'x'}}  
-        </div>
+    <section>
+        <Header />
+        <div class="pattern"></div>
 
-        <form id="payment-form" action="api/token" @submit="checkForm" method="post"> 
-             <p v-if="errors.length">
-                <b>Please correct the following error(s):</b>
-                <ul>
-                    <li v-for="error,index in errors" :key="index">{{ error }}</li>
-                </ul>
-            </p> 
-
-             <div class="form-group">
-                <label for="payer_name">Nome</label>
-                <input type="text" v-model="name" maxlength="100" class="form-control" name="payer_name" id="payer_name" placeholder="Inserisci il tuo nome" required>
+        <div class="container py-5">
+            
+            <div class="summary">
+                <h2>Il tuo ordine da {{restaurantName}}</h2>
+                <div v-for="prodotto in cartProducs" :key="prodotto.id">
+                    {{prodotto.dish.name + ' ' +  prodotto.quantita + 'x'}}
+                </div>
+                <div class="price-total mt-2">Totale: {{orderTotal}} &euro;</div>
             </div>
+            <router-link :to="{ name:'single-restaurant', params: { slug: this.$route.params.slug  } }" class="btn my-3">Ritorna al carrello</router-link>
 
-            <div class="form-group">
-                <label for="payer_surname">Cognome</label>
-                <input type="text" v-model="surname" maxlength="100" class="form-control" name="payer_surname" id="payer_surname" placeholder="Inserisci il tuo cognome" required>
-            </div>
+            <form id="payment-form" action="api/token" @submit="checkForm" method="post"> 
+                <p v-if="errors.length">
+                    <b>Please correct the following error(s):</b>
+                    <ul>
+                        <li v-for="error,index in errors" :key="index">{{ error }}</li>
+                    </ul>
+                </p> 
 
-            <div class="form-group">
-                <label for="payer_address">Indirizzo</label>
-                <input type="text" v-model="address" maxlength="100" class="form-control" name="payer_address" id="payer_address" placeholder="Inserisci il tuo indirizzo" required>
-            </div>
+                <div class="form-group">
+                    <label for="payer_name">Nome</label>
+                    <input type="text" v-model="name" maxlength="100" class="form-control" name="payer_name" id="payer_name" placeholder="Inserisci il tuo nome" required>
+                </div>
 
-            <div class="form-group">
-                <label for="payer_email">Email</label>
-                <input type="email" v-model="email" maxlength="100" class="form-control" name="payer_email" id="payer_email" placeholder="Inserisci la tua email" required>
-            </div>
+                <div class="form-group">
+                    <label for="payer_surname">Cognome</label>
+                    <input type="text" v-model="surname" maxlength="100" class="form-control" name="payer_surname" id="payer_surname" placeholder="Inserisci il tuo cognome" required>
+                </div>
 
-            <div id="dropin-container"></div>
-            <div class="wrap">
-                <input class="payment_btn" type="submit" value="Invia il pagamento">
-                <a class="payment_btn">ritorna carrello</a>
-            </div>
+                <div class="form-group">
+                    <label for="payer_address">Indirizzo</label>
+                    <input type="text" v-model="address" maxlength="100" class="form-control" name="payer_address" id="payer_address" placeholder="Inserisci il tuo indirizzo" required>
+                </div>
 
-            <input type="hidden" id="nonce" name="payment_method_nonce"/>
-            <input type="hidden" id="cart" name="cart"/>
-            <input type="hidden" id="orderTotal" name="orderTotal"/>
-            <!-- <form  method="post">
+                <div class="form-group">
+                    <label for="payer_email">Email</label>
+                    <input type="email" v-model="email" maxlength="100" class="form-control" name="payer_email" id="payer_email" placeholder="Inserisci la tua email" required>
+                </div>
+
                 <div id="dropin-container"></div>
-                <input type="submit" />
-                <input type="hidden" id="nonce" name="payment_method_nonce"/>
-            </form> -->
-        </form> 
+                <div class="wrap">
+                    <input class="btn" type="submit" value="Invia il pagamento">
+                </div>
 
-       
-    </div>
+                <input type="hidden" id="nonce" name="payment_method_nonce"/>
+                <input type="hidden" id="cart" name="cart"/>
+                <input type="hidden" id="orderTotal" name="orderTotal"/>
+                <!-- <form  method="post">
+                    <div id="dropin-container"></div>
+                    <input type="submit" />
+                    <input type="hidden" id="nonce" name="payment_method_nonce"/>
+                </form> -->
+            </form> 
+
+        
+        </div>
+        <Footer />
+    </section>
     
 
 
 </template>
     
 <script>
+import Header from '../components/Header.vue';
+import Footer from '../components/Footer.vue';
 export default {
+  components: {
+      Footer,
+      Header
+    },
     name:'Payment',
     data(){
         return{
             errors: [],
+            restaurantName: null,
             cartProducs :[],
             orderTotal:null,
             name:'',
@@ -79,9 +94,14 @@ export default {
 
         }
     },
+    created() {
+        localStorage.orderRestaurantName = this.$route.params.restaurant.name;
+        localStorage.orderTotal = this.$route.params.total;
+    },
     mounted(){
         this.cartProducs = JSON.parse(localStorage.getItem("cart"));
-        this.orderTotal = this.$route.params.total;
+        this.orderTotal = localStorage.orderTotal;
+        this.restaurantName = localStorage.orderRestaurantName;
         // console.log(localStorage.cart);
             let recaptchaScript = document.createElement('script')
             recaptchaScript.setAttribute('src', "https://js.braintreegateway.com/web/dropin/1.31.2/js/dropin.min.js")
@@ -139,6 +159,17 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped lang="scss">
+    .pattern{
+        background: linear-gradient( 178deg, #D00606 57.8%, white 63%);
+        height: 140px;
+    }
+    .btn {
+        color: white;
+        font-weight: bold;
+        background-color: #FF8000;
+        &:hover {
+            background-color: #FFB700;
+        }
+    }
 </style>
