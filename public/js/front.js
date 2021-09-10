@@ -2475,6 +2475,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2530,6 +2531,7 @@ __webpack_require__.r(__webpack_exports__);
             document.getElementById('nonce').value = payload.nonce;
             document.getElementById('cart').value = JSON.stringify(_this.cartProducs);
             document.getElementById('orderTotal').value = _this.orderTotal;
+            document.getElementById('restaurantSlug').value = _this.restaurantSlug;
             form.submit();
           });
         });
@@ -5707,6 +5709,14 @@ var render = function() {
               _vm._v(" "),
               _c("input", {
                 attrs: { type: "hidden", id: "orderTotal", name: "orderTotal" }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                attrs: {
+                  type: "hidden",
+                  id: "restaurantSlug",
+                  name: "restaurantSlug"
+                }
               })
             ]
           )

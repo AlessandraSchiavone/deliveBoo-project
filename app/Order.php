@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    protected $with = ['dishes'];
+
     protected $fillable = [
         'payer_name',
         'payer_surname',
@@ -17,6 +19,6 @@ class Order extends Model
     ];
 
     public function dishes(){
-        return $this-> belongsToMany('App\Dish');
+        return $this-> belongsToMany('App\Dish')->withPivot('quantity');
     }  
 }

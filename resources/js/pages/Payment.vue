@@ -56,6 +56,7 @@
                 <input type="hidden" id="nonce" name="payment_method_nonce"/>
                 <input type="hidden" id="cart" name="cart"/>
                 <input type="hidden" id="orderTotal" name="orderTotal"/>
+                <input type="hidden" id="restaurantSlug" name="restaurantSlug"/>
                 <!-- <form  method="post">
                     <div id="dropin-container"></div>
                     <input type="submit" />
@@ -129,6 +130,7 @@ export default {
                             document.getElementById('nonce').value = payload.nonce;
                             document.getElementById('cart').value = JSON.stringify(this.cartProducs);
                             document.getElementById('orderTotal').value = this.orderTotal;
+                            document.getElementById('restaurantSlug').value = this.restaurantSlug;
 
                             form.submit();
                         });

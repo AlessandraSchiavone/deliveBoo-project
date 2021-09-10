@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Order;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
+use App\Mail\SendOrderReceivedMail;
+use App\Mail\SendOrderSendMail;
+use App\Restaurant;
 
 
 class TokenController extends Controller
@@ -34,6 +39,7 @@ class TokenController extends Controller
 
         $cart = json_decode(request('cart'));
         $total = (float) $request->orderTotal;
+        $slug = $request->restaurantSlug;
         $nonceFromTheClient = $request->payment_method_nonce;
         $braintree = config('braintree');
         $result = $braintree->transaction()->sale([
@@ -56,15 +62,12 @@ class TokenController extends Controller
                 $newOrder->dishes()->attach($product->dish->id, ['quantity'=> $product->quantita]);
             }
 
-            // $datiUtente = [
-            //     'name' => $request->name,
-            //     'surname' => $request->surname,
-            //     'address' => $request->address,
-            //     'email' => $request->email,
-            //     'amount' => $total,
-            // ];
+            $restaurant = Restaurant::where('slug', $slug)->first();
 
-           
+            Mail::to('restaurant@mail.it')->send(new SendOrderReceivedMail($newOrder));
+            // Mail::to($restaurant->user->email)->send(new SendOrderReceivedMail($newOrder));
+            Mail::to('user@mail.it')->send(new SendOrderSendMail);
+            // Mail::to($newOrder->payer_email)->send(new SendOrderSendMail);
 
             //dd($result, 'successo');
 
