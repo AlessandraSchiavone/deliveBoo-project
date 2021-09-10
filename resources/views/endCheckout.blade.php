@@ -13,11 +13,24 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     </head>
     <body>
-        
-    <h1>Pagamento avvenuto con successo</h1>
+        <div class="payment-success">
+            <div class="content">
+            <img src="{{ asset('images/Logo_chef.png') }}" alt="">
+                <h1>Il pagamento è andato a buon fine.</h1>
+                <div>Riceverai presto una mail con i dati del tuo ordine.<br>
+                Grazie per aver scelto Food Now <span class="heart">&#10084;</span>
+                </div>
+                <a href="/" ><button class="btn">Vai alla home</button></a>
+            </div>
+            <div class="color"><img class="delivery" src="/images/delivery.png" alt="delivery"></div>
+        </div>  
+    </body>
+
+
+
     <script type="text/javascript">
         localStorage.clear();
     </script>   
         
-    </body>
+    
 </html>

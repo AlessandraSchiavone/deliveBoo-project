@@ -4,7 +4,10 @@
 
 // Variables
 @import 'variables';
-@import 'partials/_checkout';
+@import 'partials/_endCheckout';
+@import 'partials/_checkoutFailed';
+
+
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
