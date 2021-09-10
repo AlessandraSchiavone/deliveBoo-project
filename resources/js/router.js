@@ -25,7 +25,7 @@ const router = new VueRouter({
             component: SingleRestaurant
         },
         {
-            path: '/payment',
+            path: '/restaurant/:slug/payment',
             name: 'payment',
             component: Payment
         },

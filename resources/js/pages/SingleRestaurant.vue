@@ -13,7 +13,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="box col-md-5">
+            <div class="box col-md-6">
                 <div class="box-top text-center py-5">
                     <h2>{{restaurant.name}}</h2>
                     <h6>
@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </div>
-            <div class="box col-md-5">
+            <div class="box col-md-4">
                 <div class="box-top sticky-top">
                     <div class="cart-summary">
                         <h3>Il tuo ordine</h3>
@@ -67,22 +67,20 @@
                         <!-- mettere funzione calcolo prezzo finale -->
                         <div v-for="item,i in cart"
                         :key="item.id">
-                        <ul class="d-flex flex-direction-row cart-item justify-content-between">
-                            <div class="summary-left d-flex">
+                        <ul class="row d-flex flex-direction-row cart-item justify-content-between">
+                            <div class="col-md-8 p-0 summary-left d-flex">
                                 <li class="d-flex align-items-center">
-                                    <i
-                                        class="fas fa-minus-circle"
-                                        @click="minusOneCart(i)"
-                                    ></i>
+                                    <button class="btn">
+                                        <i class="fas fa-minus-circle" @click="minusOneCart(i)"></i>
+                                    </button>
                                     <span> {{ item.quantita }} </span>
-                                    <i
-                                        class="fas fa-plus-circle"
-                                        @click="plusOneCart(i)"
-                                    ></i>
+                                    <button class="btn">
+                                        <i class="fas fa-plus-circle" @click="plusOneCart(i)"></i>
+                                    </button>
                                 </li>
                                 <li>{{item.dish.name}}</li>
                             </div>
-                            <div class="summary-right d-flex align-items-center">
+                            <div class="col-md-4 p-0 summary-right d-flex align-items-center justify-content-end">
                                 <li class="item-delete" @click="removeCart(i)"><i class="fas fa-trash-alt"></i></li>
                                 <li>{{(item.dish.price * item.quantita).toFixed(2)}} &euro;</li>
                             </div>                            
@@ -93,8 +91,8 @@
                         <div class="cart-total" v-if="cart.length">
                             <h6>Costo di consegna: {{ consegna == 0 ? 'Gratis': `${consegna} &euro;` }}</h6>
                             <h6>Totale: {{ total().toFixed(2) }} &#8364;</h6>
-                            <router-link :to="{name:'payment', params: {restaurant:restaurant, cartProducs:cart, total: Number(total().toFixed(2)) }}">
-                            vai alla cassa
+                            <router-link class="pay-link" :to="{name:'payment', params: {slug: restaurant.slug ,restaurant:restaurant, cartProducs:cart, total: Number(total().toFixed(2)) }}">
+                            Vai alla cassa
                             </router-link>
                         </div>
 
@@ -109,9 +107,13 @@
                     <h5 class="my-3">{{(singleDish.price).toFixed(2)}} &euro;</h5>
                     <span class="px-5 text-capitalize">{{ singleDish.description }}</span>
                     <div class="quantity my-3">
-                        <i class="fas fa-minus" @click="minusOne"></i>
+                        <button class="btn">
+                            <i class="fas fa-minus" @click="minusOne"></i>
+                        </button>
                         <span class="popup-quantity">{{ quantity }}</span>
-                        <i class="fas fa-plus" @click="plusOne"></i>
+                        <button class="btn">
+                            <i class="fas fa-plus" @click="plusOne"></i>
+                        </button>
                     </div>
                     <div class="button-container">
                         <button class="btn d-flex justify-content-between font-weight-bold add-cart" @click="checkCart"><span>Aggiungi all' ordine</span><span>{{ (singleDish.price * quantity).toFixed(2) }} &#8364;</span></button>
@@ -124,7 +126,11 @@
         <Footer />  
   </section>
   <section v-else>
-      Caricamento
+      <v-progress-circular
+        :size="70"
+        color="#00ccbc"
+        indeterminate
+        ></v-progress-circular>
   </section>
 </template>
 
@@ -230,11 +236,17 @@ export default {
                 this.updateLocalStorage();
             } else {
                 this.removeCart(i);
+                if (this.cart.length==0) {
+                    localStorage.clear();
+                }
             }
         },
         removeCart: function(i) {
             this.cart.splice(i, 1);
             this.updateLocalStorage();
+            if (this.cart.length==0) {
+                localStorage.clear();
+            }
         },
         total: function() {
             let total = 0;
@@ -320,6 +332,9 @@ export default {
 
 <style scoped lang="scss">
     section {
+        .btn:focus {
+            box-shadow: none;
+        }
         .jumbotron {
         height: 380px;
         background-size: cover;
@@ -499,12 +514,20 @@ export default {
             .cart-item {
 
                 li {
-                    padding: 0 8px;
+                    padding: 0 5px;
                     list-style: none;
                     }
 
-                    .summary-left {
-                color: #125FCA;
+                .summary-left {
+                    color: #125FCA;
+                    span {
+                        width: 20px;
+                        text-align: center;
+                    }
+                    .btn {
+                        color: #125FCA;
+                        padding: 0 5px;
+                    }
                 }
                 .summary-right {
                     .item-delete {
@@ -516,9 +539,20 @@ export default {
             .cart-total {
                 padding-top: 10px;
                 border-top: 1px solid #e2e6e9;
+                .pay-link {
+                    display: block;
+                    padding: 10px;
+                    color: white;
+                    font-weight: bold;
+                    text-align: center;
+                    background-color: #FF8000;
+                    &:hover {
+                        background-color: #FFB700;
+                        text-decoration: none;
+                    }
+                }
             }
         }
-
     }
 
 </style>
