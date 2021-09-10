@@ -2,7 +2,7 @@
 
 400;500;700&display=swap);@charset "UTF-8";
 .payment-success {
-  background: linear-gradient(176deg, #D00606 20%, white 22%);
+  background: linear-gradient(176deg, #D00606 20.8%, white 22%);
   height: 100vh;
   padding-top: 135px;
 }

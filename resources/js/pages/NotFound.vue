@@ -26,7 +26,6 @@ export default {
    
     .pattern{
         background: url("../assets/pattern2.png") repeat-x 0 0;
-        
         height:180px;
     }
     .content{
