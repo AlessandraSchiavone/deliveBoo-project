@@ -1,7 +1,7 @@
 <template>
     <div>
         <Header />
-
+        
         <main>
             <router-view></router-view>
         </main>
@@ -24,4 +24,11 @@ export default {
 
 <style lang="scss">
     @import '../sass/front.scss';
+    main{
+        margin-top: 150px;
+    }
+
+  
+    @import "https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css";
+
 </style>

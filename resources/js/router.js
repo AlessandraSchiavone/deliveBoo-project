@@ -6,6 +6,7 @@ Vue.use(VueRouter);
 import Home from './pages/Home';
 import SingleRestaurant from './pages/SingleRestaurant';
 import NotFound from './pages/NotFound';
+import Payment from './pages/Payment';
 
 const router = new VueRouter({
     mode: 'history',
@@ -20,6 +21,11 @@ const router = new VueRouter({
             path: '/restaurant/:slug',
             name: 'single-restaurant',
             component: SingleRestaurant
+        },
+        {
+            path: '/payment',
+            name: 'payment',
+            component: Payment
         },
         {
             path: '*',

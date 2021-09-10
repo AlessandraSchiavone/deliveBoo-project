@@ -21,5 +21,6 @@ Route::namespace('Api')
         Route::get('restaurant/{slug}', 'RestaurantController@show');
         Route::get('cuisine', 'CuisineController@index');
         Route::get('category', 'CategoryController@index');
-        
+        Route::get('token', 'TokenController@index');
+        Route::post('token', 'TokenController@post');
     });
