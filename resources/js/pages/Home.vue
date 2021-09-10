@@ -1,39 +1,45 @@
 <template>
     <div>
     <Header />
+    <!-- <strong class="prova">{{windowWidth}}</strong>  -->
     <div class="main">
+      
         <div class="jumbotron"></div>
+         
         <div class="box col-md-6 d-flex flex-column justify-content-center align-items-center">
             <h1>Il bello è prenderci gusto</h1>
             <h2>Ordina online dai tuoi ristoranti preferiti</h2>
             <a href="#restaurants" class="hover-none"><div class="d-flex justify-content-center align-items-center"><i class="fas fa-angle-down"></i></div></a>
         </div>
-        <div id="cuisines" >
-            <div class="container">
-              <h2>Le cucine più amate</h2>
-              <h6>Trova le cucine più amate dai ristoranti nella tua zona e ordina online a domicilio.</h6>  
-              <div class="container box-card d-flex flex-wrap justify-content-center align-items-center">
-                  <button 
+        <div id="cuisines" > 
+            <div class="container" v-if="windowWidth >= 992">
+                <h2>Le cucine più amate</h2> 
+                <p>Trova le cucine più amate dai ristoranti nella tua zona e ordina online a domicilio.</p>  
+                <div class="container box-card d-flex flex-wrap justify-content-center align-items-center">
+                    <button 
                     v-show="current_page > 1"
                     class="btn btn-prev mr-2"
                     @click="getCuisines(current_page - 1)"
-                    ><i class="fas fa-chevron-left"></i></button>
-                    <div class="cuisine-card text-center " 
+                    >
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                        <div class="cuisine-card text-center " 
                         v-for="cuisine in cuisines"
                         :key="`cusine-${cuisine.id}`"
                         @click="filterCuisine(cuisine)">
-                        <img :src="require(`../assets/${cuisine.name}.png`)" :alt="cuisine.name">
-                        <h3 :class=" (filteredCuisines.includes(cuisine.id)) ? 'active': ''">{{cuisine.name}}</h3>
+                            <img :src="require(`../assets/${cuisine.name}.png`)" :alt="cuisine.name">
+                            <h3 :class=" (filteredCuisines.includes(cuisine.id)) ? 'active': ''">
+                                {{cuisine.name}}
+                            </h3>
                     </div> 
                     <button 
                     v-show="current_page < last_page"
-                    class="btn btn-next"
-                    @click="getCuisines(current_page + 1)"
-                    >
-                    <i class="fas fa-chevron-right"></i>
+                    class="btn btn-next"    
+                    @click="getCuisines(current_page + 1)">
+                        <i class="fas fa-chevron-right"></i>
                     </button>
-              </div>
-              <div class="text-center ">
+                </div>
+                <div class="text-center ">
                     <button 
                     class="btn btn-circle mr-2"
                     :class="(n == current_page) ? 'btn-active' : ''"
@@ -45,14 +51,49 @@
                     </button>  
                 </div>
             </div>
+
+            <div class="container" v-if="windowWidth >= 578  && windowWidth <=  991 ">
+                <h2>Le cucine più amate</h2> 
+                <p>Trova le cucine più amate dai ristoranti nella tua zona e ordina online a domicilio.</p>  
+                <div class="container box-card row ">
+                   
+                        <div class="cuisine-card text-center col-md-4 col-sm-4" 
+                        v-for="cuisine in cuisines"
+                        :key="`cusine-${cuisine.id}`"
+                        @click="filterCuisine(cuisine)">
+                            <img :src="require(`../assets/${cuisine.name}.png`)" :alt="cuisine.name">
+                            <h3 :class=" (filteredCuisines.includes(cuisine.id)) ? 'active': ''">
+                                {{cuisine.name}}
+                            </h3>
+                    </div> 
+                </div> 
+            </div>
+
+            <div class="container" v-if="windowWidth <= 577">
+                <h2>Le cucine più amate</h2> 
+                <p>Trova le cucine più amate dai ristoranti nella tua zona e ordina online a domicilio.</p>  
+                <div class="d-flex carousel-cuisine ">
+                    <span class="cuisine-card" 
+                    v-for="cuisine in cuisines"
+                    :key="`cusine-${cuisine.id}`">
+                        <img :src="require(`../assets/${cuisine.name}.png`)" :alt="cuisine.name">
+                        <h3>{{cuisine.name}}</h3>
+                    </span> 
+                  
+                </div>
+               
+            </div>
+
+
+            
              
 
         </div>
         <div id="restaurants" >
             <div class="container">
                 <h2>I nostri ristoranti </h2>
-                <div class=" container box-card d-flex flex-wrap justify-content-center" v-if="filteredRestaurants.length == 0">
-                    <div class="restaurant-card"
+                <div class=" box-card row flex-wrap " v-if="filteredRestaurants.length == 0">
+                    <div class="restaurant-card col-lg-3 col-md-4 col-sm-6 col-12"
                         v-for="restaurant in restaurants"
                         :key="`restaurant-${restaurant.id}`">
                         <router-link :to="{ name:'single-restaurant', params: { slug: restaurant.slug  } }" class="card-link">
@@ -73,7 +114,7 @@
                       
                 </div>
                 <div class=" container box-card d-flex flex-wrap justify-content-center" v-else>
-                    <div class="restaurant-card"
+                    <div class="restaurant-card restaurant-card col-lg-3 col-md-4 col-sm-6 col-12"
                         v-for="restaurant in filteredRestaurants"
                         :key="`restaurant-${restaurant.id}`">
                         <router-link :to="{ name:'single-restaurant', params: { slug: restaurant.slug  } }" class="card-link">
@@ -101,10 +142,10 @@
                     <img src="../assets/appname.png" alt="App Food Now">
                 </div>
                 <div class="col-md-6 app-info">
-                    <p>Il bello è prenderci gusto</p>
-                    <h6>Scarica l'app di Food Now e ordina dove vuoi, qualunque cosa desideri.</h6>
+                    <h2>Il bello è prenderci gusto</h2>
+                    <p>Scarica l'app di Food Now e ordina dove vuoi, qualunque cosa desideri.</p>
                     <div class="row d-flex justify-content-center align-items-center my-3 ">
-                        <div class="col-md-4">
+                        <div class="col-lg-5 col-md-6 col-sm-6 col-4">
                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135 40">
                             <path d="M130 40H5c-2.8 0-5-2.2-5-5V5c0-2.8 2.2-5 5-5h125c2.8 0 5 2.2 5 5v30c0 2.8-2.2 5-5 5z"/>
                             <path d="M130 .8c2.3 0 4.2 1.9 4.2 4.2v30c0 2.3-1.9 4.2-4.2 4.2H5C2.7 39.2.8 37.3.8 35V5C.8 2.7 2.7.8 5 .8h125m0-.8H5C2.2 0 0 2.3 0 5v30c0 2.8 2.2 5 5 5h125c2.8 0 5-2.2 5-5V5c0-2.7-2.2-5-5-5z" fill="#a6a6a6"/>
@@ -144,7 +185,7 @@
                             <path d="M41.3 13V7h1.8c.9 0 1.7.3 2.2.8.6.6.8 1.3.8 2.2 0 .9-.3 1.6-.8 2.2-.5.5-1.3.8-2.2.8h-1.8zm.7-.7h1.1c.7 0 1.2-.2 1.6-.6.4-.4.6-1 .6-1.7s-.2-1.3-.6-1.7c-.4-.4-1-.6-1.6-.6H42v4.6zm5.2.7V7h.8v6h-.8zm3.9.1c-.4 0-.9-.1-1.3-.4-.4-.3-.7-.7-.8-1.2l.7-.3c.1.3.3.6.5.8.3.2.6.3.9.3.3 0 .6-.1.9-.3.2-.2.4-.4.4-.7 0-.3-.1-.6-.4-.8-.2-.2-.6-.4-1.1-.5-.5-.2-.9-.4-1.2-.6-.3-.3-.4-.6-.4-1s.2-.8.5-1.1c.2-.3.7-.4 1.2-.4s.9.1 1.2.4c.3.3.5.5.6.8l-.7.3c0-.2-.1-.4-.3-.6-.2-.2-.5-.2-.8-.2-.3 0-.5.1-.8.2-.1.2-.2.4-.2.7 0 .2.1.4.3.6.2.2.5.3.9.4.3.1.5.2.7.3.2.1.4.2.6.4.2.1.4.3.5.6.1.2.2.5.2.8s-.1.6-.2.8c-.1.2-.3.4-.5.5-.3 0-.5.1-.7.1-.3.1-.5.1-.7.1zm3.8-.1h-.8V7h2c.5 0 .9.2 1.3.5s.6.8.6 1.3-.2.9-.6 1.3c-.4.3-.8.5-1.3.5h-1.3V13zm0-3.2h1.3c.3 0 .6-.1.8-.3.2-.2.3-.5.3-.7s-.1-.5-.3-.7c-.2-.2-.5-.3-.8-.3h-1.3v2zm9.1 2.4c-.6.6-1.3.9-2.2.9-.9 0-1.6-.3-2.2-.9-.6-.6-.9-1.3-.9-2.2s.3-1.6.9-2.2c.6-.6 1.3-.9 2.2-.9.9 0 1.6.3 2.2.9.6.6.9 1.3.9 2.2 0 .9-.3 1.6-.9 2.2zm-3.9-.5c.4.4 1 .7 1.6.7s1.2-.2 1.6-.7c.4-.4.7-1 .7-1.7s-.2-1.3-.7-1.7c-.4-.4-1-.7-1.6-.7s-1.2.2-1.6.7a2.413 2.413 0 0 0 0 3.4zm5.8 1.3V7h.9l2.9 4.7V7h.8v6h-.8l-3.1-4.9V13h-.7zm6 0V7h.8v6h-.8zm2.2 0V7h2.2c.5 0 .9.2 1.2.5.3.3.5.7.5 1.1 0 .3-.1.5-.2.8-.1.2-.3.4-.6.5.3.1.5.3.7.5.2.2.3.5.3.9 0 .5-.2.9-.5 1.2-.4.3-.8.5-1.3.5h-2.3zm.8-3.4h1.4c.3 0 .5-.1.7-.3.2-.2.3-.4.3-.6s-.2-.5-.3-.7c-.2-.2-.4-.3-.7-.3h-1.4v1.9zm0 2.7h1.6c.3 0 .5-.1.7-.3.2-.2.3-.4.3-.7 0-.2-.1-.5-.3-.7-.2-.2-.4-.3-.7-.3H75v2zm4.3.7V7h.8v6h-.8zm2.2 0V7h.8v5.3h2.6v.7h-3.4zm7.8-5.3h-2.7v1.9H89v.7h-2.5v1.9h2.7v.8h-3.5V7h3.5v.7zm4.7 5.4c-.4 0-.9-.1-1.3-.4-.4-.3-.7-.7-.8-1.2l.7-.3c.1.3.3.6.5.8.3.2.6.3.9.3.3 0 .6-.1.9-.3.2-.2.4-.4.4-.7 0-.3-.1-.6-.4-.8-.2-.2-.6-.4-1.1-.5-.5-.2-.9-.4-1.2-.6-.3-.3-.4-.6-.4-1s.2-.8.5-1.1c.3-.3.8-.5 1.3-.5s.9.1 1.2.4c.3.3.5.5.6.8l-.7.4c-.1-.2-.2-.4-.4-.5-.2-.2-.5-.2-.8-.2-.3 0-.5.1-.8.2-.2.2-.3.4-.3.6 0 .2.1.4.3.6.2.2.5.3.9.4.3.1.5.2.7.3.2.1.4.2.6.4.2.1.4.3.5.6.1.2.2.5.2.8s-.1.6-.2.8c-.1.2-.3.4-.5.5-.2 0-.4.1-.6.1-.3.1-.5.1-.7.1zm5.2 0c-.7 0-1.2-.2-1.6-.7-.4-.4-.6-1-.6-1.7V7h.8v3.8c0 .5.1.9.4 1.2.2.3.6.4 1.1.4.5 0 .8-.1 1.1-.4.2-.3.4-.7.4-1.2V7h.8v3.8c0 .7-.2 1.3-.6 1.7-.6.4-1.1.6-1.8.6z" fill="#fff" stroke="#fff" stroke-width=".2" stroke-miterlimit="10"/>
                             </svg> 
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-lg-5 col-md-6 col-sm-6 col-4">
                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135 40">
                             <path fill="#A6A6A6" d="M130.197 40H4.73C2.12 40 0 37.872 0 35.267V4.727C0 2.12 2.122 0 4.73 0h125.467C132.803 0 135 2.12 135 4.726v30.54c0 2.606-2.197 4.734-4.803 4.734z"/>
                             <path d="M134.032 35.268c0 2.116-1.714 3.83-3.834 3.83H4.728c-2.118 0-3.838-1.714-3.838-3.83V4.725C.89 2.61 2.61.89 4.73.89h125.467c2.12 0 3.834 1.72 3.834 3.835l.01 30.543z"/>
@@ -152,8 +193,6 @@
                             </svg> 
                         </div>
                     </div>
-                    
-                    
                 </div>
             </div>
             
@@ -181,6 +220,7 @@ export default {
             filteredCuisines: [], 
             current_page: 1,
             last_page: 1,
+            windowWidth: window.innerWidth
 
         }
     },
@@ -257,22 +297,48 @@ export default {
                             console.log(err);
                         }
                     );
-        }
+        },
+        onResize() {
+            this.windowWidth = window.innerWidth
+    },
     },
     created() {
         this.getRestaurants();
         this.getCuisines();
-    }
+    },
+    mounted() {
+        this.$nextTick(() => {
+            window.addEventListener('resize', this.onResize);
+            console.log(this.windowWidth);
+        })
+    },
+    
+    beforeDestroy() { 
+        window.removeEventListener('resize', this.onResize); 
+    },
 }
 </script>
 
 <style lang="scss" scoped>
+    .prova{
+        z-index: 1;
+        position: fixed;
+        top: 0;
+        right: 0;
+        border: 1px solid green;
+        background-color: white;
+        font-size: 20px;
+    }
+    .carousel-cuisine{
+    
+        overflow:scroll;
+    }
     .jumbotron {
-        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.425), rgba(0, 0, 0, 0)), url('../assets/jumbotron.png');
+        // background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.425), rgba(0, 0, 0, 0)), url('../assets/jumbotron.png');
         height: 650px;
-        background-size: cover;
-        border-radius: 0;
-        margin: 0;
+        // background-size: cover;
+        // border-radius: 0;
+        // margin: 0;
         
     }
     .hover-none {
@@ -290,7 +356,6 @@ export default {
             h1{
                 color:#f36d00;
                 font-weight:700;
-                font-size: 45px;
                 line-height: 1.17;
                 margin:12px 0;
             }
@@ -301,6 +366,8 @@ export default {
             }
             
             div{
+                display: flex;
+                align-items: center;
                 width:30px;
                 height:30px;
                 border-radius:50%;
@@ -309,14 +376,14 @@ export default {
                 margin:12px 0;
                 i{
                    color:white;
-                   font-size: 25px;      
+                   font-size: 25px;
+                      
                 }
             }
         }
     #cuisines{
         padding:30px;
         h2{
-            font-size:35px;
             font-weight: bold;
         }
         h6{
@@ -354,13 +421,16 @@ export default {
             margin:10px 0px;
             &:hover{
                 cursor:pointer;
+                transition: 0.1s;
+                transform: scale(1.1);
+              
             }
             img{
                 width:70%;
             }
             h3{
                 padding:10px 0px;
-                font-size:16px;
+                // font-size:16px;
                 color:#5e6b77;
                 &.active {
                     text-decoration: underline;
@@ -371,38 +441,47 @@ export default {
         }
         .restaurant-card{
             // padding:10px;
+          
+            padding: 15px;
             .card-link {
                 color: black;
+                    img {
+                    width:100%;
+                    object-fit: cover;
+                    height:130px; 
+                    filter: saturate(85%);
+                    background-color:lightgrey;
+                    &:hover{
+                        transition: 0.2s;
+                        border-radius: 20px;
+                        transform: scale(1.1);
+                        filter: saturate(105%);
+                    }
+                }
+                h3{
+                    padding-top:15px ;
+                    font-weight:bold;
+                }
+                .badge-icon::after{
+                content: "•";
+                display: inline-block;
+                color: #727475;
+                }
+            }
                 &:hover {
                     color: black;
                 }
-            }
-            margin:10px;
-            width:calc(100% / 3 - 20px);
-            img{
-                width:100%;
-                object-fit: cover;
-                background-color:lightgrey ;
-                height:130px; 
-            }
-            h3{
-                padding-top:15px ;
-                font-size:20px;
-                font-weight:bold;
-            }
-            .badge-icon::after{
-              content: "•";
-              display: inline-block;
-              color: #727475;
-            }
         }
+            // margin:10px;
+            // width:calc(100% / 3 - 20px);
+            
     }
     #restaurants{
         background-color:#FFEAE4 ;
         padding: 30px 0;
         h2{
-            margin:30px 10px;
-            font-size:35px;
+            margin:30px 0px;
+            // font-size:35px;
             font-weight: bold;
         }        
             }
@@ -421,12 +500,407 @@ export default {
                 svg:hover{
                     cursor:pointer;
                 }
+                h2 {
+                    margin-bottom: 20px;
+                }
                 p{
-                    margin-bottom:0;
-                    font-size:32px;
-                    font-weight: bold;
+                    margin-bottom:15px;
+                    // font-size:32px;
+                    // font-weight: bold;
                 }
             }
         }
     }
+
+    // Small devices (landscape phones, 576px and up)
+    @media (min-width: 200px) and (max-width:577px) { 
+        .jumbotron {
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.425), rgba(0, 0, 0, 0)), url('../assets/jumbotron.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 0;
+            margin: 0;
+        
+        }
+         h1{
+            font-size: 25px; 
+        }
+        .box{
+            h2{
+                font-size: 16px; 
+            }
+            div{
+                width:25px;
+                height:25px;
+                border-radius:50%;
+                background-color:#f36d00;
+                box-shadow:0 2px 4px 0 rgb(0 0 0 / 18%);
+                margin:12px 0;
+                i{
+                    font-size: 20px;
+                        
+                }
+            }
+        }
+      
+
+        #cuisines{
+            h2{
+                font-size:25px;  
+            }
+            p{
+                font-size:16px;     
+            }
+            .cuisine-card{
+            // width:calc(100% / 6 - 20px);
+            // padding:10px;
+            text-align: center;
+            height:150px;
+            margin:10px 15px;
+                img{
+                    height:80%;
+                }
+                h3{
+                    padding:10px 0px;
+                    font-size:16px;
+                    
+                    
+                }
+            }
+        }
+        .restaurant-card{
+            .card-link{
+              
+                    
+                h3{
+                    padding-top:15px ;
+                    font-size:25px;
+                    font-weight:bold;
+                }
+                
+                
+            }
+            
+        }
+       
+        .box-app{
+            .row{
+                .app-img{
+                    text-align: center;
+                    height:350px;
+                    img{
+                        height:80%;
+                    }
+                }
+                .app-info{
+                    text-align: center;
+                    p{
+                        font-size: 16px;
+                    }
+                    h2{
+                        
+                        font-size:22px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+
+
+    @media (min-width: 578px) {
+        .jumbotron {
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.425), rgba(0, 0, 0, 0)), url('../assets/jumbotron.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 0;
+            margin: 0;
+        
+        }
+         h1{
+            font-size: 30px;
+             
+         }
+
+        .box{
+            h2{
+                font-size: 16px; 
+            }
+            // div{
+            //     width:25px;
+            //     height:25px;
+            //     border-radius:50%;
+            //     background-color:#f36d00;
+            //     box-shadow:0 2px 4px 0 rgb(0 0 0 / 18%);
+            //     margin:12px 0;
+            //     i{
+            //         font-size: 20px;
+                        
+            //     }
+            // }
+            
+        }
+        #cuisines{
+            h2{
+                font-size:25px;  
+            }
+            p{
+                font-size:18px;    
+            }
+            .cuisine-card{
+            // width:calc(100% / 6 - 20px);
+            // padding:10px;
+            height:150px;
+            margin:10px 0px;
+                img{
+                    width:80%;
+                }
+                h3{
+                    padding:10px 0px;
+                    font-size:16px;
+                }
+            }
+        }
+        .restaurant-card{
+            .card-link{
+
+                h3{
+                   
+                    font-size:22px;
+                   
+                }
+            }
+            
+        }
+        .box-app{
+            .row{
+                .app-img{
+                    text-align: center;
+                    height:350px;
+                    img{
+                        height:100%;
+                    }
+                }
+                .app-info{
+                    text-align: center;
+                    p{
+                        font-size: 15px;
+                    }
+                    h2{
+                       
+                        font-size:25px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }  
+    }
+
+    // Medium devices (tablets, 768px and up)
+    @media (min-width: 768px) { 
+        h1{
+            font-size: 38px;
+        }
+        .box{
+            h2{
+                font-size: 22px; 
+            }
+        }
+        #cuisines{
+            h2{
+                font-size:30px;   
+            }
+            p{
+                font-size:20px;    
+            }
+            .cuisine-card{
+            // width:calc(100% / 6 - 20px);
+            // padding:10px;
+            height:150px;
+            margin:10px 0px;
+                img{
+                    width:70%;
+                }
+                h3{
+                    padding:10px 0px;
+                    font-size:16px;
+                    
+                }
+            }
+        }
+        .restaurant-card{
+            .card-link{
+                h3{
+                   
+                    font-size:22px;
+                   
+                }
+            }
+            
+        }
+        .box-app{
+            .row{
+                .app-img{
+                    text-align: center;
+                    height:350px;
+                    img{
+                        height:100%;
+                    }
+                }
+                .app-info{
+                    text-align: center;
+                    p{
+                        font-size: 16px;
+                    }
+                    h2{
+                        
+                        font-size:25px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+
+    }
+
+    // Large devices (desktops, 992px and up)
+    @media (min-width: 992px) { 
+          h1{
+            font-size: 40px;
+        }
+        .box{
+            h2{
+                font-size: 22px; 
+            }
+        }
+        #cuisines{
+            h2{
+                font-size:35px;
+            }
+            p{
+                font-size:22px;    
+            }
+            .cuisine-card{
+            // width:calc(100% / 6 - 20px);
+            // padding:10px;
+            height:150px;
+            margin:10px 0px;
+                img{
+                    width:80%;
+                }
+                h3{
+                    padding:10px 0px;
+                    font-size:16px; 
+                }
+            }
+        }
+
+        .restaurant-card{
+            .card-link{
+                font-size: 1px;
+                h3{
+                   
+                    font-size:22px;
+                   
+                }
+            }
+            
+        }
+         .box-app{
+            .row{
+                .app-img{
+                    text-align: center;
+                    height:350px;
+                    img{
+                        height:100%;
+                    }
+                }
+                .app-info{
+                    text-align: center;
+                    p{
+                        font-size: 17px;
+                    }
+                    h2{
+                        
+                        font-size:32px;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+
+    }
+
+    // Extra large devices (large desktops, 1200px and up)
+    @media (min-width: 1200px) { 
+        h1{
+            font-size: 45px;
+        }
+        .box{
+            h2{
+                font-size: 22px; 
+            }
+        }
+
+        #cuisines{
+            h2{
+                font-size:35px;
+            }
+            p{
+                font-size:25px;    
+            }
+            .cuisine-card{
+            // width:calc(100% / 6 - 20px);
+            // padding:10px;
+            // border: 1px solid black;
+            height:150px;
+            margin:20px 0px;
+                img{
+                    width:80%;
+                }
+                h3{
+                    padding:10px 0px;
+                    font-size:16px;
+                }
+            }
+        }
+       
+        .restaurant-card{
+            .card-link{
+               
+                h3{
+                   
+                    font-size:22px;
+                   
+                }
+            }  
+        }
+        .box-app{
+            .row{
+                .app-img{
+                    text-align: center;
+                    height:350px;
+                    img{
+                        height:100%;
+                    }
+                }
+                .app-info{
+                    text-align: center;
+                    p{
+                        font-size: 18px;
+                    }
+                    h2{
+                        
+                        font-size:32px;
+                    
+                    }
+                }
+            }
+        }
+
+    }
+
+
 </style>
