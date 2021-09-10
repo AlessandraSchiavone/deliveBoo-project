@@ -18,7 +18,7 @@
                 </div>
                 <div class="price-total mt-2">Totale: {{orderTotal}} &euro;</div>
             </div>
-            <router-link :to="{ name:'single-restaurant', params: { slug: this.$route.params.slug  } }" class="btn my-3">Ritorna al carrello</router-link>
+            <router-link :to="{ name:'single-restaurant', params: { slug: restaurantSlug  } }" class="btn my-3">Ritorna al carrello</router-link>
 
             <form id="payment-form" action="api/token" @submit="checkForm" method="post"> 
                 <p v-if="errors.length">
@@ -85,6 +85,7 @@ export default {
         return{
             errors: [],
             restaurantName: null,
+            restaurantSlug: null,
             cartProducs :[],
             orderTotal:null,
             name:'',
@@ -95,6 +96,7 @@ export default {
         }
     },
     created() {
+        localStorage.orderRestaurantSlug = this.$route.params.restaurant.slug;
         localStorage.orderRestaurantName = this.$route.params.restaurant.name;
         localStorage.orderTotal = this.$route.params.total;
     },
@@ -102,6 +104,7 @@ export default {
         this.cartProducs = JSON.parse(localStorage.getItem("cart"));
         this.orderTotal = localStorage.orderTotal;
         this.restaurantName = localStorage.orderRestaurantName;
+        this.restaurantSlug = localStorage.orderRestaurantSlug;
         // console.log(localStorage.cart);
             let recaptchaScript = document.createElement('script')
             recaptchaScript.setAttribute('src', "https://js.braintreegateway.com/web/dropin/1.31.2/js/dropin.min.js")
