@@ -8,6 +8,8 @@ import SingleRestaurant from './pages/SingleRestaurant';
 import NotFound from './pages/NotFound';
 import Payment from './pages/Payment';
 
+
+
 const router = new VueRouter({
     mode: 'history',
     linkExactActiveClass: 'active',
