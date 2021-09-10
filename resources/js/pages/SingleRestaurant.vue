@@ -13,7 +13,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="box col-md-5">
+            <div class="box col-md-6">
                 <div class="box-top text-center py-5">
                     <h2>{{restaurant.name}}</h2>
                     <h6>
@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </div>
-            <div class="box col-md-5">
+            <div class="box col-md-4">
                 <div class="box-top sticky-top">
                     <div class="cart-summary">
                         <h3>Il tuo ordine</h3>
@@ -67,9 +67,9 @@
                         <!-- mettere funzione calcolo prezzo finale -->
                         <div v-for="item,i in cart"
                         :key="item.id">
-                        <ul class="d-flex flex-direction-row cart-item justify-content-between">
-                            <div class="summary-left d-flex">
-                                <li class="d-flex align-items-center">
+                        <ul class="row d-flex flex-direction-row cart-item justify-content-between">
+                            <div class="col-md-8 summary-left d-flex">
+                                <li class=" d-flex align-items-center">
                                     <i
                                         class="fas fa-minus-circle"
                                         @click="minusOneCart(i)"
@@ -82,7 +82,7 @@
                                 </li>
                                 <li>{{item.dish.name}}</li>
                             </div>
-                            <div class="summary-right d-flex align-items-center">
+                            <div class="col-md-4 summary-right d-flex align-items-center">
                                 <li class="item-delete" @click="removeCart(i)"><i class="fas fa-trash-alt"></i></li>
                                 <li>{{(item.dish.price * item.quantita).toFixed(2)}} &euro;</li>
                             </div>                            
@@ -124,7 +124,11 @@
         <Footer />  
   </section>
   <section v-else>
-      Caricamento
+      <v-progress-circular
+        :size="70"
+        color="#00ccbc"
+        indeterminate
+        ></v-progress-circular>
   </section>
 </template>
 
@@ -499,7 +503,7 @@ export default {
             .cart-item {
 
                 li {
-                    padding: 0 8px;
+                    padding: 0 5px;
                     list-style: none;
                     }
 
