@@ -538,8 +538,7 @@ export default {
                 box-shadow:0 2px 4px 0 rgb(0 0 0 / 18%);
                 margin:12px 0;
                 i{
-                    font-size: 20px;
-                        
+                    font-size: 20px;     
                 }
             }
         }
