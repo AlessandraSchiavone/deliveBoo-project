@@ -1990,6 +1990,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Footer'
 });
@@ -2939,7 +2942,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".footer[data-v-61a7c374] {\n  padding: 20px 0;\n  background-color: #E2E6E9;\n}\n.footer h3[data-v-61a7c374] {\n  margin-top: 20px;\n  font-weight: bold;\n}\n.footer ul[data-v-61a7c374] {\n  list-style: none;\n  margin-top: 10px;\n  margin-bottom: 0;\n}\n.footer ul li[data-v-61a7c374] {\n  padding: 5px 0px;\n}\n.footer ul li a[data-v-61a7c374] {\n  color: #2a3846;\n}\n.footer ul li a[data-v-61a7c374]:hover {\n  color: #537DB0;\n}\n.footer ul li a i[data-v-61a7c374] {\n  font-size: 25px;\n  margin: 0px 10px;\n}", ""]);
+exports.push([module.i, ".footer[data-v-61a7c374] {\n  padding: 20px 0;\n  background-color: #E2E6E9;\n}\n.footer h3[data-v-61a7c374] {\n  margin-top: 20px;\n  font-weight: bold;\n}\n.footer ul[data-v-61a7c374] {\n  list-style: none;\n  margin-top: 10px;\n  margin-bottom: 0;\n}\n.footer ul li[data-v-61a7c374] {\n  padding: 5px 0px;\n}\n.footer ul li a[data-v-61a7c374] {\n  color: #2a3846;\n}\n.footer ul li a[data-v-61a7c374]:hover {\n  color: #537DB0;\n}\n.footer ul li a i[data-v-61a7c374] {\n  font-size: 25px;\n  margin: 0px 10px;\n}\n@media (min-width: 0px) and (max-width: 576px) {\n.links-footer .links[data-v-61a7c374] {\n    font-size: 20px;\n}\n}", ""]);
 
 // exports
 
@@ -4391,108 +4394,112 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "footer" }, [
-      _c("div", { staticClass: "container d-flex justify-content-between" }, [
-        _c("div", { staticClass: "links" }, [
-          _c("h3", [_vm._v("Scopri Food Now")]),
-          _vm._v(" "),
-          _c("ul", [
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Investitori")])
-            ]),
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "links-footer row" }, [
+          _c("div", { staticClass: "links col-lg-3 col-md-3 col-6" }, [
+            _c("h3", [_vm._v("Scopri Food Now")]),
             _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Chi siamo")])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Ristoranti")])
-            ]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Altro")])]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Pressroom")])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Il nostro blog")])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Programmazione")])
-            ]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Design")])]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Lavora con noi")])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v("Diventa nostro partner")
+            _c("ul", [
+              _c("li", [
+                _c("a", { attrs: { href: "#" } }, [_vm._v("Investitori")])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("a", { attrs: { href: "#" } }, [_vm._v("Chi siamo")])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("a", { attrs: { href: "#" } }, [_vm._v("Ristoranti")])
+              ]),
+              _vm._v(" "),
+              _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Altro")])]),
+              _vm._v(" "),
+              _c("li", [
+                _c("a", { attrs: { href: "#" } }, [_vm._v("Pressroom")])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("a", { attrs: { href: "#" } }, [_vm._v("Il nostro blog")])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("a", { attrs: { href: "#" } }, [_vm._v("Programmazione")])
+              ]),
+              _vm._v(" "),
+              _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Design")])]),
+              _vm._v(" "),
+              _c("li", [
+                _c("a", { attrs: { href: "#" } }, [_vm._v("Lavora con noi")])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("a", { attrs: { href: "#" } }, [
+                  _vm._v("Diventa nostro partner")
+                ])
               ])
             ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "links" }, [
-          _c("h3", [_vm._v("Note legali")]),
+          ]),
           _vm._v(" "),
-          _c("ul", [
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v("Termini & condizioni")
-              ])
-            ]),
+          _c("div", { staticClass: "links col-lg-3 col-md-3 col-6" }, [
+            _c("h3", [_vm._v("Note legali")]),
             _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v("Informativa sulla privacy")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Cookies")])])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "links" }, [
-          _c("h3", [_vm._v("Servizio Clienti")]),
-          _vm._v(" "),
-          _c("ul", [
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Contatti")])]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("FAQ")])]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Tipi di cucina")])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Mappa del sito")])
+            _c("ul", [
+              _c("li", [
+                _c("a", { attrs: { href: "#" } }, [
+                  _vm._v("Termini & condizioni")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("a", { attrs: { href: "#" } }, [
+                  _vm._v("Informativa sulla privacy")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Cookies")])])
             ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "links" }, [
-          _c("h3", [_vm._v("Seguici su:")]),
+          ]),
           _vm._v(" "),
-          _c("ul", { staticClass: "d-flex" }, [
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [
-                _c("i", { staticClass: "fab fa-facebook" })
-              ])
-            ]),
+          _c("div", { staticClass: "links col-lg-3 col-md-3 col-6" }, [
+            _c("h3", [_vm._v("Servizio Clienti")]),
             _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [
-                _c("i", { staticClass: "fab fa-twitter" })
+            _c("ul", [
+              _c("li", [
+                _c("a", { attrs: { href: "#" } }, [_vm._v("Contatti")])
+              ]),
+              _vm._v(" "),
+              _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("FAQ")])]),
+              _vm._v(" "),
+              _c("li", [
+                _c("a", { attrs: { href: "#" } }, [_vm._v("Tipi di cucina")])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("a", { attrs: { href: "#" } }, [_vm._v("Mappa del sito")])
               ])
-            ]),
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "links col-lg-3 col-md-3 col-6" }, [
+            _c("h3", [_vm._v("Seguici su:")]),
             _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [
-                _c("i", { staticClass: "fab fa-instagram" })
+            _c("ul", { staticClass: "d-flex" }, [
+              _c("li", [
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("i", { staticClass: "fab fa-facebook" })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("i", { staticClass: "fab fa-twitter" })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("i", { staticClass: "fab fa-instagram" })
+                ])
               ])
             ])
           ])
@@ -4586,6 +4593,8 @@ var render = function() {
     "div",
     [
       _c("Header"),
+      _vm._v(" "),
+      _c("strong", { staticClass: "prova" }, [_vm._v(_vm._s(_vm.windowWidth))]),
       _vm._v(" "),
       _c("div", { staticClass: "main" }, [
         _c("div", { staticClass: "jumbotron" }),
@@ -22517,7 +22526,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\BooleanClass34\Proj34\deliveBoo-project\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Users\nate_\Desktop\Boolean\deliveBoo-project\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
