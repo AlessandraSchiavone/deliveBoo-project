@@ -61,4 +61,11 @@ export default {
         }
     }
 
+    @media (min-width: 200px) and (max-width:575px) { 
+        .login{
+            span{
+                display: none;
+            }
+        }
+    }
 </style>

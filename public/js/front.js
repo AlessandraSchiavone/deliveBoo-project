@@ -2961,7 +2961,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".header[data-v-1f42fb90] {\n  position: absolute;\n  top: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  background-color: transparent;\n  height: 76px;\n}\n.header .logo img[data-v-1f42fb90] {\n  width: 215px;\n}\n.header .login span[data-v-1f42fb90] {\n  font-size: 1.14286rem;\n  margin-right: 5px;\n}\n.header .login span.white[data-v-1f42fb90] {\n  color: white;\n}\n.header .login a[data-v-1f42fb90] {\n  font-size: 1.14286rem;\n  font-weight: bold;\n}\n.header .login a.white[data-v-1f42fb90] {\n  color: white;\n}", ""]);
+exports.push([module.i, ".header[data-v-1f42fb90] {\n  position: absolute;\n  top: 0;\n  left: 50%;\n  transform: translateX(-50%);\n  background-color: transparent;\n  height: 76px;\n}\n.header .logo img[data-v-1f42fb90] {\n  width: 215px;\n}\n.header .login span[data-v-1f42fb90] {\n  font-size: 1.14286rem;\n  margin-right: 5px;\n}\n.header .login span.white[data-v-1f42fb90] {\n  color: white;\n}\n.header .login a[data-v-1f42fb90] {\n  font-size: 1.14286rem;\n  font-weight: bold;\n}\n.header .login a.white[data-v-1f42fb90] {\n  color: white;\n}\n@media (min-width: 200px) and (max-width: 575px) {\n.login span[data-v-1f42fb90] {\n    display: none;\n}\n}", ""]);
 
 // exports
 
