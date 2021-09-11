@@ -1,7 +1,7 @@
 <template>
     <div>
     <Header />
-    <!-- <strong class="prova">{{windowWidth}}</strong>  -->
+    <strong class="prova">{{windowWidth}}</strong> 
     <div class="main">
       
         <div class="jumbotron"></div>
