@@ -1,7 +1,6 @@
 <template>
     <div>
     <Header />
-    <strong class="prova">{{windowWidth}}</strong> 
     <div class="main">
       
         <div class="jumbotron"></div>
@@ -524,11 +523,11 @@ export default {
         
         }
          h1{
-            font-size: 25px; 
+            font-size: 22px; 
         }
         .box{
             h2{
-                font-size: 16px; 
+                font-size: 14px; 
             }
             div{
                 width:25px;
@@ -538,19 +537,19 @@ export default {
                 box-shadow:0 2px 4px 0 rgb(0 0 0 / 18%);
                 margin:12px 0;
                 i{
-                    font-size: 20px;
-                        
+                    font-size: 20px;     
                 }
             }
         }
       
 
         #cuisines{
+            padding:0px;
             h2{
-                font-size:25px;  
+                font-size:23px;  
             }
             p{
-                font-size:16px;     
+                font-size:15px;     
             }
             .cuisine-card{
             // width:calc(100% / 6 - 20px);
@@ -559,7 +558,7 @@ export default {
             height:150px;
             margin:10px 15px;
                 img{
-                    height:80%;
+                    height:50%;
                 }
                 h3{
                     padding:10px 0px;
