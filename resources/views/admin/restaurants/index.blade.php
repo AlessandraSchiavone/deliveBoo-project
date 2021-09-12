@@ -61,5 +61,8 @@
         @else
             <h3>Non hai nessun ristorante registrato</h3>
         @endif
-    </div>   
+        <div class="mt-3">
+            <a  class="btn btn-secondary" href="{{ route('admin.orders.index', $restaurant -> id ) }}">Visualizza gli ordini</a>
+        </div>
+    </div>  
 @endsection
