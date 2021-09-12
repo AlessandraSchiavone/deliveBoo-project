@@ -56,6 +56,8 @@ export default {
 
 <style lang="scss" scoped>
     .footer {
+        // position: relative;
+        // z-index: 100;
         // .container{
         //     background-color: yellow;
         // }

@@ -1,130 +1,138 @@
 <template>
-  <section v-if="restaurant">
-      <Header />
-      <div class="jumbotron">
-          <img :src="restaurant.img" :alt="restaurant.name">
-      </div>
-      <div class="container">
-        <div class="position-relative row d-flex justify-content-center">
-            <div class="col-md-2">
-                <ul class="sticky-top category-list">
-                    <li v-for="category in filteredCategories" :key="`category-${category.id}`" @click="setActive(category.id)">
-                        <a :href="`#category-${category.id}`" :class="category.id == activeCategoryId ? 'active':''">{{category.name}}</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="box col-md-6">
-                <div class="box-top text-center py-5">
-                    <h2>{{restaurant.name}}</h2>
-                    <h6>
-                    <span v-for="cuisine in restaurant.cuisines"
-                    :key="cuisine.id">{{cuisine.name}}  </span>
-                    </h6>
-                    <h6>
-                    <span class="euro" v-for="n in restaurant.price_rating"
-                    :key="n">&euro;</span>
-                    </h6>
-                    <h6>{{restaurant.location}}</h6>
-                    <div class="consegna">
-                        <div class="row d-flex justify-content-center align-items-center">
-                            <div class="col-md-6">
-                                <h5>Consegna</h5>
-                            </div>
-                            <div class="col-md-6">
-                                <h6>{{ restaurant.price_shipping == 0 ? 'Gratis': `${restaurant.price_shipping} &euro;`}}</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div v-for="category in filteredCategories" :key="`category-${category.id}`" :id="`category-${category.id}`">
-                    <h3>{{category.name}}</h3>
-                    <div v-for="dish in restaurant.dishes"
-                    :key="`dish-${dish.id}`" class="text-left p-4 menu-card hover"
-                    v-show="dish.category_id==category.id" @click="showPopup(dish)">
-                        <h5>{{dish.name}}</h5>
-                        <p class="text-capitalize">{{dish.description}}</p>
-                        <h6>{{(dish.price).toFixed(2)}} &euro;</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="box col-md-4">
-                <div class="box-top sticky-top">
-                    <div class="cart-summary">
-                        <h3>Il tuo ordine</h3>
-                        <div class="box-allergy">
-                            <ul class="d-flex flex-direction-row align-items-center">
-                                <li><i class="fas fa-exclamation-circle"></i></li>
-                                <li>Hai un'allergia o un'intolleranza alimentare? Se hai un'allergia o un'intolleranza alimentare, telefona immediatamente al ristorante.</li>
-                            </ul>
-                        </div>
-                        <div class="box-modalita">
-                            <ul class="d-flex align-items-center justify-content-between">
-                                <li id="active"><i class="fas fa-shipping-fast"></i><span> Consegna</span></li>
-                                <li>Ritiro non disponibile</li>
-                            </ul>
-                        </div>
-                        <!-- carrello con singoli piatti -->
-                        <!-- mettere funzione calcolo prezzo finale -->
-                        <div v-for="item,i in cart"
-                        :key="item.id">
-                        <ul class="row d-flex flex-direction-row cart-item justify-content-between">
-                            <div class="col-md-8 p-0 summary-left d-flex">
-                                <li class="d-flex align-items-center">
-                                    <button class="btn">
-                                        <i class="fas fa-minus-circle" @click="minusOneCart(i)"></i>
-                                    </button>
-                                    <span> {{ item.quantita }} </span>
-                                    <button class="btn">
-                                        <i class="fas fa-plus-circle" @click="plusOneCart(i)"></i>
-                                    </button>
-                                </li>
-                                <li>{{item.dish.name}}</li>
-                            </div>
-                            <div class="col-md-4 p-0 summary-right d-flex align-items-center justify-content-end">
-                                <li class="item-delete" @click="removeCart(i)"><i class="fas fa-trash-alt"></i></li>
-                                <li>{{(item.dish.price * item.quantita).toFixed(2)}} &euro;</li>
-                            </div>                            
-                        </ul>
-                        </div>
-                        <!-- riepilogo totale -->
-                        <!-- sistemare v-if visualizzazione totale -->
-                        <div class="cart-total" v-if="cart.length">
-                            <h6>Costo di consegna: {{ consegna == 0 ? 'Gratis': `${consegna} &euro;` }}</h6>
-                            <h6>Totale: {{ total().toFixed(2) }} &#8364;</h6>
-                            <router-link class="pay-link" :to="{name:'payment', params: {slug: restaurant.slug ,restaurant:restaurant, cartProducs:cart, total: Number(total().toFixed(2)) }}">
-                            Vai alla cassa
-                            </router-link>
-                        </div>
-
-                        
-                    </div>
-                </div>
-            </div>
-            <!-- scheda popup-->
-            <div class="popup d-flex justify-content-center align-items-center" v-if="popup">
-                <div class="popup-item menu-card text-center">
-                    <h3 class="mt-3 font-weight-bold">{{ singleDish.name }}</h3>
-                    <h5 class="my-3">{{(singleDish.price).toFixed(2)}} &euro;</h5>
-                    <span class="px-5 text-capitalize">{{ singleDish.description }}</span>
-                    <div class="quantity my-3">
-                        <button class="btn">
-                            <i class="fas fa-minus" @click="minusOne"></i>
-                        </button>
-                        <span class="popup-quantity">{{ quantity }}</span>
-                        <button class="btn">
-                            <i class="fas fa-plus" @click="plusOne"></i>
-                        </button>
-                    </div>
-                    <div class="button-container">
-                        <button class="btn d-flex justify-content-between font-weight-bold add-cart" @click="checkCart"><span>Aggiungi all' ordine</span><span>{{ (singleDish.price * quantity).toFixed(2) }} &#8364;</span></button>
-                    </div>
-                    <span class="close-popup" @click="closePopup"><i class="fas fa-times"></i></span>
-                </div>
-            </div>
+    <section v-if="restaurant">
+      
+        <Header />
+        <div class="jumbotron">
+            <img :src="restaurant.img" :alt="restaurant.name">
         </div>
+        <div class="container">
+            <div id="hook-cart">
+                <a href="#cart" id="hook-cart"> <i class="fas fa-shopping-cart"></i></a>
+            </div>
+            
+            <div class="position-relative row d-flex justify-content-center">
+                <div class="col-lg-2 col-md-2 col-sm-12">
+                    <ul class="sticky-top category-list">
+                        <li v-for="category in filteredCategories" :key="`category-${category.id}`" @click="setActive(category.id)">
+                            <a :href="`#category-${category.id}`" :class="category.id == activeCategoryId ? 'active':''">{{category.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="box col-lg-6 col-md-5 col-sm-12">
+                    <div class="box-top text-center py-5">
+                        <h2>{{restaurant.name}}</h2>
+                        <h6>
+                        <span v-for="cuisine in restaurant.cuisines"
+                        :key="cuisine.id">{{cuisine.name}}  </span>
+                        </h6>
+                        <h6>
+                        <span class="euro" v-for="n in restaurant.price_rating"
+                        :key="n">&euro;</span>
+                        </h6>
+                        <h6>{{restaurant.location}}</h6>
+                        <div class="consegna">
+                            <div class="row d-flex justify-content-center align-items-center">
+                                <div class="col-md-6">
+                                    <h5>Consegna</h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>{{ restaurant.price_shipping == 0 ? 'Gratis': `${restaurant.price_shipping} &euro;`}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-for="category in filteredCategories" :key="`category-${category.id}`" :id="`category-${category.id}`">
+                        <h3>{{category.name}}</h3>
+                        <div v-for="dish in restaurant.dishes"
+                        :key="`dish-${dish.id}`" class="text-left p-4 menu-card hover"
+                        v-show="dish.category_id==category.id" @click="showPopup(dish)">
+                            <h5>{{dish.name}}</h5>
+                            <p class="text-capitalize">{{dish.description}}</p>
+                            <h6>{{(dish.price).toFixed(2)}} &euro;</h6>
+                        </div>
+                    </div>
+                </div>
+                <div id="cart" class="box col-lg-4 col-md-5 col-sm-12">
+                    <div  class="box-top sticky-top">
+                        <div class="cart-summary">
+                            <h3>Il tuo ordine</h3>
+                            <div class="box-allergy">
+                                <ul class="d-flex flex-direction-row align-items-center">
+                                    <li><i class="fas fa-exclamation-circle"></i></li>
+                                    <li>Hai un'allergia o un'intolleranza alimentare? Se hai un'allergia o un'intolleranza alimentare, telefona immediatamente al ristorante.</li>
+                                </ul>
+                            </div>
+                            <div class="box-modalita">
+                                <ul class="d-flex align-items-center justify-content-between">
+                                    <li id="active"><i class="fas fa-shipping-fast"></i><span> Consegna</span></li>
+                                    <li>Ritiro non disponibile</li>
+                                </ul>
+                            </div>
+                            <!-- carrello con singoli piatti -->
+                            <!-- mettere funzione calcolo prezzo finale -->
+                            <div v-for="item,i in cart"
+                            :key="item.id">
+                            <ul class="row d-flex flex-direction-row cart-item justify-content-between">
+                                <div class="col-md-8 p-0 summary-left d-flex">
+                                    <li class="d-flex align-items-center">
+                                        <button class="btn">
+                                            <i class="fas fa-minus-circle" @click="minusOneCart(i)"></i>
+                                        </button>
+                                        <span> {{ item.quantita }} </span>
+                                        <button class="btn">
+                                            <i class="fas fa-plus-circle" @click="plusOneCart(i)"></i>
+                                        </button>
+                                    </li>
+                                    <li>{{item.dish.name}}</li>
+                                </div>
+                                <div class="col-md-4 p-0 summary-right d-flex align-items-center justify-content-end">
+                                    <li class="item-delete" @click="removeCart(i)"><i class="fas fa-trash-alt"></i></li>
+                                    <li>{{(item.dish.price * item.quantita).toFixed(2)}} &euro;</li>
+                                </div>                            
+                            </ul>
+                            </div>
+                            <!-- riepilogo totale -->
+                            <!-- sistemare v-if visualizzazione totale -->
+                            <div class="cart-total" v-if="cart.length">
+                                <h6>Costo di consegna: {{ consegna == 0 ? 'Gratis': `${consegna} &euro;` }}</h6>
+                                <h6>Totale: {{ total().toFixed(2) }} &#8364;</h6>
+                                <router-link class="pay-link" :to="{name:'payment', params: {slug: restaurant.slug ,restaurant:restaurant, cartProducs:cart, total: Number(total().toFixed(2)) }}">
+                                Vai alla cassa
+                                </router-link>
+                            </div>
+
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- scheda popup-->
+                <div class="popup row align-items-center justify-content-center" v-if="popup">
+                
+                    <div class="popup-item menu-card text-center col-lg-4 col-md-6 col-sm-7 col-10">
+                        <h3 class="mt-3 font-weight-bold">{{ singleDish.name }}</h3>
+                        <h5 class="my-3">{{(singleDish.price).toFixed(2)}} &euro;</h5>
+                        <span class="text-capitalize">{{ singleDish.description }}</span>
+                        <div class="quantity my-3">
+                            <button class="btn">
+                                <i class="fas fa-minus" @click="minusOne"></i>
+                            </button>
+                            <span class="popup-quantity">{{ quantity }}</span>
+                            <button class="btn">
+                                <i class="fas fa-plus" @click="plusOne"></i>
+                            </button>
+                        </div>
+                        <div class="button-container">
+                            <button class="btn d-flex justify-content-between font-weight-bold add-cart" @click="checkCart"><span>Aggiungi all' ordine</span><span>{{ (singleDish.price * quantity).toFixed(2) }} &#8364;</span></button>
+                        </div>
+                        <span class="close-popup" @click="closePopup"><i class="fas fa-times"></i></span>
+                    
+                    </div>
+                </div>
+            </div>
+           
         </div>
         <Footer />  
-  </section>
+    </section>
   <section v-else>
       <v-progress-circular
         :size="70"
@@ -154,10 +162,22 @@ export default {
             singleDish: null,
             quantity: 1,
             cart: [],
+            windowWidth: window.innerWidth
         }
     },
     created() {
         this.getRestaurant(this.$route.params.slug);
+    },
+
+    mounted() {
+        this.$nextTick(() => {
+            window.addEventListener('resize', this.onResize);
+            console.log(this.windowWidth);
+        })
+    },
+    
+    beforeDestroy() { 
+        window.removeEventListener('resize', this.onResize); 
     },
     watch: {
         popup() {
@@ -170,6 +190,9 @@ export default {
         }
     },
     methods: {
+        onResize() {
+            this.windowWidth = window.innerWidth
+	    },
         setActive(id) {
             this.activeCategoryId = id;
         },
@@ -331,6 +354,19 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    #hook-cart{ 
+        position: absolute;
+        top: 80%;
+        right: 30px;
+        text-decoration: none;
+        .fa-shopping-cart{
+            color: orange;
+            font-size: 25px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    }
+    
     section {
         .btn:focus {
             box-shadow: none;
@@ -378,7 +414,7 @@ export default {
         .box {
             .box-top {
                 background-color: white;
-                margin: -80px 10px 50px;
+                // margin: -80px 10px 50px;
                 border-radius: 4px;
                 padding: 0;
 
@@ -396,7 +432,7 @@ export default {
         .menu-card {
             background-color: white;
             border: 1px solid #e2e6e9;
-            margin: 0 10px 10px;
+            // margin: 0 10px 10px;
             &.hover:hover {
                 cursor: pointer;
             }
@@ -415,14 +451,15 @@ export default {
             left: 0;
             width: 100%;
             height: 100vh;
+            z-index: 1050;
             background-color: rgba(0, 0, 0, 0.151);
             .popup-item {
                 position: relative;
-                width: 20%;
+                // width: 20%;
                 background-color: white;
                 padding-top: 30px;
                 box-shadow: 0 2px 4px 0 rgb(0 0 0 / 30%);
-                z-index: 1050;
+                
                 .close-popup {
                     position: absolute;
                     top: 0;
@@ -436,6 +473,7 @@ export default {
                 .button-container {
                     box-shadow: 0 -2px 4px 0 rgba(0,0,0,.12);
                     padding: 24px;
+                    width: 100%;
                     .add-cart {
                         background-color: #f36d00;
                         color: white;
@@ -527,9 +565,13 @@ export default {
                     .btn {
                         color: #125FCA;
                         padding: 0 5px;
+                 
                     }
                 }
                 .summary-right {
+                    i{
+                        cursor: pointer;
+                    }
                     .item-delete {
                         color: #D50525;
                     }
@@ -554,5 +596,69 @@ export default {
             }
         }
     }
+    @media (min-width: 200px) and (max-width:577px) {
+        .fa-shopping-cart{
+            display: block;
+            cursor: pointer;
+        }
+            .add-cart{
+                font-size: 12px;
+            }
+          .box {
+            .box-top {
+                
+                margin: 0px 10px 50px;
+            }
+        }
+     
+    }
+
+    @media (min-width: 578px){
+        .fa-shopping-cart{
+            display: block;
+            cursor: pointer;
+        }
+          .box {
+            .box-top {
+                
+                margin: -80px 10px 50px;
+                margin: 0px 10px 50px;
+            }
+        }
+        .category-list {
+            padding-top: 30px;
+            margin-left: -20px;
+            list-style: none;
+            a {
+                border-left: 1px solid #c5ccd3;
+                display: block;
+                overflow: hidden;
+                padding: 10px 0 10px 5px;
+                text-decoration: none;
+                color: #5e6b77;
+                &:hover,
+                &.active {
+                    border-left: 2px solid black;
+                    font-weight: bold;
+                    color: black;
+                }
+            }
+        }    
+    }
+
+    @media (min-width: 768px){
+        .fa-shopping-cart{
+            display: none;
+            cursor: pointer;
+        }
+        .box {
+            .box-top {
+                
+                margin: -80px 10px 50px;
+        
+            }
+        }    
+    }
+   
 
 </style>
