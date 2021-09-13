@@ -23,12 +23,12 @@
                 </thead>
                 <tbody>
                     @foreach ($restaurants as $restaurant)
-                        <tr>
+                        <tr class="v-align">
                             <td>{{ $restaurant->id }}</td>
-                            <td>{{ $restaurant->name }}</td>
+                            <td class="font-weight-bold">{{ $restaurant->name }}</td>
                             <td>
                                 @foreach($restaurant->cuisines as $cuisine)
-                                    <span class="badge badge-dark">
+                                    <span class="badge badge-pill badge-light">
                                         {{ $cuisine-> name }}
                                     </span>
                                 @endforeach
@@ -40,7 +40,7 @@
                                 </a>
                             </td>
                             <td>
-                                <a href=" {{ route('admin.restaurants.edit', $restaurant->id) }} " class="btn btn-primary">
+                                <a href=" {{ route('admin.restaurants.edit', $restaurant->id) }} " class="btn btn-info">
                                     <i class="fas fa-edit"></i>
                                 </a>
                             </td>
