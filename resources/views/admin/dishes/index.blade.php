@@ -35,7 +35,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href=" {{ route('admin.dishes.edit',[$restaurant->id, $dish-> id]) }} " class="btn btn-primary">
+                            <a href=" {{ route('admin.dishes.edit',[$restaurant->id, $dish-> id]) }} " class="btn btn-info">
                                 <i class="fas fa-edit"></i>
                             </a>
                         </td>
