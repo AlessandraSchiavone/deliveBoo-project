@@ -181,13 +181,6 @@
   font-size: 50px;
 }
 
-.table-bordered {
-  border-radius: 15px;
-  background-color: #f9f9f9;
-  opacity: 1;
-  background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #f9f9f9 4px), repeating-linear-gradient(#ff976355, #ff9763);
-}
-
 .rest-description {
   background-color: whitesmoke;
   border-radius: 5px;
@@ -196,18 +189,11 @@
   border: 1px solid #F36D00;
 }
 
-.spacer {
-  border-left: 1px solid black;
-  padding-left: 60px;
-  text-align: left;
-  padding-right: 0px;
-}
-
 .rest-info h4 {
-  color: balck;
-  font-size: 20px;
-  margin-bottom: 28px;
-  border-bottom: 1px solid #F36D00;
+  background-color: white;
+  padding: 5px 8px;
+  box-shadow: 1px 1px 3px #F36D00;
+  margin-bottom: 20px;
 }
 
 /* MEDIA SHOW PAGE */
@@ -259,9 +245,10 @@
   color: white;
 }
 
-.btn-primary {
+.btn.btn-orange {
   background-color: #F36D00;
   border-color: #F36D00;
+  color: white;
 }
 
 .btn-white {
@@ -303,6 +290,70 @@
 
 .v-align td {
   vertical-align: middle;
+}
+
+.restaurant-back {
+  border: 1px solid lightgray;
+  box-shadow: 1px 2px 3px 1px gray;
+}
+
+.restaurant-back .top {
+  border-bottom: 1px solid lightgray;
+}
+
+.restaurant-back .top h2 {
+  font-weight: bold;
+}
+
+.restaurant-back .btn:focus {
+  box-shadow: none;
+}
+
+.restaurant-back .btn:hover {
+  transform: scale(1.2);
+}
+
+.img-show.img-thumbnail {
+  padding: 1rem;
+}
+
+.elenco-ristoranti {
+  background-image: url(https://www.ilgiornaledelcibo.it/wp-content/uploads/2018/07/il-discorso-del-cibo.jpg);
+}
+
+.elenco-piatti {
+  background-image: url(https://static.gamberorosso.it/2020/03/ristorante1-768x512.jpg);
+}
+
+.elenco-ristoranti,
+.elenco-piatti {
+  height: 160px;
+  margin-top: 20px;
+  box-shadow: 1px 2px 3px 1px gray;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.elenco-ristoranti a,
+.elenco-piatti a {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 28px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.elenco-ristoranti a:hover,
+.elenco-piatti a:hover {
+  text-decoration: none;
+  color: white;
 }
 
 /*!
