@@ -2941,7 +2941,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".footer[data-v-61a7c374] {\n  padding: 20px 0;\n  background-color: #E2E6E9;\n}\n.footer h3[data-v-61a7c374] {\n  margin-top: 20px;\n  font-weight: bold;\n}\n.footer ul[data-v-61a7c374] {\n  list-style: none;\n  margin-top: 10px;\n  margin-bottom: 0;\n}\n.footer ul li[data-v-61a7c374] {\n  padding: 5px 0px;\n}\n.footer ul li a[data-v-61a7c374] {\n  color: #2a3846;\n}\n.footer ul li a[data-v-61a7c374]:hover {\n  color: #537DB0;\n}\n.footer ul li a i[data-v-61a7c374] {\n  font-size: 25px;\n  margin: 0px 10px;\n}\n@media (min-width: 0px) and (max-width: 576px) {\n.links-footer .links[data-v-61a7c374] {\n    font-size: 20px;\n}\n}", ""]);
+exports.push([module.i, ".footer[data-v-61a7c374] {\n  padding: 20px 0;\n  background-color: #E2E6E9;\n}\n.footer h3[data-v-61a7c374] {\n  margin-top: 20px;\n  font-weight: bold;\n}\n.footer ul[data-v-61a7c374] {\n  list-style: none;\n  margin-top: 10px;\n  margin-bottom: 0;\n}\n.footer ul li[data-v-61a7c374] {\n  padding: 5px 0px;\n}\n.footer ul li a[data-v-61a7c374] {\n  color: #2a3846;\n}\n.footer ul li a[data-v-61a7c374]:hover {\n  color: #537DB0;\n}\n.footer ul li a i[data-v-61a7c374] {\n  font-size: 25px;\n  margin: 0px 10px;\n}\n@media (min-width: 0px) and (max-width: 576px) {\n.links-footer .links h3[data-v-61a7c374] {\n    font-size: 20px;\n}\n.links-footer .links ul li a[data-v-61a7c374] {\n    font-size: 15px;\n}\n}", ""]);
 
 // exports
 

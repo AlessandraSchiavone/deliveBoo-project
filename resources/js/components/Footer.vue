@@ -56,9 +56,6 @@ export default {
 
 <style lang="scss" scoped>
     .footer {
-        // .container{
-        //     background-color: yellow;
-        // }
         padding: 20px 0;
         background-color: #E2E6E9;
         h3{
@@ -90,8 +87,18 @@ export default {
     @media (min-width: 0px) and (max-width:576px) { 
         .links-footer{
             .links{
-                font-size: 20px;
+                h3{
+                    font-size: 20px;
+                }
+                ul{
+                    li{
+                        a{
+                             font-size: 15px;
+                        }  
+                    }
+                }
             }
+                
         }
     }
 </style>
