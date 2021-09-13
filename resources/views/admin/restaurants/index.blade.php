@@ -8,7 +8,7 @@
            
         </div>
          @endif
-         <div class="d-flex align-items-center justify-content-between col-lg-11">
+        <div class="d-flex align-items-center justify-content-between col-lg-11">
             <h1 class="my-4">Elenco Ristoranti</h1>
             <a href="{{ route('admin.restaurants.create') }}" class="btn btn-orange">Aggiungi un nuovo ristorante</a>
         </div>
