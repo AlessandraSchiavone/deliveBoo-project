@@ -8,56 +8,50 @@
            
         </div>
          @endif
-        <h1 class="my-4">Elenco Ristoranti</h1>
-        <a href="{{ route('admin.restaurants.create') }}" class="btn btn-primary mb-4">Aggiungi un nuovo ristorante</a>
+        <div class="d-flex align-items-center justify-content-around">
+            <h1 class="my-4">Elenco Ristoranti</h1>
+            <a href="{{ route('admin.restaurants.create') }}" class="btn btn-orange">Aggiungi un nuovo ristorante</a>
+        </div>
+        
         @if (count($restaurants) > 0)
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Nome</th>
-                        <th>Cucine</th>
-                        <th>Slug</th>
-                        <th colspan="3">Azioni</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($restaurants as $restaurant)
-                        <tr class="v-align">
-                            <td>{{ $restaurant->id }}</td>
-                            <td class="font-weight-bold">{{ $restaurant->name }}</td>
-                            <td>
-                                @foreach($restaurant->cuisines as $cuisine)
-                                    <span class="badge badge-pill badge-light">
-                                        {{ $cuisine-> name }}
-                                    </span>
-                                @endforeach
-                            </td>
-                            <td>{{ $restaurant->slug }}</td>
-                            <td>
-                                <a href="{{ route('admin.restaurants.show', $restaurant->id) }}" class="btn btn-success">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <a href=" {{ route('admin.restaurants.edit', $restaurant->id) }} " class="btn btn-info">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <form action="{{ route('admin.restaurants.destroy', $restaurant -> id )}}" method="POST" onSubmit="return confirm('Sei sicuro di voler eliminare questo ristorante?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger" >
-                                    <i class="fas fa-times"></i>
-                                    </button>
-                                </form>
-                                
-                            </td>     
-                        </tr>
-                    @endforeach
-                </tbody> 
-            </table>  
+        <div class="d-flex row">
+            @foreach ($restaurants as $restaurant)
+            <div class="restaurant-back col-lg-5 m-3 p-3">
+                <div class="top d-flex justify-content-between mb-4">
+                    <h2 class="col-md-8">{{$restaurant->name}}</h2>
+                    <div class="buttons col-md-4 d-flex justify-content-end">
+                        <a href="{{ route('admin.restaurants.show', $restaurant->id) }}" class="btn ">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                        <a href=" {{ route('admin.restaurants.edit', $restaurant->id) }} " class="btn">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form action="{{ route('admin.restaurants.destroy', $restaurant -> id )}}" method="POST" onSubmit="return confirm('Sei sicuro di voler eliminare questo ristorante?')">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn" >
+                            <i class="fas fa-times"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="bottom d-flex">
+                    <div class="info col-md-7">
+                        <small>{{$restaurant->slug}}</small>
+                        <br>
+                        @foreach($restaurant->cuisines as $cuisine)
+                        <span class="badge badge-pill">
+                            {{ $cuisine-> name }}
+                        </span>
+                        @endforeach
+                    </div>
+                    <div class="img col-md-5">
+                        <img src="{{ url( $restaurant->img) }}" alt="{{$restaurant->name}}" class="img-thumbnail mr-3">
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
         @else
             <h3>Non hai nessun ristorante registrato</h3>
         @endif
