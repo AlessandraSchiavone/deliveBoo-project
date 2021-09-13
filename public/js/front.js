@@ -2494,6 +2494,7 @@ __webpack_require__.r(__webpack_exports__);
       cartProducs: [],
       orderTotal: null,
       name: '',
+      sending: false,
       surname: '',
       address: '',
       email: ''
@@ -2535,6 +2536,7 @@ __webpack_require__.r(__webpack_exports__);
             document.getElementById('orderTotal').value = _this.orderTotal;
             document.getElementById('restaurantSlug').value = _this.restaurantSlug;
             form.submit();
+            _this.sending = true;
           });
         });
       });
@@ -5699,7 +5701,16 @@ var render = function() {
               _vm._v(" "),
               _c("div", { attrs: { id: "dropin-container" } }),
               _vm._v(" "),
-              _vm._m(0),
+              _c("div", { staticClass: "wrap" }, [
+                _c("input", {
+                  staticClass: "btn",
+                  attrs: {
+                    type: "submit",
+                    disabled: _vm.sending,
+                    value: "Invia il pagamento"
+                  }
+                })
+              ]),
               _vm._v(" "),
               _c("input", {
                 attrs: {
@@ -5735,19 +5746,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "wrap" }, [
-      _c("input", {
-        staticClass: "btn",
-        attrs: { type: "submit", value: "Invia il pagamento" }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

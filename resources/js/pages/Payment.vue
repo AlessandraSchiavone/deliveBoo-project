@@ -50,7 +50,7 @@
 
                 <div id="dropin-container"></div>
                 <div class="wrap">
-                    <input class="btn" type="submit" value="Invia il pagamento">
+                    <input class="btn" type="submit" :disabled="sending" value="Invia il pagamento">
                 </div>
 
                 <input type="hidden" id="nonce" name="payment_method_nonce"/>
@@ -90,6 +90,7 @@ export default {
             cartProducs :[],
             orderTotal:null,
             name:'',
+            sending: false,
             surname:'',
             address:'',
             email:'',
@@ -113,8 +114,7 @@ export default {
             console.log('Component payment mounted.');
             var data;
             axios.get('/api/token')
-            .then(response =>{
-                
+            .then(response =>{             
                 data = response.data;
                 // call `braintree.dropin.create` code here
                 const form = document.getElementById('payment-form');
@@ -131,9 +131,9 @@ export default {
                             document.getElementById('cart').value = JSON.stringify(this.cartProducs);
                             document.getElementById('orderTotal').value = this.orderTotal;
                             document.getElementById('restaurantSlug').value = this.restaurantSlug;
-
                             form.submit();
-                        });
+                            this.sending = true;
+                        }); 
                     });
                 });
             })
