@@ -148,8 +148,12 @@
   .elenco-piatti {
     background-image: url(https://www.ilgiornaledelcibo.it/wp-content/uploads/2018/07/il-discorso-del-cibo.jpg);
   }
+  .elenco-ordini {
+    background-image: url(https://i0.wp.com/www.ordini.online/wp-content/uploads/2014/09/homepage-tablet-gestione-ordini.jpg);
+  }
 
 .elenco-ristoranti,
+.elenco-ordini,
 .elenco-piatti {
   height: 160px;
   margin-top: 20px;
@@ -175,5 +179,12 @@
       text-decoration: none;
       color: white;
     }
+  }
+}
+
+.rest-link {
+  color: #ffbb00;
+  &:hover {
+    color: #ffbb00;
   }
 }

@@ -52,11 +52,14 @@
             </div>
             @endforeach
         </div>
+        {{-- <div class="mt-3">
+            <a  class="btn btn-secondary" href="{{ route('admin.orders.index', $restaurant -> id ) }}">Visualizza gli ordini</a>
+        </div> --}}
+        <div class="elenco-ordini col-md-5">
+            <a href="{{ route('admin.orders.index') }}">Visualizza gli ordini</a>
+        </div>
         @else
             <h3>Non hai nessun ristorante registrato</h3>
         @endif
-        <div class="mt-3">
-            <a  class="btn btn-secondary" href="{{ route('admin.orders.index', $restaurant -> id ) }}">Visualizza gli ordini</a>
-        </div>
     </div>  
 @endsection

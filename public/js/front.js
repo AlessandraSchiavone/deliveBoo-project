@@ -5725,10 +5725,11 @@ var render = function() {
               _c("div", { staticClass: "wrap" }, [
                 _c("input", {
                   staticClass: "btn",
-                  attrs: {
-                    type: "submit",
-                    disabled: _vm.sending,
-                    value: "Invia il pagamento"
+                  attrs: { type: "submit", disabled: _vm.sending },
+                  domProps: {
+                    value: _vm.sending
+                      ? "Invio in corso..."
+                      : "Invia il pagamento"
                   }
                 })
               ]),
@@ -5923,7 +5924,8 @@ var render = function() {
                                   }
                                 ],
                                 key: "dish-" + dish.id,
-                                staticClass: "text-left p-4 menu-card hover",
+                                staticClass:
+                                  "text-left p-4 menu-card hover mb-3",
                                 on: {
                                   click: function($event) {
                                     return _vm.showPopup(dish)
@@ -22567,7 +22569,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Utente\Desktop\classe34\deliveBoo-project\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\BooleanClass34\Proj34\deliveBoo-project\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })

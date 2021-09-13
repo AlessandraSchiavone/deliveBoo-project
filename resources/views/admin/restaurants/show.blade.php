@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container my-4">
-        <div class="d-flex align-items-center justify-content-between col-lg-11">
+        <div class="d-flex align-items-center justify-content-between col-lg-11 pl-0">
             <h2 class="rest-name">{{ $restaurant-> name }}</h2>
             <a class="btn btn-orange" href="{{ route('admin.restaurants.edit', $restaurant->id) }}">Modifica</a>
         </div>
@@ -33,10 +33,10 @@
         </div>
         <div class="mt-3 mb-4">
             <div class="actions d-flex">
-                <div class="elenco-ristoranti col-md-5">
+                <div class="elenco-ristoranti col-md-5 ml-4">
                     <a href="{{ route('admin.restaurants.index' ) }}">I tuoi ristoranti</a>
                 </div>
-                <div class="elenco-piatti col-md-5 ml-3">
+                <div class="elenco-piatti col-md-5 ml-5">
                     <a href="{{ route('admin.dishes.index', $restaurant -> id ) }}">I tuoi piatti</a>
                 </div>
             </div>

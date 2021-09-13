@@ -43,7 +43,7 @@
                     <div v-for="category in filteredCategories" :key="`category-${category.id}`" :id="`category-${category.id}`">
                         <h3>{{category.name}}</h3>
                         <div v-for="dish in restaurant.dishes"
-                        :key="`dish-${dish.id}`" class="text-left p-4 menu-card hover"
+                        :key="`dish-${dish.id}`" class="text-left p-4 menu-card hover mb-3"
                         v-show="dish.category_id==category.id" @click="showPopup(dish)">
                             <h5>{{dish.name}}</h5>
                             <p class="text-capitalize">{{dish.description}}</p>

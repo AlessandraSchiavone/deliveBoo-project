@@ -50,7 +50,7 @@
 
                 <div id="dropin-container"></div>
                 <div class="wrap">
-                    <input class="btn" type="submit" :disabled="sending" value="Invia il pagamento">
+                    <input class="btn" type="submit" :disabled="sending" :value="sending ? 'Invio in corso...':'Invia il pagamento'">
                 </div>
 
                 <input type="hidden" id="nonce" name="payment_method_nonce"/>
