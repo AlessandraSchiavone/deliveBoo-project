@@ -169,6 +169,142 @@
   }
 }
 
+/* STILE SHOW */
+
+.img-show {
+  width: 100%;
+  border-radius: 30px;
+}
+
+.rest-name {
+  font-weight: bolder;
+  font-size: 50px;
+}
+
+.table-bordered {
+  border-radius: 15px;
+  background-color: #f9f9f9;
+  opacity: 1;
+  background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #f9f9f9 4px), repeating-linear-gradient(#ff976355, #ff9763);
+}
+
+.rest-description {
+  background-color: whitesmoke;
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 0px 10px;
+  border: 1px solid #F36D00;
+}
+
+.spacer {
+  border-left: 1px solid black;
+  padding-left: 60px;
+  text-align: left;
+  padding-right: 0px;
+}
+
+.rest-info h4 {
+  color: balck;
+  font-size: 20px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid #F36D00;
+}
+
+/* MEDIA SHOW PAGE */
+
+@media (max-width: 1200px) {
+  .rest-info h4 {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 991px) {
+  .rest-info h4 {
+    font-size: 14px;
+  }
+
+  .rest-info {
+    padding-left: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rest-info h4 {
+    font-size: 16px;
+    padding-left: 10px;
+    margin-bottom: 15px;
+  }
+
+  .rest-info {
+    padding-top: 30px;
+    padding-left: 0;
+  }
+
+  .spacer {
+    border-left: 0;
+  }
+}
+
+/* INDEX RESTAURANTS PAGE */
+
+.navcolor {
+  background-color: black;
+}
+
+.navbar {
+  background-color: #F36D00;
+}
+
+.navbar-light .navbar-brand {
+  color: white;
+}
+
+.btn-primary {
+  background-color: #F36D00;
+  border-color: #F36D00;
+}
+
+.btn-white {
+  background-color: white;
+}
+
+.btn-sm,
+.btn-group-sm > .btn {
+  padding: 2px;
+}
+
+.navbar-brand img {
+  width: 30%;
+}
+
+.navbar {
+  padding: 0;
+}
+
+.navbar-brand {
+  padding: 0;
+}
+
+.btn-primary:hover {
+  background-color: white;
+  border-color: #F36D00;
+  color: #F36D00;
+}
+
+.badge-pill {
+  color: white;
+  background-color: #f3842a;
+  font-weight: normal;
+}
+
+.btn-info {
+  color: white;
+}
+
+.v-align td {
+  vertical-align: middle;
+}
+
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
