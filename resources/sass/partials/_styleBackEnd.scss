@@ -1,189 +1,188 @@
 /* STILE SHOW */
 .img-show {
-    width: 100%;
-    border-radius: 30px;
-  }
+  width: 100%;
+  border-radius: 30px;
+}
+
+.rest-name {
+  font-weight: bolder;
+  font-size: 50px;
+}
+
+
+.rest-description {
+  background-color: rgb(245, 245, 245);
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 0px 10px;
+  border: 1px solid #F36D00;
+}
   
-  .rest-name {
-    font-weight: bolder;
-    font-size: 50px;
-  }
-  
-  
-  .rest-description {
-    background-color: rgb(245, 245, 245);
-    border-radius: 5px;
-    font-size: 15px;
-    padding: 0px 10px;
-    border: 1px solid #F36D00;
-  }
-    
+.rest-info h4{
+  background-color: white;
+  padding: 5px 8px;
+  box-shadow: 1px 1px 3px #F36D00;
+  margin-bottom: 20px;
+}
+/* MEDIA SHOW PAGE */
+@media (max-width: 1200px) {
   .rest-info h4{
-    background-color: white;
-    padding: 5px 8px;
-    box-shadow: 1px 1px 3px #F36D00;
-    margin-bottom: 20px;
+    font-size: 17px;
   }
-  /* MEDIA SHOW PAGE */
-  @media (max-width: 1200px) {
-    .rest-info h4{
-      font-size: 17px;
-    }
+}
+@media (max-width: 991px) {
+  .rest-info h4{
+    font-size: 14px;
   }
-  @media (max-width: 991px) {
-    .rest-info h4{
-      font-size: 14px;
-    }
-    .rest-info {
-      padding-left: 20px;
-    }
+  .rest-info {
+    padding-left: 20px;
   }
-  
-  @media (max-width: 768px) {
-    .rest-info h4{
-      font-size: 16px;
-      padding-left: 10px;
-      margin-bottom: 15px;
-    }
-    .rest-info {
-      padding-top: 30px;
-      padding-left: 0;
-    }
-    .spacer {
-      border-left: 0;
-    }
+}
+
+@media (max-width: 768px) {
+  .rest-info h4{
+    font-size: 16px;
+    padding-left: 10px;
+    margin-bottom: 15px;
   }
-  
-  /* INDEX RESTAURANTS PAGE */
-  
-  .navcolor{
-    background-color: black;
+  .rest-info {
+    padding-top: 30px;
+    padding-left: 0;
   }
-  
-  .navbar {
-    background-color: #F36D00;
+  .spacer {
+    border-left: 0;
   }
-  
-  .navbar-light .navbar-brand {
+}
+
+/* INDEX RESTAURANTS PAGE */
+
+.navcolor{
+  background-color: black;
+}
+
+.navbar {
+  background-color: #F36D00;
+}
+
+.navbar-light .navbar-brand {
+  color: white;
+}
+
+.btn.btn-orange {
+  background-color: #F36D00;
+  border-color: #F36D00;
+  color: white;
+  &:hover {
     color: white;
   }
-  
-  .btn.btn-orange {
-    background-color: #F36D00;
-    border-color: #F36D00;
-    color: white;
-    &:hover {
-      color: white;
-      
-    }
-  }
-  
-  .btn-white {
-    background-color: white;
-  }
-  
-  .btn-sm {
-    padding: 2px;
-  }
-  
-  .navbar-brand img {
-    width: 30%;
-  }
-  
-  .navbar {
-    padding: 0;
-  }
-  .navbar-brand {
-    padding: 0;
-  }
-  
-  .btn-primary:hover{
-    background-color: white;
-    border-color: #F36D00;
-    color: #F36D00;
-  }
-  
-  .badge-pill {
-    color: white;
-    background-color: #f3842a;
-    font-weight: normal;
-  }
-  
-  .btn-info {
-    color: white;
-  }
-  
-  .v-align td{
-    vertical-align: middle;
-  }
+}
+
+.btn-white {
+  background-color: white;
+}
+
+.btn-sm {
+  padding: 2px;
+}
+
+.navbar-brand img {
+  width: 30%;
+}
+
+.navbar {
+  padding: 0;
+}
+.navbar-brand {
+  padding: 0;
+}
+
+.btn-primary:hover{
+  background-color: white;
+  border-color: #F36D00;
+  color: #F36D00;
+}
+
+.badge-pill {
+  color: white;
+  background-color: #f3842a;
+  font-weight: normal;
+}
+
+.btn-info {
+  color: white;
+}
+
+.v-align td{
+  vertical-align: middle;
+}
 
 
-  .restaurant-back {
-    border: 1px solid lightgray;
-    box-shadow: 1px 2px 3px 1px gray;
-    
-    .top {
-      border-bottom: 1px solid lightgray;
-      h2 {
-        font-weight: bold;
-      }
+.restaurant-back {
+  border: 1px solid lightgray;
+  box-shadow: 1px 2px 3px 1px gray;
   
+  .top {
+    border-bottom: 1px solid lightgray;
+    h2 {
+      font-weight: bold;
     }
-    .btn:focus {
-      box-shadow: none;
-    }
-    .btn:hover {
-      transform: scale(1.2);
-    }
-  }
 
-  .img-show.img-thumbnail {
-    padding: 1rem;
   }
+  .btn:focus {
+    box-shadow: none;
+  }
+  .btn:hover {
+    transform: scale(1.2);
+  }
+}
 
-  .elenco-ristoranti {
-    background-image: url(https://www.ilgiornaledelcibo.it/wp-content/uploads/2018/07/il-discorso-del-cibo.jpg);
-  }
-  .elenco-piatti {
-    background-image: url(https://static.gamberorosso.it/2020/03/ristorante1-768x512.jpg);
-  }
-  .elenco-ordini {
-    background-image: url(https://i0.wp.com/www.ordini.online/wp-content/uploads/2014/09/homepage-tablet-gestione-ordini.jpg);
-  }
+.img-show.img-thumbnail {
+  padding: 1rem;
+}
+
+.elenco-ristoranti {
+  background-image: url(https://static.gamberorosso.it/2020/03/ristorante1-768x512.jpg);
+}
+.elenco-piatti {
+  background-image: url(https://www.ilgiornaledelcibo.it/wp-content/uploads/2018/07/il-discorso-del-cibo.jpg);
+}
+.elenco-ordini {
+  background-image: url(https://i0.wp.com/www.ordini.online/wp-content/uploads/2014/09/homepage-tablet-gestione-ordini.jpg);
+}
 
 .elenco-ristoranti,
 .elenco-ordini,
 .elenco-piatti {
-  height: 160px;
-  margin-top: 20px;
-  box-shadow: 1px 2px 3px 1px gray;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  position: relative;
+height: 160px;
+margin-top: 20px;
+box-shadow: 1px 2px 3px 1px gray;
+background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+position: relative;
 
-  & a {
+& a {
+  color: white;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 28px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+ 
+  &:hover {
+    text-decoration: none;
     color: white;
-    background-color: rgba($color: #000000, $alpha: 0.5);
-    width: 100%;
-    text-align: center;
-    font-weight: bold;
-    font-size: 28px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-   
-    &:hover {
-      text-decoration: none;
-      color: white;
-    }
   }
+}
 }
 
 .rest-link {
+color: #ffbb00;
+&:hover {
   color: #ffbb00;
-  &:hover {
-    color: #ffbb00;
-  }
+}
 }
