@@ -22517,7 +22517,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\BooleanClass34\Proj34\deliveBoo-project\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Users\4ndre\Desktop\classe34as\deliveBoo-project-1\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
