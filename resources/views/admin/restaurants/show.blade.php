@@ -3,7 +3,9 @@
     <div class="container my-4">
         <div class="d-flex align-items-center justify-content-between col-lg-11 pl-0">
             <h2 class="rest-name">{{ $restaurant-> name }}</h2>
+            <a href="{{ route('admin.chartjs', $restaurant->id) }}" class="btn btn-orange">grafico ordini</a>
             <a class="btn btn-orange" href="{{ route('admin.restaurants.edit', $restaurant->id) }}">Modifica</a>
+            
         </div>
         
         <div class="row mt-4">
@@ -39,6 +41,7 @@
                 <div class="elenco-piatti col-md-5 ml-5">
                     <a href="{{ route('admin.dishes.index', $restaurant -> id ) }}">I tuoi piatti</a>
                 </div>
+                
             </div>
         </div>
     </div>

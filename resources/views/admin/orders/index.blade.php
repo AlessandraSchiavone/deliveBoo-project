@@ -6,6 +6,8 @@
         <h3 class="mb-4">Gli ordini dei tuoi ristoranti</h3>
         @endif
         <a href="{{ route('admin.restaurants.index') }}" class="btn btn-orange mb-4">Torna ai tuoi ristoranti</a>
+       
+
         @if (count($orders)>0)
         <div class="row">
             @foreach ($orders as $order)
