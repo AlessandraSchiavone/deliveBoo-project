@@ -23,7 +23,13 @@
                 <h4>Posizione:  {{ $restaurant->location }}</h4>
                 <h4>Orario di apertura:  {{ $restaurant->opening_time }}</h4>
                 <h4>Orario di chiusura:  {{ $restaurant->closure_time }}</h4>
-                <h4>Prezzo di consegna:  {{ $restaurant->price_shipping }}€</h4>
+                <h4>Prezzo di consegna:
+                @if($restaurant->price_shipping == 0)
+                    Gratis
+                @else
+                    {{$restaurant->price_shipping}} &euro;
+                @endif
+                </h4>
                 <h4>Cucine: 
                     @foreach($restaurant->cuisines as $cuisine)
                     <span>{{ $cuisine-> name }} </span>
@@ -34,7 +40,7 @@
         <div class="mt-3 mb-4">
             <div class="actions d-flex">
                 <div class="elenco-ristoranti col-md-5 ml-4">
-                    <a href="{{ route('admin.restaurants.index' ) }}">I tuoi ristoranti</a>
+                    <a href="{{ route('admin.restaurants.index') }}">I tuoi ristoranti</a>
                 </div>
                 <div class="elenco-piatti col-md-5 ml-5">
                     <a href="{{ route('admin.dishes.index', $restaurant -> id ) }}">I tuoi piatti</a>

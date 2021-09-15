@@ -45,9 +45,11 @@
                         </span>
                         @endforeach
                     </div>
+                    @if ($restaurant->img)
                     <div class="img col-md-5">
                         <img src="{{ url( $restaurant->img) }}" alt="{{$restaurant->name}}" class="img-thumbnail mr-3">
                     </div>
+                    @endif
                 </div>
             </div>
             @endforeach

@@ -96,7 +96,7 @@ class DishController extends Controller
         $newDish-> fill($data);
         $newDish -> save();
 
-        return redirect() -> route('admin.dishes.index');
+        return redirect() -> route('admin.dishes.index', $restaurant->id);
     }
 
     /**
@@ -166,7 +166,7 @@ class DishController extends Controller
         }
         $dish -> update($data);
 
-        return redirect() -> route('admin.dishes.index');
+        return redirect() -> route('admin.dishes.index', $restaurant->id);
     }
 
     /**
