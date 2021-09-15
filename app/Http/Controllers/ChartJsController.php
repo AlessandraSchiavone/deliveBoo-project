@@ -65,10 +65,10 @@ class ChartJsController extends Controller
         // ->orderByDesc('id')
         // ->findOrFail($ids);
         // dd($restaurant->name);
-        dump($restaurant->name);
-        dump('user id' . ' ' . Auth::user()->id  . ' = = '  . 'restaurant id' . ' ' . $restaurant->user->id  );
+        // dump($restaurant->name);
+        // dump('user id' . ' ' . Auth::user()->id  . ' = = '  . 'restaurant id' . ' ' . $restaurant->user->id  );
         // dd(Auth::user()->id);
-        dump('numero ordini' . ' ' . $numberOrders);
+        // dump('numero ordini' . ' ' . $numberOrders);
         // dd($year,JSON_NUMERIC_CHECK);
    
     	return view('admin.chartjs',compact('restaurant'))->with('months', json_encode($months))->with('numberOrders',json_encode($numberOrders),JSON_NUMERIC_CHECK);

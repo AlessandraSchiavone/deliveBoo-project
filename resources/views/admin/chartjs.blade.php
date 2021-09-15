@@ -8,7 +8,7 @@
                 <div class="panel-heading">{{$restaurant->name}}</div>
                 <div>
                     <canvas id="myChart"></canvas>
-                  </div>
+                </div>
                    
             </div>
         </div>
@@ -30,12 +30,12 @@
 
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: months,
             datasets: [{
-                label: 'Ordini'  ,
-                data: [2,2,2,2,2,2,2,2,numberOrders],
+                label: 'Ordini - 2021'  ,
+                data: [5,33,25,11,0,0,0,0,numberOrders],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
