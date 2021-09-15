@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ChartJsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +28,7 @@ Route::middleware('auth')
             'except' => ['show']
         ]);
         Route::resource('/orders', 'OrderController');
+        Route::get('{restaurant}/chartjs', [ChartJsController::class, 'index'])->name('chartjs');
 });
 
 Route::get('/checkout', function () {
