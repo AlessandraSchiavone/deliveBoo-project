@@ -13,7 +13,7 @@
     <strong>Importo totale</strong>: {{$order->total}}&euro;<br>
     <strong>Data</strong>: {{$order->order_date}}<br>
     <strong>Piatti</strong>:
-    <ul style="list-style: none">
+    <ul>
         @foreach ($order->dishes as $dish)
             <li>{{$dish->name}} <strong>x{{$dish->pivot->quantity}}</strong></li>
         @endforeach
